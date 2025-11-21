@@ -1,0 +1,351 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { Mail, Phone, Search, Menu, X, Facebook, Instagram, Twitter, Send, Linkedin, Youtube, User, LogIn, LogOut } from 'lucide-react';
+
+export default function Header() {
+  const router = useRouter();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  async function checkSession() {
+    try {
+      const res = await fetch('/api/auth/session');
+      const data = await res.json();
+      if (data.user) {
+        setUser(data.user);
+      }
+    } catch (error) {
+      console.error('Error checking session', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleLogout() {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST' });
+      setUser(null);
+      setIsProfileOpen(false);
+      router.push('/');
+      router.refresh();
+    } catch (error) {
+      console.error('Error logging out', error);
+    }
+  }
+
+  function getDashboardLink() {
+    if (user?.role === 'admin') {
+      return '/admin';
+    }
+    return '/dashboard';
+  }
+
+  const socialLinks = [
+    { icon: Facebook, href: '#', label: 'Facebook' },
+    { icon: Instagram, href: '#', label: 'Instagram' },
+    { icon: Youtube, href: '#', label: 'YouTube' },
+    { icon: Twitter, href: '#', label: 'Twitter' },
+    { icon: Send, href: '#', label: 'Telegram' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+  ];
+
+  const navLinks = [
+    { label: 'Home', href: '/' },
+    { label: 'About Us', href: '/about' },
+    { label: 'Services', href: '/services' },
+    { label: 'Projects', href: '/projects' },
+    { label: 'Learn', href: '/learn' },
+    { label: 'Submit Project', href: '/submit-project' },
+    { label: 'Contact Us', href: '/contact' },
+  ];
+
+  const moreLinks = [
+    { label: "Team", href: "/team" },
+    { label: "Faq's", href: "/faqs" },
+    { label: "Careers", href: "/careers" },
+    { label: "Consultation", href: "/consultation" },
+    { label: "Blogs", href: "/blogs" },
+  ];
+
+  return (
+    <header className="w-full sticky top-0 z-[10000]">
+      {/* Top Bar */}
+      <div className="bg-slate-900 text-white py-3 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-6 text-sm">
+            <div className="flex items-center gap-2">
+              <Mail className="w-4 h-4 text-blue-400" />
+              <a href="mailto:info@genshifter.com" className="hover:text-blue-400 transition-colors">
+                info@genshifter.com
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-blue-400" />
+              <a href="tel:+251910813571" className="hover:text-blue-400 transition-colors">
+                +251 910 813 571
+              </a>
+            </div>
+            <div className="flex items-center gap-2">
+              <Phone className="w-4 h-4 text-blue-400" />
+              <a href="tel:+12063533373" className="hover:text-blue-400 transition-colors">
+                +1 206 353 3373
+              </a>
+            </div>
+          </div>
+
+          {/* Follow Us Section */}
+          <div className="flex items-center gap-4">
+            <span className="text-sm font-medium">Follow Us:</span>
+            <div className="flex gap-3">
+              {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    aria-label={social.label}
+                    className="text-white hover:text-blue-400 transition-colors"
+                  >
+                    <Icon className="w-4 h-4" />
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Navigation Bar */}
+      <nav className="relative bg-white shadow-md py-4 px-4 sm:px-6 lg:px-8 z-[999]">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 font-bold text-xl">
+            <div className="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white">
+              G
+            </div>
+            <span className="text-slate-900">
+              GEN<span className="text-yellow-500">SHIFTER</span>
+            </span>
+          </Link>
+
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center gap-8">
+            {navLinks.map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                className="text-slate-700 hover:text-blue-500 transition-colors font-medium"
+              >
+                {link.label}
+              </Link>
+            ))}
+
+            {/* More dropdown (hover) */}
+            <div className="relative group">
+              <button
+                type="button"
+                className="flex items-center gap-1 text-slate-700 hover:text-blue-500 transition-colors font-medium"
+              >
+                <span>More</span>
+                <span className="text-xs transition-transform group-hover:rotate-180">▼</span>
+              </button>
+
+              {/* Desktop More dropdown */}
+              <div className="absolute left-0 mt-3 w-64 bg-white shadow-lg rounded-b-2xl border border-slate-100 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all z-[1000]">
+                <ul className="py-2">
+                  {moreLinks.map((item) => (
+                    <li key={item.label}>
+                      <Link
+                        href={item.href}
+                        className="block px-6 py-3 text-slate-800 hover:bg-slate-50 hover:text-blue-500 text-sm font-medium"
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Icons */}
+          <div className="flex items-center gap-4">
+            <button className="text-slate-700 hover:text-blue-500 transition-colors">
+              <Search className="w-5 h-5" />
+            </button>
+
+            {/* Auth Section */}
+            {!loading && (
+              <>
+                {user ? (
+                  /* Profile Dropdown */
+                  <div className="relative">
+                    <button
+                      onClick={() => setIsProfileOpen(!isProfileOpen)}
+                      className="flex items-center gap-2 text-slate-700 hover:text-blue-500 transition-colors"
+                    >
+                      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                        {user.name.charAt(0).toUpperCase()}
+                      </div>
+                      <span className="hidden sm:inline font-medium">{user.name}</span>
+                    </button>
+
+                    {/* Dropdown Menu */}
+                    {isProfileOpen && (
+                      <>
+                        <div
+                          className="fixed inset-0 z-[998]"
+                          onClick={() => setIsProfileOpen(false)}
+                        />
+                        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-slate-200 z-[999]">
+                          <div className="py-1">
+                            <Link
+                              href={getDashboardLink()}
+                              className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
+                              onClick={() => setIsProfileOpen(false)}
+                            >
+                              <User className="w-4 h-4" />
+                              Dashboard
+                            </Link>
+                            <button
+                              onClick={handleLogout}
+                              className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
+                            >
+                              <LogOut className="w-4 h-4" />
+                              Logout
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ) : (
+                  /* Login/Signup Buttons */
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href="/login"
+                      className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-500 transition-colors"
+                    >
+                      <LogIn className="w-4 h-4" />
+                      <span className="hidden sm:inline">Login</span>
+                    </Link>
+                    <Link
+                      href="/register"
+                      className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+                    >
+                      <User className="w-4 h-4" />
+                      <span className="hidden sm:inline">Sign Up</span>
+                      <span className="sm:hidden">Sign Up</span>
+                    </Link>
+                  </div>
+                )}
+              </>
+            )}
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="md:hidden text-slate-700 hover:text-blue-500 transition-colors"
+            >
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden mt-4 pb-4 border-t pt-4">
+            <div className="flex flex-col gap-3">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  className="text-slate-700 hover:text-blue-500 transition-colors font-medium py-2"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              ))}
+
+              {/* Mobile More submenu */}
+              <details className="group">
+                <summary className="list-none cursor-pointer text-slate-700 font-medium py-2 flex items-center justify-between">
+                  <span>More</span>
+                  <span className="text-xs group-open:rotate-180 transition-transform">▼</span>
+                </summary>
+                <div className="mt-1 ml-3 flex flex-col border-l border-slate-200 pl-3">
+                  {moreLinks.map((item) => (
+                    <Link
+                      key={item.label}
+                      href={item.href}
+                      className="py-2 text-sm text-slate-700 hover:text-blue-500"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  ))}
+                </div>
+              </details>
+
+              {/* Mobile Auth Section */}
+              {!loading && (
+                <div className="pt-4 border-t">
+                  {user ? (
+                    <>
+                      <Link
+                        href={getDashboardLink()}
+                        className="flex items-center gap-2 text-slate-700 hover:text-blue-500 transition-colors font-medium py-2"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <User className="w-4 h-4" />
+                        Dashboard
+                      </Link>
+                      <button
+                        onClick={() => {
+                          handleLogout();
+                          setIsMenuOpen(false);
+                        }}
+                        className="flex items-center gap-2 text-red-600 hover:text-red-700 transition-colors font-medium py-2"
+                      >
+                        <LogOut className="w-4 h-4" />
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <Link
+                        href="/login"
+                        className="flex items-center gap-2 text-slate-700 hover:text-blue-500 transition-colors font-medium py-2"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <LogIn className="w-4 h-4" />
+                        Login
+                      </Link>
+                      <Link
+                        href="/register"
+                        className="flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2 font-medium transition-colors"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        <User className="w-4 h-4" />
+                        Sign Up
+                      </Link>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+      </nav>
+    </header>
+  );
+}

@@ -3,6 +3,11 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  /* Add a background variable used by custom sections */
+  --bg: #f3f7fb;
+  /* Fallbacks for font variables when next/font is not used */
+  --font-geist-sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 @theme inline {
@@ -15,7 +20,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+            --foreground: #ededed;
   }
 }
 
@@ -24,3 +29,88 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Hide scrollbar while keeping functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Swiper custom styles */
+.services-swiper {
+  padding-bottom: 20px;
+}
+
+.swiper-button-prev-custom::after,
+.swiper-button-next-custom::after {
+  display: none;
+}
+
+.swiper-button-prev-custom:disabled,
+.swiper-button-next-custom:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Custom styles per user's request */
+.team-section-3 {
+  position: relative;
+}
+.section-padding {
+  padding: 120px 0;
+}
+@media (max-width: 1199px) {
+  .section-padding { padding: 100px 0; }
+}
+@media (max-width: 991px) {
+  .section-padding { padding: 80px 0; }
+}
+.main-bg, .section-bg {
+  background-color: var(--bg);
+}
+.fix { overflow: hidden; }
+
+/* FAQ section rules */
+.faq-section { position: relative; }
+@media (max-width: 1199px) {
+  .faq-section { padding-bottom: 0; margin-bottom: -15px; }
+}
+
+/* CTA section rules */
+.cta-section { position: relative; background-color: #ffffff; }
+.cta-section:before {
+  position: absolute;
+  content: "";
+  inset: 0; /* top, right, bottom, left */
+  background-color: #0e134d; /* solid navy band */
+  z-index: -1;
+  top: 50%; /* only cover the bottom half */
+}
+
+/* Partners section */
+.partners-section { color: #fff; padding-top: 190px; background-color: var(--header); }
+.partners-swiper { padding: 24px 0; }
+.partners-logo { opacity: 0.85; filter: grayscale(100%); transition: opacity .2s ease, filter .2s ease; }
+.partners-logo:hover { opacity: 1; filter: grayscale(0%); }
+
+/* About breadcrumb styles */
+.breadcrumb-wrapper { position: relative; color: #fff; }
+.breadcrumb-wrapper:before {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  width: 100%; height: 100%; content: "";
+  background-image: linear-gradient(270.07deg, #002b98 .07%, #00060c 79.95%);
+  z-index: -1;
+}
+
+/* Utility: bg-cover with positioning as requested */
+.bg-cover { background-repeat: no-repeat; background-size: cover; position: relative; background-position: 50%; }
+.swiper-slide-active .partners-logo { opacity: 1; filter: grayscale(0%); transform: scale(1.02); }
+/* navigation buttons with blur */
+.partners-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; height: 44px; width: 44px; display: grid; place-items: center; color: black; background: rgba(255,255,255,0.08); border-radius: 9999px; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); box-shadow: 0 4px 18px rgba(0,0,0,.25); }
+.partners-prev { left: -4px; }
+.partners-next { right: -4px; }
