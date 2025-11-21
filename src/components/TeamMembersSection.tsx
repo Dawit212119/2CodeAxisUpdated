@@ -53,7 +53,7 @@ export default function TeamMembersSection() {
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Meet the Team</h2>
           <p className="mt-3 text-slate-600 max-w-2xl mx-auto">
-            The people behind GenShifter — builders, designers, and strategists driving digital transformation.
+            The people behind CodeAxis — builders, designers, and strategists driving digital transformation.
           </p>
         </div>
 

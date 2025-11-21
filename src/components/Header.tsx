@@ -84,20 +84,14 @@ export default function Header() {
           <div className="flex flex-col sm:flex-row items-center gap-6 text-sm">
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-blue-400" />
-              <a href="mailto:info@genshifter.com" className="hover:text-blue-400 transition-colors">
-                info@genshifter.com
+              <a href="mailto:dawitworkye794@gmail.com" className="hover:text-blue-400 transition-colors">
+                dawitworkye794@gmail.com
               </a>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-blue-400" />
-              <a href="tel:+251910813571" className="hover:text-blue-400 transition-colors">
-                +251 910 813 571
-              </a>
-            </div>
-            <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-blue-400" />
-              <a href="tel:+12063533373" className="hover:text-blue-400 transition-colors">
-                +1 206 353 3373
+              <a href="tel:+251920245372" className="hover:text-blue-400 transition-colors">
+                +251 920 245 372
               </a>
             </div>
           </div>
@@ -130,10 +124,10 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl">
             <div className="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white">
-              G
+              C
             </div>
             <span className="text-slate-900">
-              GEN<span className="text-yellow-500">SHIFTER</span>
+              CODE<span className="text-yellow-500">AXIS</span>
             </span>
           </Link>
 

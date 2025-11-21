@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Blogs • GenShifter",
+  title: "Blogs • CodeAxis",
 };
 
 const posts = [
@@ -80,7 +80,7 @@ export default function BlogsPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#0e134d] mb-4">
-              Insights from the GenShifter Team
+              Insights from the CodeAxis Team
             </h2>
             <p className="text-slate-600 text-base md:text-lg">
               Stay up to date with practical guides, case studies, and perspectives on software development,

@@ -2,7 +2,7 @@ import FaqSection from "@/components/FaqSection";
 import Link from "next/link";
 
 export const metadata = {
-  title: "FAQ's • GenShifter",
+  title: "FAQ's • CodeAxis",
 };
 
 export default function FaqsPage() {

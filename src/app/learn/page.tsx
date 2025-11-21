@@ -2,7 +2,7 @@ import Link from "next/link";
 import CourseRegistrationForm, { type Course } from "@/components/CourseRegistrationForm";
 
 export const metadata = {
-  title: "Learn with GenShifter",
+  title: "Learn with CodeAxis",
 };
 
 const courses: Course[] = [
@@ -90,7 +90,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
 
         <div className="relative z-10 text-center px-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
-            Learn with GenShifter
+            Learn with CodeAxis
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-slate-100 mb-4">
             Practical, industry-focused training programs designed to help students and professionals
@@ -116,7 +116,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
             </h2>
             <p className="text-slate-600 text-base md:text-lg">
               All programs combine instructor-led sessions, hands-on projects, and mentoring from
-              engineers working on real-world products at GenShifter.
+              engineers working on real-world products at CodeAxis.
             </p>
           </div>
 
@@ -132,7 +132,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
                     Duration: 8–12 weeks • Mode: Hybrid (Addis Ababa + Online)
                   </p>
                   <ul className="text-sm text-slate-600 space-y-1 mb-4 list-disc list-inside">
-                    <li>Weekly live sessions with GenShifter engineers</li>
+                    <li>Weekly live sessions with CodeAxis engineers</li>
                     <li>Capstone project you can add to your portfolio</li>
                     <li>Certificate of completion and career guidance</li>
                   </ul>

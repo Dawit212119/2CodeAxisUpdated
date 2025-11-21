@@ -7,11 +7,11 @@ type FAQ = { q: string; a: string };
 
 const faqs: FAQ[] = [
   {
-    q: "What Services Does GenShifter Technologies. Offer?",
+    q: "What Services Does CodeAxis Technologies. Offer?",
     a: "We provide a comprehensive range of IT solutions, including software development, managed services, infrastructure services, system integration, cybersecurity services, and training and development. Additionally, we specialize in ERP systems and school management systems, along with custom web and mobile applications. We tailor solutions to meet various industries' unique needs.",
   },
   {
-    q: "Can GenShifter Software Customize ERP Solutions For My Industry?",
+    q: "Can CodeAxis Software Customize ERP Solutions For My Industry?",
     a: "Yes. We tailor ERP modules to your workflows, data structures, and reporting so adoption is smooth and ROI is clear.",
   },
   {

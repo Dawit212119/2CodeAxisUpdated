@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Careers • GenShifter",
+  title: "Careers • CodeAxis",
 };
 
 const roles = [
@@ -80,7 +80,7 @@ export default function CareersPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#0e134d] mb-4">
-              Join the GenShifter Team
+              Join the CodeAxis Team
             </h2>
             <p className="text-slate-600 text-base md:text-lg">
               We are always looking for curious, driven people who are passionate about technology and
@@ -112,7 +112,7 @@ export default function CareersPage() {
           <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm text-slate-600">
             <p>
               Don&apos;t see a perfect fit? Send your resume and a short note to
-              <span className="font-semibold"> careers@genshifter.com</span>.
+              <span className="font-semibold"> dawitworkye794@gmail.com</span>.
             </p>
             <Link
               href="/contact"

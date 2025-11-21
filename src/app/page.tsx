@@ -34,7 +34,7 @@ export default function Home() {
 
             {/* Description */}
             <p className="text-slate-600 text-lg leading-relaxed mb-8">
-              GenShifter Technologies is a U.S.-based IT company headquartered in Seattle, Washington, with a growing branch in Addis Ababa, Ethiopia. As a product- and service-based company, we specialize in driving digital transformation for both public and private sector clients. Our clients range from startups and small businesses to global enterprises. Since our inception, we have been committed to delivering high-quality software and IT solutions.
+              CodeAxis Technologies is a U.S.-based IT company headquartered in Seattle, Washington, with a growing branch in Addis Ababa, Ethiopia. As a product- and service-based company, we specialize in driving digital transformation for both public and private sector clients. Our clients range from startups and small businesses to global enterprises. Since our inception, we have been committed to delivering high-quality software and IT solutions.
             </p>
 
             {/* Buttons */}

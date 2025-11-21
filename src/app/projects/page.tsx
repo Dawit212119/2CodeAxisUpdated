@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Projects • GenShifter",
+  title: "Projects • CodeAxis",
 };
 
 export default function ProjectsPage() {

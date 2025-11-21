@@ -22,19 +22,19 @@ export default function Footer() {
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-blue-400" />
                 <a
-                  href="mailto:contact@genshifter.com"
+                  href="mailto:dawitworkye794@gmail.com"
                   className="hover:text-blue-400 transition-colors"
                 >
-                  contact@genshifter.com
+                  dawitworkye794@gmail.com
                 </a>
               </div>
               <div className="flex items-center gap-3">
                 <Phone className="w-5 h-5 text-blue-400" />
                 <a
-                  href="tel:+1234567890"
+                  href="tel:+251920245372"
                   className="hover:text-blue-400 transition-colors"
                 >
-                  +1 (234) 567-890
+                  +251 920 245 372
                 </a>
               </div>
             </div>
@@ -86,7 +86,7 @@ export default function Footer() {
         {/* Divider */}
         <div className="border-t border-slate-700 pt-8">
           <p className="text-center text-slate-400 text-sm">
-            &copy; {currentYear} Genshifter. All rights reserved.
+            &copy; {currentYear} CodeAxis. All rights reserved.
           </p>
         </div>
       </div>

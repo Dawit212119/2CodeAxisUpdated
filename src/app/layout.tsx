@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Genshifter",
-  description: "Transform your experience with Genshifter",
+  title: "CodeAxis",
+  description: "Transform your experience with CodeAxis",
 };
 
 export default function RootLayout({

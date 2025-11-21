@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Consultation • GenShifter",
+  title: "Consultation • CodeAxis",
 };
 
 export default function ConsultationPage() {
@@ -72,7 +72,7 @@ export default function ConsultationPage() {
             </ul>
             <p className="text-slate-600 text-sm">
               Prefer email? Reach us directly at
-              <span className="font-semibold"> consulting@genshifter.com</span>.
+              <span className="font-semibold"> dawitworkye794@gmail.com</span>.
             </p>
           </div>
 

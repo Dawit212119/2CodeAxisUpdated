@@ -43,13 +43,13 @@ export default function AboutSection() {
           <div className="space-y-8">
             {/* Header */}
             <div>
-              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">About GenShifter</h2>
+              <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">About CodeAxis</h2>
             </div>
 
             {/* Description */}
             <div className="space-y-4">
               <p className="text-slate-600 text-lg leading-relaxed">
-                GenShifter Technologies is a leading IT company based in Addis Ababa, Ethiopia, dedicated to providing innovative software solutions and services to both national and international clients. Since our inception, we have been committed to delivering high-quality, customized software solutions that meet the unique needs of our clients across various industries. Our team of highly skilled professionals is passionate about technology and innovation. We specialize in a wide range of IT services, including software development, system integration, IT consulting, and project management. Our goal is to help businesses leverage technology to improve efficiency, drive growth, and achieve their objectives.
+                CodeAxis Technologies is a leading IT company based in Addis Ababa, Ethiopia, dedicated to providing innovative software solutions and services to both national and international clients. Since our inception, we have been committed to delivering high-quality, customized software solutions that meet the unique needs of our clients across various industries. Our team of highly skilled professionals is passionate about technology and innovation. We specialize in a wide range of IT services, including software development, system integration, IT consulting, and project management. Our goal is to help businesses leverage technology to improve efficiency, drive growth, and achieve their objectives.
               </p>
             </div>
 

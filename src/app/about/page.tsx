@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "About • GenShifter",
+  title: "About • CodeAxis",
 };
 
 export default function AboutPage() {
@@ -57,7 +57,7 @@ export default function AboutPage() {
 
           {/* Right content */}
           <div>
-            <span className="inline-block text-[#ea8c06] font-bold uppercase tracking-wider mb-3">About GenShifter</span>
+            <span className="inline-block text-[#ea8c06] font-bold uppercase tracking-wider mb-3">About CodeAxis</span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
               We Empower Clients With
               <br />
@@ -68,7 +68,7 @@ export default function AboutPage() {
               Challenges.
             </h2>
             <p className="mt-6 text-slate-700 leading-relaxed">
-              GenShifter Technologies is a leading IT company dedicated to providing innovative software solutions
+              CodeAxis Technologies is a leading IT company dedicated to providing innovative software solutions
               and services to clients around the world. Since our inception, we have been committed to delivering
               high-quality, customized systems that meet the unique needs of our clients across industries.
             </p>
@@ -229,7 +229,7 @@ export default function AboutPage() {
             <div>
               <h2 className="text-3xl font-extrabold text-[#ea8c06] mb-4">Who We Are</h2>
               <p className="text-slate-700 leading-relaxed">
-                GenShifter Technologies is a U.S.-based IT company headquartered in Seattle, Washington, with a growing
+                CodeAxis Technologies is a U.S.-based IT company headquartered in Seattle, Washington, with a growing
                 branch in Addis Ababa, Ethiopia. As a product- and service-based company, we specialize in driving digital
                 transformation for both public and private sector clients. Our clients range from startups and small
                 businesses to global enterprises. Since our inception, we have been committed to delivering high-quality,

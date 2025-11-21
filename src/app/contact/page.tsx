@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Contact Us • GenShifter",
+  title: "Contact Us • CodeAxis",
 };
 
 export default function ContactPage() {
@@ -105,7 +105,7 @@ export default function ContactPage() {
                   <input
                     type="tel"
                     className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
-                    placeholder="+251 900 000 000"
+                    placeholder="+251 920 245 372"
                   />
                 </div>
                 <div>
@@ -163,10 +163,10 @@ export default function ContactPage() {
               </p>
               <ul className="space-y-3 text-sm">
                 <li>
-                  <span className="font-semibold">Email:</span> info@genshifter.com
+                  <span className="font-semibold">Email:</span> dawitworkye794@gmail.com
                 </li>
                 <li>
-                  <span className="font-semibold">Phone:</span> +251 900 000 000
+                  <span className="font-semibold">Phone:</span> +251 920 245 372
                 </li>
                 <li>
                   <span className="font-semibold">Address:</span> Addis Ababa, Ethiopia

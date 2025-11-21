@@ -24,7 +24,7 @@ export default function TestimonialSection() {
       name: "John Anderson",
       position: "CEO",
       company: "Tech Innovations Inc",
-      content: "GenShifter Technologies transformed our digital infrastructure completely. Their expertise in cloud solutions and commitment to excellence exceeded our expectations. The team's professionalism and technical knowledge are outstanding.",
+      content: "CodeAxis Technologies transformed our digital infrastructure completely. Their expertise in cloud solutions and commitment to excellence exceeded our expectations. The team's professionalism and technical knowledge are outstanding.",
       rating: 5
     },
     {
@@ -32,7 +32,7 @@ export default function TestimonialSection() {
       name: "Sarah Mitchell",
       position: "CTO",
       company: "Digital Ventures",
-      content: "Working with GenShifter has been a game-changer for our business. Their innovative approach to software development and attention to detail helped us achieve our goals faster than we anticipated.",
+      content: "Working with CodeAxis has been a game-changer for our business. Their innovative approach to software development and attention to detail helped us achieve our goals faster than we anticipated.",
       rating: 5
     },
     {
@@ -40,7 +40,7 @@ export default function TestimonialSection() {
       name: "Michael Chen",
       position: "Director of IT",
       company: "Global Systems Corp",
-      content: "The team at GenShifter delivered exceptional results on our enterprise project. Their technical expertise, combined with excellent project management, made the entire process smooth and efficient.",
+      content: "The team at CodeAxis delivered exceptional results on our enterprise project. Their technical expertise, combined with excellent project management, made the entire process smooth and efficient.",
       rating: 5
     },
     {
@@ -48,7 +48,7 @@ export default function TestimonialSection() {
       name: "Emily Rodriguez",
       position: "Product Manager",
       company: "StartupHub",
-      content: "GenShifter Technologies helped us build our platform from the ground up. Their dedication, technical skills, and understanding of our vision were instrumental in our success.",
+      content: "CodeAxis Technologies helped us build our platform from the ground up. Their dedication, technical skills, and understanding of our vision were instrumental in our success.",
       rating: 5
     }
   ];

@@ -2,7 +2,7 @@ import TeamMembersSection from "@/components/TeamMembersSection";
 import Link from "next/link";
 
 export const metadata = {
-  title: "Our Team • GenShifter",
+  title: "Our Team • CodeAxis",
 };
 
 export default function TeamPage() {

@@ -4,7 +4,7 @@ import SubmitProjectForm from "@/components/SubmitProjectForm";
 import { getSession } from "@/lib/auth";
 
 export const metadata = {
-  title: "Submit Project • GenShifter",
+  title: "Submit Project • CodeAxis",
 };
 
 export default async function SubmitProjectPage() {
@@ -81,7 +81,7 @@ export default async function SubmitProjectPage() {
             </ul>
             <p className="text-slate-600 text-sm">
               Prefer email? Reach us at
-              <span className="font-semibold"> projects@genshifter.com</span>.
+              <span className="font-semibold"> dawitworkye794@gmail.com</span>.
             </p>
           </div>
 

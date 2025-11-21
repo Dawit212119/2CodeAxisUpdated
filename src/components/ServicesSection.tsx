@@ -12,37 +12,37 @@ export default function ServicesSection() {
     {
       id: 'managed-services',
       title: 'Managed Services',
-      description: 'At GenShifter Technologies, our Managed Services are designed to ensure your business operates smoothly and efficiently.',
+      description: 'At CodeAxis Technologies, our Managed Services are designed to ensure your business operates smoothly and efficiently.',
       icon: Settings,
     },
     {
       id: 'cybersecurity-services',
       title: 'Cybersecurity Services',
-      description: 'At GenShifter Technologies, our Cybersecurity Services are designed to provide robust protection against...',
+      description: 'At CodeAxis Technologies, our Cybersecurity Services are designed to provide robust protection against...',
       icon: Shield,
     },
     {
       id: 'software-development',
       title: 'Software Development',
-      description: 'At GenShifter Technologies, we offer a comprehensive range of software development solutions tailored to...',
+      description: 'At CodeAxis Technologies, we offer a comprehensive range of software development solutions tailored to...',
       icon: Code,
     },
     {
       id: 'training-development',
       title: 'Training And Development',
-      description: 'At GenShifter Technologies, our Training and Development Services are designed to empower your team with...',
+      description: 'At CodeAxis Technologies, our Training and Development Services are designed to empower your team with...',
       icon: Users,
     },
     {
       id: 'infrastructure-services',
       title: 'Infrastructure Services',
-      description: 'At GenShifter Technologies, our Infrastructure Services are designed to provide a robust and scalable...',
+      description: 'At CodeAxis Technologies, our Infrastructure Services are designed to provide a robust and scalable...',
       icon: Network,
     },
     {
       id: 'system-integration',
       title: 'System Integration',
-      description: 'At GenShifter Technologies, our System Integration services are designed to seamlessly connect your...',
+      description: 'At CodeAxis Technologies, our System Integration services are designed to seamlessly connect your...',
       icon: Lock,
     },
   ];
