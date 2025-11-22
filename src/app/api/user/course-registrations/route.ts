@@ -13,20 +13,19 @@ export async function GET() {
       );
     }
 
-    const projects = await prisma.projectSubmission.findMany({
+    // Get course registrations for the logged-in user
+    const registrations = await prisma.courseRegistration.findMany({
       where: { userId: session.id },
       orderBy: { createdAt: 'desc' },
     });
 
-    return NextResponse.json({ projects });
+    return NextResponse.json({ registrations });
   } catch (error) {
-    console.error('Error fetching user projects', error);
+    console.error('Error fetching user course registrations', error);
     return NextResponse.json(
-      { error: 'Something went wrong while fetching your projects.' },
+      { error: 'Something went wrong while fetching your course registrations.' },
       { status: 500 }
     );
   }
 }
-
-
 

@@ -54,13 +54,13 @@ export default function ServicesSection() {
         <div className="mb-16 flex items-end justify-between">
           <div>
             <p className="text-orange-500 font-bold text-sm tracking-wide mb-4">IT SERVICES</p>
-            <h2 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-8 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 sm:mb-8 leading-tight">
               We Solve IT Problems<br />With Technology
             </h2>
           </div>
           
           {/* Navigation Arrows */}
-          <div className="flex gap-4">
+          <div className="hidden md:flex gap-4">
             <button className="swiper-button-prev-custom w-12 h-12 rounded-full border-2 border-slate-300 flex items-center justify-center hover:border-orange-500 hover:text-orange-500 transition-colors">
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -73,8 +73,7 @@ export default function ServicesSection() {
         {/* Services Carousel */}
         <Swiper
           modules={[Navigation, Autoplay]}
-          slidesPerView={3}
-          spaceBetween={32}
+          spaceBetween={24}
           speed={600}
           navigation={{
             prevEl: '.swiper-button-prev-custom',
@@ -85,6 +84,20 @@ export default function ServicesSection() {
             disableOnInteraction: false,
           }}
           loop={true}
+          breakpoints={{
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 16,
+            },
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 32,
+            },
+          }}
           className="services-swiper"
         >
           {services.map((service) => {

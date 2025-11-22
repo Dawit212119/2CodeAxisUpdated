@@ -59,7 +59,7 @@ export default function TestimonialSection() {
         {/* Header */}
         <div className="mb-16 text-center">
           <p className="text-orange-500 font-bold text-sm tracking-wide mb-4">TESTIMONIALS</p>
-          <h2 className="text-4xl lg:text-5xl font-bold text-black mb-6">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-6">
             What Our Clients Say
           </h2>
           <p className="text-slate-600 text-lg max-w-2xl mx-auto">
@@ -71,14 +71,27 @@ export default function TestimonialSection() {
         <div className="testimonial-wrapper">
           <Swiper
             modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={30}
-            slidesPerView={1}
+            spaceBetween={24}
             loop="true"
             navigation
             pagination={{ clickable: true }}
             autoplay={{
               delay: 4000,
               disableOnInteraction: true,
+            }}
+            breakpoints={{
+              320: {
+                slidesPerView: 1,
+                spaceBetween: 16,
+              },
+              768: {
+                slidesPerView: 1,
+                spaceBetween: 24,
+              },
+              1024: {
+                slidesPerView: 2,
+                spaceBetween: 30,
+              },
             }}
             className="testimonial-swiper"
           >

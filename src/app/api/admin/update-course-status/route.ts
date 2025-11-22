@@ -23,10 +23,10 @@ export async function PATCH(request: Request) {
       );
     }
 
-    const validStatuses = ['pending', 'approved', 'rejected', 'completed'];
+    const validStatuses = ['pending_payment', 'pending_verification', 'approved', 'rejected', 'completed'];
     if (!validStatuses.includes(status)) {
       return NextResponse.json(
-        { error: 'Invalid status. Must be one of: pending, approved, rejected, completed' },
+        { error: 'Invalid status. Must be one of: pending_payment, pending_verification, approved, rejected, completed' },
         { status: 400 }
       );
     }
@@ -45,5 +45,6 @@ export async function PATCH(request: Request) {
     );
   }
 }
+
 
 

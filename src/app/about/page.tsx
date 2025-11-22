@@ -74,7 +74,7 @@ export default function AboutPage() {
             </p>
 
             {/* Features */}
-            <div className="mt-10 grid sm:grid-cols-2 gap-6">
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="flex items-start gap-4">
                 <div className="h-14 w-14 rounded-full bg-white shadow grid place-items-center">
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0e134d" strokeWidth="2" className="h-6 w-6"><path d="M3 3v18h18"/><path d="M7 13l3 3 7-7"/></svg>
@@ -198,7 +198,7 @@ export default function AboutPage() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
           {/* Left column - stacked images */}
-          <div className="grid gap-6 md:grid-rows-[2fr,1fr]">
+          <div className="grid gap-6 grid-rows-1 sm:grid-rows-[2fr,1fr]">
             <div className="rounded-2xl overflow-hidden shadow-2xl">
               <img
                 src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop"
@@ -206,7 +206,7 @@ export default function AboutPage() {
                 className="w-full h-[360px] object-cover"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="rounded-2xl overflow-hidden shadow-lg">
                 <img
                   src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"
@@ -265,7 +265,7 @@ export default function AboutPage() {
         {/* Our Goals - full width below content, stacked in column */}
         <div className="mt-12 bg-white/85 rounded-2xl p-8 shadow-xl">
           <h3 className="text-2xl md:text-3xl font-extrabold text-[#0e134d] text-center mb-8">Our Goals</h3>
-          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {/* Goal card */}
             <div className="bg-white rounded-2xl shadow-md px-6 py-6 flex flex-col gap-2">
               <div className="text-3xl mb-1">🎯</div>

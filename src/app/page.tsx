@@ -5,6 +5,7 @@ import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
 import AchievementSection from '@/components/AchievementSection';
 import ProjectsSection from '@/components/ProjectsSection';
+import ProjectCtaSection from '@/components/ProjectCtaSection';
 import TeamMembersSection from '@/components/TeamMembersSection';
 import FaqSection from '@/components/FaqSection';
 import PartnersSection from '@/components/PartnersSection';
@@ -28,12 +29,12 @@ export default function Home() {
             </div>
 
             {/* Heading */}
-            <h1 className="text-5xl lg:text-6xl font-bold text-slate-900 mb-6 leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-4 sm:mb-6 leading-tight">
               Delivering Superior Services <span className="text-orange-500">IT Solutions.</span>
             </h1>
 
             {/* Description */}
-            <p className="text-slate-600 text-lg leading-relaxed mb-8">
+            <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
               CodeAxis Technologies is a U.S.-based IT company headquartered in Seattle, Washington, with a growing branch in Addis Ababa, Ethiopia. As a product- and service-based company, we specialize in driving digital transformation for both public and private sector clients. Our clients range from startups and small businesses to global enterprises. Since our inception, we have been committed to delivering high-quality software and IT solutions.
             </p>
 
@@ -51,29 +52,14 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Side - AI Head Illustration */}
-          <div className="relative h-96 lg:h-full flex items-center justify-center">
+          {/* Right Side - Hero Image */}
+          <div className="hidden md:block relative h-96 lg:h-full flex items-center justify-center">
             <div className="relative w-full h-full flex items-center justify-center">
-              {/* Gradient background shape */}
-              <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-400 to-blue-600 rounded-3xl opacity-20 blur-2xl"></div>
-              
-              {/* AI Head Placeholder - using gradient and shapes */}
-              <div className="relative w-64 h-80 bg-gradient-to-br from-yellow-400 via-orange-400 to-blue-600 rounded-3xl shadow-2xl transform hover:scale-105 transition-transform duration-300">
-                {/* Inner glow effect */}
-                <div className="absolute inset-4 bg-gradient-to-br from-yellow-300 to-orange-500 rounded-2xl opacity-80"></div>
-                
-                {/* Head shape with circuit pattern effect */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-48 h-56 bg-gradient-to-b from-blue-900 to-slate-900 rounded-full opacity-40 blur-xl"></div>
-                </div>
-
-                {/* Decorative elements */}
-                <div className="absolute top-8 left-8 w-16 h-16 bg-blue-400 rounded-full opacity-60 blur-lg"></div>
-                <div className="absolute bottom-12 right-8 w-20 h-20 bg-cyan-400 rounded-full opacity-50 blur-lg"></div>
-              </div>
-
-              {/* Accent line */}
-              <div className="absolute right-0 top-1/2 w-1 h-32 bg-gradient-to-b from-blue-600 to-transparent transform translate-x-8"></div>
+              <img
+                src="https://www.genshifter.com/assets/img/hero/hero-1.png"
+                alt="CodeAxis Hero"
+                className="w-full h-full object-contain"
+              />
             </div>
           </div>
         </div>
@@ -83,6 +69,7 @@ export default function Home() {
       <ServicesSection />
       <AchievementSection />
       <ProjectsSection />
+      <ProjectCtaSection />
       <TestimonialSection />
       <TeamMembersSection />
       <FaqSection />

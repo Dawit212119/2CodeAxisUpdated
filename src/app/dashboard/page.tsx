@@ -18,15 +18,52 @@ interface Project {
   createdAt: string;
 }
 
+interface CourseRegistration {
+  id: number;
+  courseId: string;
+  name: string;
+  email: string;
+  phone?: string;
+  experienceLevel?: string;
+  preferredSchedule?: string;
+  message?: string;
+  paymentReceiptUrl?: string;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
 export default function UserDashboard() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
   const [projects, setProjects] = useState<Project[]>([]);
+  const [courseRegistrations, setCourseRegistrations] = useState<CourseRegistration[]>([]);
+  const [activeTab, setActiveTab] = useState<'projects' | 'courses'>('projects');
 
   useEffect(() => {
     checkSession();
-  }, []);
+    
+    // Refresh course registrations when tab becomes active or window gains focus
+    const handleFocus = () => {
+      if (activeTab === 'courses') {
+        loadCourseRegistrations();
+      }
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [activeTab]);
+
+  // Refresh when switching to courses tab
+  useEffect(() => {
+    if (activeTab === 'courses') {
+      loadCourseRegistrations();
+    }
+  }, [activeTab]);
 
   async function checkSession() {
     try {
@@ -40,6 +77,7 @@ export default function UserDashboard() {
       
       setUser(data.user);
       loadProjects();
+      loadCourseRegistrations();
     } catch (error) {
       router.push('/login');
     }
@@ -57,6 +95,19 @@ export default function UserDashboard() {
       console.error('Error loading projects', error);
     } finally {
       setLoading(false);
+    }
+  }
+
+  async function loadCourseRegistrations() {
+    try {
+      const res = await fetch('/api/user/course-registrations');
+      const data = await res.json();
+      
+      if (res.ok) {
+        setCourseRegistrations(data.registrations || []);
+      }
+    } catch (error) {
+      console.error('Error loading course registrations', error);
     }
   }
 
@@ -78,11 +129,40 @@ export default function UserDashboard() {
   function getStatusLabel(status: string) {
     const labels: Record<string, string> = {
       pending: 'Pending Review',
+      pending_payment: 'Pending Payment',
+      pending_verification: 'Pending Verification',
       in_progress: 'In Progress',
       completed: 'Completed',
       rejected: 'Rejected',
+      approved: 'Approved',
     };
-    return labels[status] || status;
+    return labels[status] || status.replace('_', ' ');
+  }
+
+  function getCourseStatusColor(status: string) {
+    const colors: Record<string, string> = {
+      pending_payment: 'bg-yellow-100 text-yellow-800',
+      pending_verification: 'bg-orange-100 text-orange-800',
+      approved: 'bg-green-100 text-green-800',
+      rejected: 'bg-red-100 text-red-800',
+      completed: 'bg-blue-100 text-blue-800',
+    };
+    return colors[status] || 'bg-gray-100 text-gray-800';
+  }
+
+  function getCourseName(courseId: string) {
+    const courses: Record<string, string> = {
+      'programming-fundamentals': 'Programming Fundamentals with Python',
+      'frontend-web-dev': 'Frontend Web Development (HTML, CSS, JavaScript)',
+      'fullstack-web-dev': 'Full-Stack Web Development (React & Next.js)',
+      'mobile-app-dev': 'Mobile App Development (Flutter)',
+      'backend-dotnet': 'Backend Development with .NET & REST APIs',
+      'cloud-devops': 'Cloud & DevOps Essentials (AWS / Azure)',
+      'data-engineering': 'Data Engineering & Analytics Foundations',
+      'software-engineering-practices': 'Software Engineering Practices (Git, Testing, Clean Code)',
+      'cybersecurity-basics': 'Cybersecurity Fundamentals',
+    };
+    return courses[courseId] || courseId;
   }
 
   if (loading) {
@@ -131,12 +211,40 @@ export default function UserDashboard() {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Tabs */}
         <div className="mb-6">
-          <h2 className="text-xl font-bold text-[#0e134d] mb-2">My Project Submissions</h2>
-          <p className="text-sm text-slate-600">
-            Track the status of all your submitted projects
-          </p>
+          <div className="flex gap-4 border-b">
+            <button
+              onClick={() => setActiveTab('projects')}
+              className={`px-4 py-2 font-medium text-sm ${
+                activeTab === 'projects'
+                  ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Project Submissions ({projects.length})
+            </button>
+            <button
+              onClick={() => setActiveTab('courses')}
+              className={`px-4 py-2 font-medium text-sm ${
+                activeTab === 'courses'
+                  ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                  : 'text-slate-600 hover:text-slate-900'
+              }`}
+            >
+              Course Registrations ({courseRegistrations.length})
+            </button>
+          </div>
         </div>
+
+        {activeTab === 'projects' && (
+          <>
+            <div className="mb-6">
+              <h2 className="text-xl font-bold text-[#0e134d] mb-2">My Project Submissions</h2>
+              <p className="text-sm text-slate-600">
+                Track the status of all your submitted projects
+              </p>
+            </div>
 
         {projects.length === 0 ? (
           <div className="bg-white rounded-lg shadow p-12 text-center">
@@ -245,9 +353,140 @@ export default function UserDashboard() {
             ))}
           </div>
         )}
+          </>
+        )}
+
+        {activeTab === 'courses' && (
+          <>
+            <div className="mb-6">
+              <h2 className="text-xl font-bold text-[#0e134d] mb-2">My Course Registrations</h2>
+              <p className="text-sm text-slate-600">
+                Track the status of your course registrations and payment verification
+              </p>
+            </div>
+
+            {courseRegistrations.length === 0 ? (
+              <div className="bg-white rounded-lg shadow p-12 text-center">
+                <div className="max-w-md mx-auto">
+                  <h3 className="text-lg font-semibold text-[#0e134d] mb-2">No course registrations yet</h3>
+                  <p className="text-sm text-slate-600 mb-6">
+                    Register for a course to get started. After submitting your payment receipt, you can track the verification status here.
+                  </p>
+                  <Link
+                    href="/learn"
+                    className="inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
+                  >
+                    Browse Courses
+                  </Link>
+                </div>
+              </div>
+            ) : (
+              <div className="space-y-4">
+                {courseRegistrations.map((registration) => (
+                  <div key={registration.id} className="bg-white rounded-lg shadow p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-lg font-bold text-[#0e134d]">{getCourseName(registration.courseId)}</h3>
+                        <p className="text-sm text-slate-600">{registration.email}</p>
+                      </div>
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCourseStatusColor(registration.status)}`}>
+                        {getStatusLabel(registration.status)}
+                      </span>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4 mb-4 text-sm">
+                      {registration.phone && (
+                        <div>
+                          <span className="font-medium text-slate-700">Phone:</span>{' '}
+                          <span className="text-slate-600">{registration.phone}</span>
+                        </div>
+                      )}
+                      {registration.experienceLevel && (
+                        <div>
+                          <span className="font-medium text-slate-700">Experience:</span>{' '}
+                          <span className="text-slate-600">{registration.experienceLevel}</span>
+                        </div>
+                      )}
+                      {registration.preferredSchedule && (
+                        <div>
+                          <span className="font-medium text-slate-700">Preferred Schedule:</span>{' '}
+                          <span className="text-slate-600">{registration.preferredSchedule}</span>
+                        </div>
+                      )}
+                      <div>
+                        <span className="font-medium text-slate-700">Registered:</span>{' '}
+                        <span className="text-slate-600">
+                          {new Date(registration.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-slate-700">Last Updated:</span>{' '}
+                        <span className="text-slate-600">
+                          {new Date(registration.updatedAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+
+                    {registration.message && (
+                      <div className="mb-4">
+                        <p className="text-sm text-slate-700 mb-2">
+                          <span className="font-medium">Message:</span>
+                        </p>
+                        <p className="text-sm text-slate-600 bg-slate-50 p-3 rounded">{registration.message}</p>
+                      </div>
+                    )}
+
+                    {/* Payment Receipt */}
+                    {registration.paymentReceiptUrl && (
+                      <div className="mb-4">
+                        <a
+                          href={registration.paymentReceiptUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-sm text-[#ea8c06] hover:underline font-medium"
+                        >
+                          View Payment Receipt →
+                        </a>
+                      </div>
+                    )}
+
+                    {/* Status Messages */}
+                    <div className="pt-4 border-t">
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1">
+                          <p className="text-xs text-slate-500 mb-1">Status Information</p>
+                          <p className="text-sm text-slate-600">
+                            {registration.status === 'pending_payment' && 'Please submit your payment receipt to proceed with registration.'}
+                            {registration.status === 'pending_verification' && 'Your payment receipt has been submitted and is awaiting admin verification.'}
+                            {registration.status === 'approved' && 'Your payment has been verified! You can now view the course schedule.'}
+                            {registration.status === 'rejected' && 'Your payment receipt was not approved. Please contact support for assistance.'}
+                            {registration.status === 'completed' && 'Congratulations! You have completed this course.'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Approved - Show Schedule Link */}
+                    {registration.status === 'approved' && (
+                      <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
+                        <Link
+                          href={`/course-schedule/${registration.courseId}`}
+                          className="inline-flex items-center gap-2 text-sm text-green-700 hover:text-green-800 font-medium"
+                        >
+                          View Course Schedule →
+                        </Link>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
+        )}
       </div>
     </div>
   );
 }
+
 
 

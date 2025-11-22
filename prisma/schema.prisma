@@ -47,7 +47,24 @@ model CourseRegistration {
   experienceLevel   String?
   preferredSchedule String?
   message           String?
-  status            String   @default("pending") // "pending", "approved", "rejected", "completed"
+  paymentReceiptUrl String?
+  status            String   @default("pending_payment") // "pending_payment", "pending_verification", "approved", "rejected", "completed"
+  verifiedAt        DateTime?
   createdAt         DateTime @default(now())
   updatedAt         DateTime @updatedAt
+}
+
+model CourseSchedule {
+  id          Int      @id @default(autoincrement())
+  courseId    String
+  title       String
+  description String?
+  startDate   DateTime
+  endDate     DateTime
+  duration    Int      // Duration in months
+  schedule    String   // JSON string or text describing the schedule
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@unique([courseId])
 }

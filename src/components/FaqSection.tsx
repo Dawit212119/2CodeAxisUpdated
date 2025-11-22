@@ -56,11 +56,11 @@ export default function FaqSection() {
         <div className="grid lg:grid-cols-2 gap-10 items-stretch">
           {/* Left: Illustration */}
           <div className="relative order-2 lg:order-1 h-full flex items-center">
-            <div className="relative h-full rounded-2xl overflow-hidden shadow-2xl min-h-[420px]">
+            <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl min-h-[420px]">
               <img
                 src="https://www.genshifter.com/assets/img/faq/faq3.jpg"
                 alt="FAQs Illustration"
-                className="absolute inset-0 w-full h-full object-cover"
+                className="w-full h-full object-cover"
               />
               {/* Diagonal wedge to match reference */}
               <div className="absolute inset-y-0 right-0 w-1/3" style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 70%)", background: "linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0))" }} />
@@ -70,7 +70,7 @@ export default function FaqSection() {
           {/* Right: Heading + Accordion */}
           <div className="relative order-1 lg:order-2 lg:min-h-[460px]">
             <p className="uppercase tracking-wide font-bold text-[#ea8c06]">See our FAQs</p>
-            <h2 className="mt-2 text-4xl sm:text-5xl font-extrabold leading-tight text-black">
+            <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-black">
               Keep Your Business Safe & Ensure High Availability
             </h2>
 

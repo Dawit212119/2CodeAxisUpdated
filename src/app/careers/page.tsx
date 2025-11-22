@@ -89,7 +89,7 @@ export default function CareersPage() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2">
             {roles.map((role) => (
               <div
                 key={role.title}

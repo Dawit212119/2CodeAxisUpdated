@@ -88,7 +88,7 @@ export default function BlogsPage() {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {posts.map((post) => (
               <article key={post.title} className="bg-white rounded-2xl shadow-md p-6 flex flex-col">
                 <p className="text-xs font-medium text-slate-500 mb-1">

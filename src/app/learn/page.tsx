@@ -120,7 +120,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
             </p>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
             {courses.map((course) => (
               <div
                 key={course.id}
@@ -151,7 +151,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
           </div>
 
           {/* Extra info / value props */}
-          <div className="grid gap-6 md:grid-cols-3 text-sm text-slate-700">
+          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-sm text-slate-700">
             <div className="bg-white rounded-2xl shadow p-5">
               <h3 className="font-extrabold text-[#0e134d] mb-2">Mentoring</h3>
               <p>

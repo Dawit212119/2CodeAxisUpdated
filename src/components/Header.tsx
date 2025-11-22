@@ -1,12 +1,13 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Mail, Phone, Search, Menu, X, Facebook, Instagram, Twitter, Send, Linkedin, Youtube, User, LogIn, LogOut } from 'lucide-react';
+import { Mail, Phone, Search, Menu, X, Facebook, Instagram, Twitter, Send, Linkedin, Youtube, User, LogOut } from 'lucide-react';
 
 export default function Header() {
   const router = useRouter();
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
@@ -14,7 +15,23 @@ export default function Header() {
 
   useEffect(() => {
     checkSession();
+    
+    // Re-check session when window gains focus (user might have logged in in another tab)
+    const handleFocus = () => {
+      checkSession();
+    };
+    
+    window.addEventListener('focus', handleFocus);
+    
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
   }, []);
+
+  // Re-check session when route changes
+  useEffect(() => {
+    checkSession();
+  }, [pathname]);
 
   async function checkSession() {
     try {
@@ -63,12 +80,12 @@ export default function Header() {
     { label: 'About Us', href: '/about' },
     { label: 'Services', href: '/services' },
     { label: 'Projects', href: '/projects' },
-    { label: 'Learn', href: '/learn' },
-    { label: 'Submit Project', href: '/submit-project' },
     { label: 'Contact Us', href: '/contact' },
   ];
 
   const moreLinks = [
+    { label: "Learn", href: "/learn" },
+    { label: "Submit Project", href: "/submit-project" },
     { label: "Team", href: "/team" },
     { label: "Faq's", href: "/faqs" },
     { label: "Careers", href: "/careers" },
@@ -79,9 +96,9 @@ export default function Header() {
   return (
     <header className="w-full sticky top-0 z-[10000]">
       {/* Top Bar */}
-      <div className="bg-slate-900 text-white py-3 px-4 sm:px-6 lg:px-8">
+      <div className="hidden md:block bg-slate-900 text-white py-3 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex flex-col sm:flex-row items-center gap-6 text-sm">
+          <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-xs sm:text-sm">
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-blue-400" />
               <a href="mailto:dawitworkye794@gmail.com" className="hover:text-blue-400 transition-colors">
@@ -181,66 +198,31 @@ export default function Header() {
             {!loading && (
               <>
                 {user ? (
-                  /* Profile Dropdown */
-                  <div className="relative">
-                    <button
-                      onClick={() => setIsProfileOpen(!isProfileOpen)}
-                      className="flex items-center gap-2 text-slate-700 hover:text-blue-500 transition-colors"
-                    >
-                      <div className="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                        {user.name.charAt(0).toUpperCase()}
-                      </div>
-                      <span className="hidden sm:inline font-medium">{user.name}</span>
-                    </button>
-
-                    {/* Dropdown Menu */}
-                    {isProfileOpen && (
-                      <>
-                        <div
-                          className="fixed inset-0 z-[998]"
-                          onClick={() => setIsProfileOpen(false)}
-                        />
-                        <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg border border-slate-200 z-[999]">
-                          <div className="py-1">
-                            <Link
-                              href={getDashboardLink()}
-                              className="flex items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 transition-colors"
-                              onClick={() => setIsProfileOpen(false)}
-                            >
-                              <User className="w-4 h-4" />
-                              Dashboard
-                            </Link>
-                            <button
-                              onClick={handleLogout}
-                              className="w-full flex items-center gap-2 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
-                            >
-                              <LogOut className="w-4 h-4" />
-                              Logout
-                            </button>
-                          </div>
-                        </div>
-                      </>
-                    )}
-                  </div>
-                ) : (
-                  /* Login/Signup Buttons */
-                  <div className="flex items-center gap-2">
+                  /* Dashboard and Logout for logged in users */
+                  <div className="flex items-center gap-3">
                     <Link
-                      href="/login"
-                      className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-700 hover:text-blue-500 transition-colors"
-                    >
-                      <LogIn className="w-4 h-4" />
-                      <span className="hidden sm:inline">Login</span>
-                    </Link>
-                    <Link
-                      href="/register"
-                      className="flex items-center gap-1 px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+                      href={getDashboardLink()}
+                      className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 hover:text-blue-500 transition-colors"
                     >
                       <User className="w-4 h-4" />
-                      <span className="hidden sm:inline">Sign Up</span>
-                      <span className="sm:hidden">Sign Up</span>
+                      Dashboard
                     </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-red-600 hover:bg-red-700 rounded-lg transition-colors"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Logout</span>
+                    </button>
                   </div>
+                ) : (
+                  /* Get Started Button - Only shown when NOT logged in */
+                  <Link
+                    href="/login"
+                    className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+                  >
+                    Get Started
+                  </Link>
                 )}
               </>
             )}
@@ -315,24 +297,13 @@ export default function Header() {
                       </button>
                     </>
                   ) : (
-                    <>
-                      <Link
-                        href="/login"
-                        className="flex items-center gap-2 text-slate-700 hover:text-blue-500 transition-colors font-medium py-2"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        <LogIn className="w-4 h-4" />
-                        Login
-                      </Link>
-                      <Link
-                        href="/register"
-                        className="flex items-center gap-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2 font-medium transition-colors"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        <User className="w-4 h-4" />
-                        Sign Up
-                      </Link>
-                    </>
+                    <Link
+                      href="/login"
+                      className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Get Started
+                    </Link>
                   )}
                 </div>
               )}

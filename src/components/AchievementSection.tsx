@@ -121,7 +121,7 @@ export default function AchievementSection() {
           {/* Header */}
           <div className="mb-16">
             <p className="text-orange-500 font-bold text-sm tracking-wide mb-4">ACHIEVEMENT</p>
-            <h2 className="text-4xl lg:text-5xl font-bold mb-8">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8">
               We Are Increasing<br />Business Success
             </h2>
           </div>
@@ -130,7 +130,7 @@ export default function AchievementSection() {
         {/* Stats Grid - Full Width */}
         <div className="w-full">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {counters.map((counter) => (
             <div key={counter.id} className="flex flex-col items-center text-center">
               {/* Icon */}
