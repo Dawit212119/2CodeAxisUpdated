@@ -68,7 +68,7 @@ export default function AboutSection() {
               </div>
               {/* Top right image */}
               <div>
-                <div className="w-full h-full bg-gradient-to-br from-orange-500 to-red-500 rounded-lg overflow-hidden">
+                <div className="w-full h-full bg-gradient-to-br from-[#016B61] to-[#70B2B2] rounded-lg overflow-hidden">
                   <img
                     src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop"
                     alt="Code on screen"
@@ -93,13 +93,13 @@ export default function AboutSection() {
           <div className="space-y-8">
             {/* Header */}
             <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">About CodeAxis</h2>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">About Code Axis</h2>
             </div>
 
             {/* Description */}
             <div className="space-y-4">
               <p className="text-slate-600 text-lg leading-relaxed">
-                CodeAxis Technologies is a leading IT company based in Addis Ababa, Ethiopia, dedicated to providing innovative software solutions and services to both national and international clients. Since our inception, we have been committed to delivering high-quality, customized software solutions that meet the unique needs of our clients across various industries. Our team of highly skilled professionals is passionate about technology and innovation. We specialize in a wide range of IT services, including software development, system integration, IT consulting, and project management. Our goal is to help businesses leverage technology to improve efficiency, drive growth, and achieve their objectives.
+                Code Axis is a modern IT solutions and software outsourcing company specializing in custom development, cloud architecture, and dedicated engineering teams. We partner with businesses to build scalable products, optimize operations, and accelerate digital transformation. Our expertise spans software engineering, system integration, and tech consultation—delivering reliable solutions that drive measurable results.
               </p>
             </div>
 
@@ -138,7 +138,7 @@ export default function AboutSection() {
 
               {/* Stats */}
               <div className="flex items-center justify-center sm:justify-start gap-4">
-                <Handshake className="w-12 h-12 text-blue-500 flex-shrink-0" />
+                <Handshake className="w-12 h-12 text-[#70B2B2] flex-shrink-0" />
                 <div>
                   <div className="text-4xl font-bold text-slate-900">{count}+</div>
                   <div className="text-slate-600 font-medium">Satisfied Clients</div>
@@ -148,14 +148,14 @@ export default function AboutSection() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
-              <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded transition-colors duration-200 w-full sm:w-auto cursor-pointer">
-                Explore More →
+              <button className="bg-[#016B61] hover:bg-[#70B2B2] text-white font-bold py-3 px-8 rounded transition-colors duration-200 w-full sm:w-auto cursor-pointer">
+                Learn More
               </button>
               <Link 
                 href="/services"
-                className="bg-slate-900 hover:bg-orange-500 text-white font-bold py-3 px-8 rounded transition-colors duration-200 w-full sm:w-auto text-center cursor-pointer"
+                className="bg-[#016B61] hover:bg-[#70B2B2] text-white font-bold py-3 px-8 rounded transition-colors duration-200 w-full sm:w-auto text-center cursor-pointer"
               >
-                View Our Services
+                Explore Services
               </Link>
             </div>
           </div>

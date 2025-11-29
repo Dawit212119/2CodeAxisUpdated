@@ -42,7 +42,7 @@ export default function TeamPage() {
         className="relative flex items-center justify-center py-24 md:py-40 text-white"
         style={{
           backgroundImage:
-            "linear-gradient(120deg, #020617 0%, #020617 40%, #0b3bbf 100%)",
+            "linear-gradient(120deg, #016B61 0%, #016B61 40%, #70B2B2 100%)",
         }}
       >
         {/* Decorative shapes */}
@@ -55,8 +55,8 @@ export default function TeamPage() {
             >
               <defs>
                 <linearGradient id="team-lines" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#1d4ed8" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.5" />
+                  <stop offset="0%" stopColor="#70B2B2" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="#9ECFD4" stopOpacity="0.5" />
                 </linearGradient>
               </defs>
               {[...Array(12)].map((_, i) => (
@@ -72,13 +72,13 @@ export default function TeamPage() {
             </svg>
           </div>
 
-          <div className="absolute -left-40 top-0 w-80 h-full bg-gradient-to-b from-indigo-600/80 via-indigo-700/60 to-transparent rotate-[-35deg]" />
+          <div className="absolute -left-40 top-0 w-80 h-full bg-gradient-to-b from-[#70B2B2]/80 via-[#016B61]/60 to-transparent rotate-[-35deg]" />
         </div>
 
         {/* Title + breadcrumb */}
         <div className="relative z-10 text-center px-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
-            Our Team
+            Our Engineering Team
           </h1>
           <nav className="text-sm md:text-base font-medium flex items-center justify-center gap-2">
             <Link href="/" className="opacity-80 hover:underline">
@@ -95,12 +95,12 @@ export default function TeamPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <div className="flex items-center justify-center gap-2 mb-3">
-              <div className="w-2 h-2 bg-blue-500 rounded-full" />
-              <span className="text-orange-500 font-bold text-sm tracking-wide">OUR TEAM</span>
+              <div className="w-2 h-2 bg-[#70B2B2] rounded-full" />
+              <span className="text-[#016B61] font-bold text-sm tracking-wide">MEET THE TEAM</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Meet the Team</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Expert Engineers & Consultants</h2>
             <p className="mt-3 text-slate-600 max-w-2xl mx-auto">
-              The people behind CodeAxis — builders, designers, and strategists driving digital transformation.
+              Experienced engineers, architects, and consultants who deliver high-quality software solutions.
             </p>
           </div>
 
@@ -124,7 +124,7 @@ export default function TeamPage() {
                         className="absolute inset-0 h-full w-full object-cover"
                       />
                     ) : (
-                      <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white text-4xl font-bold">
+                      <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-[#016B61] to-[#70B2B2] flex items-center justify-center text-white text-4xl font-bold">
                         {m.name.charAt(0)}
                       </div>
                     )}
@@ -135,7 +135,7 @@ export default function TeamPage() {
                         <a
                           href={`mailto:${m.email}`}
                           aria-label={`Email ${m.name}`}
-                          className="h-11 w-11 grid place-items-center rounded-full bg-white text-slate-800 shadow-md hover:shadow-lg hover:text-blue-600 transition cursor-pointer"
+                          className="h-11 w-11 grid place-items-center rounded-full bg-white text-slate-800 shadow-md hover:shadow-lg hover:text-[#016B61] transition cursor-pointer"
                         >
                           <Mail className="h-5 w-5" />
                         </a>
@@ -146,7 +146,7 @@ export default function TeamPage() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`${m.name} on LinkedIn`}
-                          className="h-11 w-11 grid place-items-center rounded-full bg-white text-slate-800 shadow-md hover:shadow-lg hover:text-blue-600 transition cursor-pointer"
+                          className="h-11 w-11 grid place-items-center rounded-full bg-white text-slate-800 shadow-md hover:shadow-lg hover:text-[#016B61] transition cursor-pointer"
                         >
                           <Linkedin className="h-5 w-5" />
                         </a>
@@ -156,7 +156,7 @@ export default function TeamPage() {
                     {/* Slanted footer */}
                     <div
                       className="absolute bottom-0 left-0 w-full text-white"
-                      style={{ clipPath: "polygon(0 35%, 100% 20%, 100% 100%, 0 100%)", backgroundColor: "#0e134d" }}
+                      style={{ clipPath: "polygon(0 35%, 100% 20%, 100% 100%, 0 100%)", backgroundColor: "#016B61" }}
                     >
                       <div className="px-6 pt-8 pb-6">
                         <h3 className="text-2xl font-semibold">{m.name}</h3>
@@ -164,7 +164,7 @@ export default function TeamPage() {
                       </div>
 
                       {/* Share bubble */}
-                      <div className="absolute -top-5 right-6 h-10 w-10 rounded-full bg-[#0e134d] grid place-items-center shadow-md">
+                      <div className="absolute -top-5 right-6 h-10 w-10 rounded-full bg-[#016B61] grid place-items-center shadow-md">
                         <Share2 className="h-5 w-5 text-white" />
                       </div>
                     </div>

@@ -91,9 +91,9 @@ export default function TestimonialSection() {
         <div className="mb-16">
           <div className="flex items-end justify-between mb-4">
             <div className="flex-1 text-center md:text-left">
-              <p className="text-orange-500 font-bold text-sm tracking-wide mb-4">TESTIMONIALS</p>
+              <p className="text-[#016B61] font-bold text-sm tracking-wide mb-4">CLIENT FEEDBACK</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-black mb-6">
-                What Our Clients Say
+                Trusted By Businesses Worldwide
               </h2>
               <p className="text-slate-600 text-lg max-w-2xl mx-auto md:mx-0">
                 Hear from our satisfied clients about their experience working with us
@@ -174,7 +174,7 @@ export default function TestimonialSection() {
               <SwiperSlide key={testimonial.id}>
                 <div className="bg-white rounded-xl p-6 md:p-8 shadow-md hover:shadow-lg transition-shadow max-w-md mx-auto">
                   <div className="flex items-start gap-4 mb-4">
-                    <Quote className="w-8 h-8 text-orange-500 flex-shrink-0" />
+                    <Quote className="w-8 h-8 text-[#70B2B2] flex-shrink-0" />
                     <div className="flex-1">
                       <div className="flex items-center gap-1 mb-2">
                         {[...Array(testimonial.rating)].map((_, i) => (
@@ -256,7 +256,7 @@ export default function TestimonialSection() {
                 <SwiperSlide key={`${testimonial.id}-2`}>
                   <div className="bg-white rounded-xl p-6 md:p-8 shadow-md hover:shadow-lg transition-shadow max-w-md mx-auto">
                     <div className="flex items-start gap-4 mb-4">
-                      <Quote className="w-8 h-8 text-orange-500 flex-shrink-0" />
+                      <Quote className="w-8 h-8 text-[#70B2B2] flex-shrink-0" />
                       <div className="flex-1">
                         <div className="flex items-center gap-1 mb-2">
                           {[...Array(testimonial.rating)].map((_, i) => (
@@ -301,7 +301,7 @@ export default function TestimonialSection() {
           width: 100%;
           height: 100%;
           content: "";
-          background-color: #0e134d;
+          background-color: #016B61;
           top: 50%;
           z-index: -1;
         }
@@ -404,7 +404,7 @@ export default function TestimonialSection() {
         }
 
         .testimonial-swiper .swiper-pagination-bullet-active {
-          background: #ea8c06;
+          background: #016B61;
           width: 30px;
           border-radius: 6px;
         }

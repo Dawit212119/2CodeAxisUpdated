@@ -81,8 +81,8 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             {/* Category Badge */}
             {project.category && (
               <div className="flex items-center gap-2 mb-4">
-                <Tag className="w-4 h-4 text-orange-500" />
-                <span className="text-sm font-semibold text-orange-500 uppercase tracking-wide">
+                <Tag className="w-4 h-4 text-[#016B61]" />
+                <span className="text-sm font-semibold text-[#016B61] uppercase tracking-wide">
                   {project.category}
                 </span>
               </div>
@@ -115,7 +115,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                           project.metadata.technologies.map((tech: string, idx: number) => (
                             <span
                               key={idx}
-                              className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium"
+                              className="px-3 py-1 bg-[#9ECFD4] text-[#016B61] rounded-full text-sm font-medium"
                             >
                               {tech}
                             </span>
@@ -159,7 +159,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                   {Array.isArray(project.metadata.features) ? (
                     project.metadata.features.map((feature: string, idx: number) => (
                       <li key={idx} className="flex items-start gap-2 text-slate-600">
-                        <span className="text-orange-500 mt-1">✓</span>
+                        <span className="text-[#70B2B2] mt-1">✓</span>
                         <span>{feature}</span>
                       </li>
                     ))
@@ -185,7 +185,7 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                 href={project.linkUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors cursor-pointer"
+                className="inline-flex items-center gap-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-6 py-3 rounded-lg transition-colors cursor-pointer"
               >
                 <span>Visit Project</span>
                 <ExternalLink className="w-4 h-4" />

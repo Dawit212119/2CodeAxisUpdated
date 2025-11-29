@@ -12,7 +12,7 @@ export default function ProjectsPage() {
         className="relative flex items-center justify-center py-24 md:py-40 text-white"
         style={{
           backgroundImage:
-            "linear-gradient(120deg, #020617 0%, #020617 40%, #0b3bbf 100%)",
+            "linear-gradient(120deg, #016B61 0%, #016B61 40%, #70B2B2 100%)",
         }}
       >
         {/* Decorative shapes */}
@@ -25,8 +25,8 @@ export default function ProjectsPage() {
             >
               <defs>
                 <linearGradient id="projects-lines" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#1d4ed8" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.5" />
+                  <stop offset="0%" stopColor="#70B2B2" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="#9ECFD4" stopOpacity="0.5" />
                 </linearGradient>
               </defs>
               {[...Array(12)].map((_, i) => (
@@ -42,7 +42,7 @@ export default function ProjectsPage() {
             </svg>
           </div>
 
-          <div className="absolute -left-40 top-0 w-80 h-full bg-gradient-to-b from-indigo-600/80 via-indigo-700/60 to-transparent rotate-[-35deg]" />
+          <div className="absolute -left-40 top-0 w-80 h-full bg-gradient-to-b from-[#70B2B2]/80 via-[#016B61]/60 to-transparent rotate-[-35deg]" />
         </div>
 
         {/* Title + breadcrumb */}
@@ -64,10 +64,10 @@ export default function ProjectsPage() {
       <section className="py-16 md:py-20 bg-[#f3f7fb]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10 text-center max-w-2xl mx-auto">
-            <p className="text-sm font-semibold tracking-widest text-[#ea8c06] uppercase">
+            <p className="text-sm font-semibold tracking-widest text-[#016B61] uppercase">
               Our Work
             </p>
-            <h2 className="mt-3 text-3xl md:text-4xl font-extrabold text-[#0e134d]">
+            <h2 className="mt-3 text-3xl md:text-4xl font-extrabold text-[#016B61]">
               Recent Projects & Case Studies
             </h2>
             <p className="mt-4 text-slate-600">
@@ -84,7 +84,7 @@ export default function ProjectsPage() {
                 className="flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
               >
                 <div className="h-48 bg-slate-900/80 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-indigo-500 via-blue-500 to-sky-400 opacity-70" />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-[#016B61] via-[#70B2B2] to-[#9ECFD4] opacity-70" />
                   <div className="relative z-10 h-full flex items-end p-5">
                     <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/30 mr-3">
                       <span className="text-xl">💡</span>
@@ -111,7 +111,7 @@ export default function ProjectsPage() {
                     <span className="text-slate-500">FinTech • 2024</span>
                     <Link
                       href={`/projects/${id}`}
-                      className="text-[#ea8c06] font-semibold hover:underline"
+                      className="text-[#016B61] font-semibold hover:underline"
                     >
                       View Details →
                     </Link>

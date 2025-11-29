@@ -56,13 +56,13 @@ export default function CourseSchedulePage() {
     return (
       <div className="min-h-screen bg-[#f3f7fb] flex items-center justify-center">
         <div className="text-center max-w-md">
-          <h2 className="text-2xl font-bold text-[#0e134d] mb-4">Schedule Not Available</h2>
+          <h2 className="text-2xl font-bold text-[#016B61] mb-4">Schedule Not Available</h2>
           <p className="text-slate-600 mb-6">
             The schedule for this course is not yet available. Please check back later.
           </p>
           <Link
             href="/learn"
-            className="inline-flex items-center gap-2 text-[#ea8c06] hover:text-[#d17b05] font-medium"
+            className="inline-flex items-center gap-2 text-[#016B61] hover:text-[#70B2B2] font-medium"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Courses
@@ -79,12 +79,12 @@ export default function CourseSchedulePage() {
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <Link
             href="/learn"
-            className="inline-flex items-center gap-2 text-slate-600 hover:text-[#ea8c06] mb-4 text-sm"
+            className="inline-flex items-center gap-2 text-slate-600 hover:text-[#016B61] mb-4 text-sm"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Courses
           </Link>
-          <h1 className="text-3xl font-extrabold text-[#0e134d]">{schedule.title}</h1>
+          <h1 className="text-3xl font-extrabold text-[#016B61]">{schedule.title}</h1>
           {schedule.description && (
             <p className="text-slate-600 mt-2">{schedule.description}</p>
           )}
@@ -97,7 +97,7 @@ export default function CourseSchedulePage() {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           <div className="bg-white rounded-lg shadow p-4">
             <div className="flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-[#ea8c06]" />
+              <Calendar className="w-8 h-8 text-[#016B61]" />
               <div>
                 <p className="text-xs text-slate-500">Start Date</p>
                 <p className="text-sm font-semibold text-slate-900">
@@ -108,7 +108,7 @@ export default function CourseSchedulePage() {
           </div>
           <div className="bg-white rounded-lg shadow p-4">
             <div className="flex items-center gap-3">
-              <Calendar className="w-8 h-8 text-blue-500" />
+              <Calendar className="w-8 h-8 text-[#70B2B2]" />
               <div>
                 <p className="text-xs text-slate-500">End Date</p>
                 <p className="text-sm font-semibold text-slate-900">
@@ -119,7 +119,7 @@ export default function CourseSchedulePage() {
           </div>
           <div className="bg-white rounded-lg shadow p-4">
             <div className="flex items-center gap-3">
-              <Clock className="w-8 h-8 text-green-500" />
+              <Clock className="w-8 h-8 text-[#70B2B2]" />
               <div>
                 <p className="text-xs text-slate-500">Duration</p>
                 <p className="text-sm font-semibold text-slate-900">
@@ -133,8 +133,8 @@ export default function CourseSchedulePage() {
         {/* Schedule Details */}
         <div className="bg-white rounded-lg shadow p-6 lg:p-8">
           <div className="flex items-center gap-3 mb-6">
-            <BookOpen className="w-6 h-6 text-[#ea8c06]" />
-            <h2 className="text-2xl font-bold text-[#0e134d]">Course Schedule</h2>
+            <BookOpen className="w-6 h-6 text-[#016B61]" />
+            <h2 className="text-2xl font-bold text-[#016B61]">Course Schedule</h2>
           </div>
           
           <div className="prose max-w-none">
@@ -145,9 +145,9 @@ export default function CourseSchedulePage() {
         </div>
 
         {/* Info Box */}
-        <div className="mt-8 bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="font-semibold text-blue-900 mb-2">Important Information</h3>
-          <ul className="text-sm text-blue-800 space-y-1 list-disc list-inside">
+        <div className="mt-8 bg-[#E5E9C5] border border-[#9ECFD4] rounded-lg p-6">
+          <h3 className="font-semibold text-[#016B61] mb-2">Important Information</h3>
+          <ul className="text-sm text-[#016B61] space-y-1 list-disc list-inside">
             <li>This schedule is subject to change. You will be notified of any updates.</li>
             <li>All sessions will be conducted according to the timeline above.</li>
             <li>If you have any questions, please contact us at dawitworkye794@gmail.com</li>

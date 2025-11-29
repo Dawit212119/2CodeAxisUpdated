@@ -62,7 +62,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
         className="relative flex items-center justify-center py-24 md:py-40 text-white"
         style={{
           backgroundImage:
-            "linear-gradient(120deg, #020617 0%, #020617 40%, #0b3bbf 100%)",
+            "linear-gradient(120deg, #016B61 0%, #016B61 40%, #70B2B2 100%)",
         }}
       >
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -70,8 +70,8 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
             <svg viewBox="0 0 800 600" className="w-full h-full" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="learn-lines" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#1d4ed8" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.5" />
+                  <stop offset="0%" stopColor="#70B2B2" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="#9ECFD4" stopOpacity="0.5" />
                 </linearGradient>
               </defs>
               {[...Array(12)].map((_, i) => (
@@ -87,16 +87,15 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
             </svg>
           </div>
 
-          <div className="absolute -left-40 top-0 w-80 h-full bg-gradient-to-b from-indigo-600/80 via-indigo-700/60 to-transparent rotate-[-35deg]" />
+          <div className="absolute -left-40 top-0 w-80 h-full bg-gradient-to-b from-[#70B2B2]/80 via-[#016B61]/60 to-transparent rotate-[-35deg]" />
         </div>
 
         <div className="relative z-10 text-center px-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
-            Learn with CodeAxis
+            Learn with Code Axis
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-slate-100 mb-4">
-            Practical, industry-focused training programs designed to help students and professionals
-            build real skills in software development, cloud, and cybersecurity.
+            Hands-on training programs in software development, cloud computing, and cybersecurity. Build real-world skills with expert instructors.
           </p>
           <nav className="text-sm md:text-base font-medium flex items-center justify-center gap-2">
             <Link href="/" className="opacity-80 hover:underline">
@@ -112,9 +111,9 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
       <section className="py-16 md:py-20 bg-[#f3f7fb]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="max-w-3xl">
-            <p className="text-orange-500 font-bold text-sm tracking-wide mb-3">LEARNING PATHS</p>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#0e134d] mb-4">
-              Courses we offer for students and professionals
+            <p className="text-[#016B61] font-bold text-sm tracking-wide mb-3">TECH TRAINING</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-4">
+              Training Programs That Build Real Skills
             </h2>
             <p className="text-slate-600 text-base md:text-lg">
               All programs combine instructor-led sessions, hands-on projects, and mentoring from
@@ -134,7 +133,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
                   className="bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between"
                 >
                   <div>
-                    <h3 className="text-xl font-bold text-[#0e134d] mb-2">{course.title}</h3>
+                    <h3 className="text-xl font-bold text-[#016B61] mb-2">{course.title}</h3>
                     <p className="text-sm text-slate-500 mb-3">
                       {course.duration && course.mode
                         ? `Duration: ${course.duration} • Mode: ${course.mode}`
@@ -164,7 +163,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
                     </p>
                     <Link
                       href={`/learn?course=${course.id}#register`}
-                      className="inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold px-4 py-2 text-sm shadow-sm transition-colors"
+                      className="inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-4 py-2 text-sm shadow-sm transition-colors"
                     >
                       Register
                     </Link>
@@ -177,21 +176,21 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
           {/* Extra info / value props */}
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-sm text-slate-700">
             <div className="bg-white rounded-2xl shadow p-5">
-              <h3 className="font-extrabold text-[#0e134d] mb-2">Mentoring</h3>
+              <h3 className="font-extrabold text-[#016B61] mb-2">Mentoring</h3>
               <p>
                 Get regular feedback on your assignments and career advice from engineers working on
                 production systems.
               </p>
             </div>
             <div className="bg-white rounded-2xl shadow p-5">
-              <h3 className="font-extrabold text-[#0e134d] mb-2">Hands-on projects</h3>
+              <h3 className="font-extrabold text-[#016B61] mb-2">Hands-on projects</h3>
               <p>
                 Every course ends with a real mini-project you can showcase to employers or use as a
                 starting point for your own product.
               </p>
             </div>
             <div className="bg-white rounded-2xl shadow p-5">
-              <h3 className="font-extrabold text-[#0e134d] mb-2">Job-ready focus</h3>
+              <h3 className="font-extrabold text-[#016B61] mb-2">Job-ready focus</h3>
               <p>
                 We emphasize practical skills: Git, code reviews, cloud deployment, and collaboration
                 workflows used in modern teams.
@@ -205,7 +204,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
       <section className="py-12 md:py-16 bg-slate-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-start">
           <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#0e134d] mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-4">
               Ready to start learning?
             </h2>
             <p className="text-slate-600 text-base md:text-lg mb-4">

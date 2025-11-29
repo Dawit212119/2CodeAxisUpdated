@@ -58,7 +58,7 @@ export default function ConsultationPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-start">
           {/* Left: Text */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#0e134d] mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-4">
               Schedule a Strategy Session
             </h2>
             <p className="text-slate-600 text-base md:text-lg mb-6">
@@ -78,13 +78,13 @@ export default function ConsultationPage() {
 
           {/* Right: Simple form */}
           <div className="bg-white rounded-2xl shadow-md p-8">
-            <h3 className="text-xl font-extrabold text-[#0e134d] mb-4">Request Consultation</h3>
+            <h3 className="text-xl font-extrabold text-[#016B61] mb-4">Request Consultation</h3>
             <form className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Full Name</label>
                 <input
                   type="text"
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                   placeholder="John Doe"
                 />
               </div>
@@ -92,7 +92,7 @@ export default function ConsultationPage() {
                 <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
                 <input
                   type="email"
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                   placeholder="you@example.com"
                 />
               </div>
@@ -100,7 +100,7 @@ export default function ConsultationPage() {
                 <label className="block text-sm font-medium text-slate-700 mb-1">Company / Organization</label>
                 <input
                   type="text"
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                   placeholder="Your company name"
                 />
               </div>
@@ -108,13 +108,13 @@ export default function ConsultationPage() {
                 <label className="block text-sm font-medium text-slate-700 mb-1">What would you like to discuss?</label>
                 <textarea
                   rows={4}
-                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                  className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                   placeholder="Briefly describe your project or challenge."
                 />
               </div>
               <button
                 type="submit"
-                className="inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors w-full"
+                className="inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors w-full"
               >
                 Submit Request
               </button>

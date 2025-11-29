@@ -77,12 +77,12 @@ export default function RegisterPage() {
     <div className="min-h-screen bg-[#f3f7fb] flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-[#0e134d]">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-[#016B61]">
             Create your account
           </h2>
           <p className="mt-2 text-center text-sm text-slate-600">
             Or{' '}
-            <Link href="/login" className="font-medium text-[#ea8c06] hover:text-[#d17b05]">
+            <Link href="/login" className="font-medium text-[#016B61] hover:text-[#70B2B2]">
               sign in to your existing account
             </Link>
           </p>
@@ -114,7 +114,7 @@ export default function RegisterPage() {
                 required
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                 placeholder="John Doe"
               />
             </div>
@@ -131,7 +131,7 @@ export default function RegisterPage() {
                 required
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                 placeholder="you@example.com"
               />
             </div>
@@ -148,7 +148,7 @@ export default function RegisterPage() {
                 required
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                 placeholder="••••••••"
               />
               <p className="mt-1 text-xs text-slate-500">Must be at least 6 characters</p>
@@ -166,7 +166,7 @@ export default function RegisterPage() {
                 required
                 value={formData.confirmPassword}
                 onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                 placeholder="••••••••"
               />
             </div>
@@ -176,14 +176,14 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] disabled:opacity-70 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
+              className="w-full inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] disabled:opacity-70 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
             >
               {isSubmitting ? 'Creating account...' : 'Create account'}
             </button>
           </div>
 
           <div className="text-center">
-            <Link href="/" className="text-sm text-slate-600 hover:text-[#ea8c06]">
+            <Link href="/" className="text-sm text-slate-600 hover:text-[#016B61]">
               ← Back to home
             </Link>
           </div>

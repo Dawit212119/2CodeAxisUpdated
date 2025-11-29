@@ -57,9 +57,9 @@ export default function ServicesSection() {
         {/* Header */}
         <div className="mb-16 flex items-end justify-between">
           <div>
-            <p className="text-orange-500 font-bold text-sm tracking-wide mb-4">IT SERVICES</p>
+            <p className="text-[#016B61] font-bold text-sm tracking-wide mb-4">OUR SERVICES</p>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 mb-6 sm:mb-8 leading-tight">
-              We Solve IT Problems<br />With Technology
+              Empowering Your Business<br />With Expert IT Solutions
             </h2>
           </div>
           
@@ -161,8 +161,8 @@ export default function ServicesSection() {
                     <div className="relative p-8 h-full flex flex-col justify-between z-20 w-full">
                       <div>
                         <div className="mb-6">
-                          <div className="w-16 h-16 bg-blue-100 rounded-lg flex items-center justify-center group-hover:bg-orange-100 transition-colors">
-                            <Icon className="w-8 h-8 text-blue-500 group-hover:text-orange-500 transition-colors" />
+                          <div className="w-16 h-16 bg-[#E5E9C5] rounded-lg flex items-center justify-center group-hover:bg-[#9ECFD4] transition-colors">
+                            <Icon className="w-8 h-8 text-[#016B61] group-hover:text-[#016B61] transition-colors" />
                           </div>
                         </div>
                         
@@ -177,7 +177,7 @@ export default function ServicesSection() {
                         )}
                       </div>
                       
-                      <div className="flex items-center gap-2 text-slate-900 font-semibold group-hover:text-orange-400 transition-colors">
+                      <div className="flex items-center gap-2 text-slate-900 font-semibold group-hover:text-[#016B61] transition-colors">
                         <span>Read More</span>
                         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                       </div>
@@ -197,9 +197,9 @@ export default function ServicesSection() {
           </p>
           <Link 
             href="/services"
-            className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded transition-colors duration-200 cursor-pointer"
+            className="inline-block bg-[#016B61] hover:bg-[#70B2B2] text-white font-bold py-3 px-8 rounded transition-colors duration-200 cursor-pointer"
           >
-            View Services
+            Explore All Services
           </Link>
         </div>
       </div>

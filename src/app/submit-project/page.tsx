@@ -67,7 +67,7 @@ export default async function SubmitProjectPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-[1.1fr,0.9fr] gap-10 items-start">
           {/* Left: Intro text */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#0e134d] mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-4">
               Tell Us About Your Project
             </h2>
             <p className="text-slate-600 text-base md:text-lg mb-6">

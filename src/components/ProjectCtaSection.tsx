@@ -8,12 +8,12 @@ export default function ProjectCtaSection() {
     <section className="section-padding py-20 lg:py-32 bg-gradient-to-br from-slate-50 to-blue-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <p className="text-orange-500 font-bold text-sm tracking-wide mb-4">GET STARTED</p>
+          <p className="text-[#016B61] font-bold text-sm tracking-wide mb-4">LEARN WITH US</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-            Ready to Work With Us?
+            Ready to Get Started?
           </h2>
           <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-            Whether you need a custom project developed or want to enhance your tech skills, we're here to help you succeed.
+            Partner with Code Axis for custom software development or upskill your team with our expert-led training programs.
           </p>
         </div>
 
@@ -25,18 +25,18 @@ export default function ProjectCtaSection() {
           >
             <div className="p-8 lg:p-10">
               <div className="mb-6">
-                <div className="w-16 h-16 bg-blue-100 rounded-xl flex items-center justify-center group-hover:bg-blue-500 transition-colors">
-                  <Code className="w-8 h-8 text-blue-500 group-hover:text-white transition-colors" />
+                <div className="w-16 h-16 bg-[#E5E9C5] rounded-xl flex items-center justify-center group-hover:bg-[#016B61] transition-colors">
+                  <Code className="w-8 h-8 text-[#016B61] group-hover:text-white transition-colors" />
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-600 transition-colors">
+              <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-[#016B61] transition-colors">
                 Submit Your Project
               </h3>
               <p className="text-slate-600 mb-6 leading-relaxed">
-                Have an idea for a project? Let's bring it to life. Our team of experts will work with you to develop custom solutions tailored to your needs.
+                Need a custom solution? Our engineering team builds scalable, high-quality software tailored to your business needs.
               </p>
-              <div className="flex items-center text-blue-600 font-semibold group-hover:text-blue-700">
-                <span>Get Started</span>
+              <div className="flex items-center text-[#016B61] font-semibold group-hover:text-[#70B2B2]">
+                <span>Submit Project</span>
                 <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>
@@ -51,23 +51,23 @@ export default function ProjectCtaSection() {
           >
             <div className="p-8 lg:p-10">
               <div className="mb-6">
-                <div className="w-16 h-16 bg-orange-100 rounded-xl flex items-center justify-center group-hover:bg-orange-500 transition-colors">
-                  <GraduationCap className="w-8 h-8 text-orange-500 group-hover:text-white transition-colors" />
+                <div className="w-16 h-16 bg-[#E5E9C5] rounded-xl flex items-center justify-center group-hover:bg-[#016B61] transition-colors">
+                  <GraduationCap className="w-8 h-8 text-[#016B61] group-hover:text-white transition-colors" />
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-orange-600 transition-colors">
-                Learn Tech Skills
+              <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-[#016B61] transition-colors">
+                Tech Training Programs
               </h3>
               <p className="text-slate-600 mb-6 leading-relaxed">
-                Enhance your career with our comprehensive training programs. Learn from industry experts and gain hands-on experience with real-world projects.
+                Upskill with hands-on training in software development, cloud, and cybersecurity. Learn from industry professionals.
               </p>
-              <div className="flex items-center text-orange-600 font-semibold group-hover:text-orange-700">
+              <div className="flex items-center text-[#016B61] font-semibold group-hover:text-[#70B2B2]">
                 <span>Explore Courses</span>
                 <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
               </div>
             </div>
             {/* Decorative gradient overlay on hover */}
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/0 to-orange-500/0 group-hover:from-orange-500/5 group-hover:to-transparent transition-all duration-300 pointer-events-none"></div>
+            <div className="absolute inset-0 bg-gradient-to-br from-[#016B61]/0 to-[#016B61]/0 group-hover:from-[#016B61]/5 group-hover:to-transparent transition-all duration-300 pointer-events-none"></div>
           </Link>
         </div>
       </div>

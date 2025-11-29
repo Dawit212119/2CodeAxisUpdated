@@ -119,7 +119,7 @@ export default function UserDashboard() {
   function getStatusColor(status: string) {
     const colors: Record<string, string> = {
       pending: 'bg-yellow-100 text-yellow-800',
-      in_progress: 'bg-blue-100 text-blue-800',
+      in_progress: 'bg-[#9ECFD4] text-[#016B61]',
       completed: 'bg-green-100 text-green-800',
       rejected: 'bg-red-100 text-red-800',
     };
@@ -142,10 +142,10 @@ export default function UserDashboard() {
   function getCourseStatusColor(status: string) {
     const colors: Record<string, string> = {
       pending_payment: 'bg-yellow-100 text-yellow-800',
-      pending_verification: 'bg-orange-100 text-orange-800',
+      pending_verification: 'bg-[#E5E9C5] text-[#016B61]',
       approved: 'bg-green-100 text-green-800',
       rejected: 'bg-red-100 text-red-800',
-      completed: 'bg-blue-100 text-blue-800',
+      completed: 'bg-[#9ECFD4] text-[#016B61]',
     };
     return colors[status] || 'bg-gray-100 text-gray-800';
   }
@@ -182,19 +182,19 @@ export default function UserDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-extrabold text-[#0e134d]">My Dashboard</h1>
+              <h1 className="text-2xl font-extrabold text-[#016B61]">My Dashboard</h1>
               <p className="text-sm text-slate-600 mt-1">Welcome, {user?.name}</p>
             </div>
             <div className="flex items-center gap-4">
               <Link
                 href="/submit-project"
-                className="inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold px-4 py-2 text-sm shadow-sm transition-colors"
+                className="inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-4 py-2 text-sm shadow-sm transition-colors"
               >
                 Submit New Project
               </Link>
               <Link
                 href="/"
-                className="text-sm text-slate-600 hover:text-[#ea8c06]"
+                className="text-sm text-slate-600 hover:text-[#016B61]"
               >
                 Home
               </Link>
@@ -218,7 +218,7 @@ export default function UserDashboard() {
               onClick={() => setActiveTab('projects')}
               className={`px-4 py-2 font-medium text-sm ${
                 activeTab === 'projects'
-                  ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                  ? 'text-[#016B61] border-b-2 border-[#016B61]'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -228,7 +228,7 @@ export default function UserDashboard() {
               onClick={() => setActiveTab('courses')}
               className={`px-4 py-2 font-medium text-sm ${
                 activeTab === 'courses'
-                  ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                  ? 'text-[#016B61] border-b-2 border-[#016B61]'
                   : 'text-slate-600 hover:text-slate-900'
               }`}
             >
@@ -240,7 +240,7 @@ export default function UserDashboard() {
         {activeTab === 'projects' && (
           <>
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-[#0e134d] mb-2">My Project Submissions</h2>
+              <h2 className="text-xl font-bold text-[#016B61] mb-2">My Project Submissions</h2>
               <p className="text-sm text-slate-600">
                 Track the status of all your submitted projects
               </p>
@@ -249,13 +249,13 @@ export default function UserDashboard() {
         {projects.length === 0 ? (
           <div className="bg-white rounded-lg shadow p-12 text-center">
             <div className="max-w-md mx-auto">
-              <h3 className="text-lg font-semibold text-[#0e134d] mb-2">No projects submitted yet</h3>
+              <h3 className="text-lg font-semibold text-[#016B61] mb-2">No projects submitted yet</h3>
               <p className="text-sm text-slate-600 mb-6">
                 Submit your first project to get started. Our team will review it and update you on the status.
               </p>
               <Link
                 href="/submit-project"
-                className="inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
+                className="inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
               >
                 Submit Your First Project
               </Link>
@@ -267,7 +267,7 @@ export default function UserDashboard() {
               <div key={project.id} className="bg-white rounded-lg shadow p-6">
                 <div className="flex items-start justify-between mb-4">
                   <div>
-                    <h3 className="text-lg font-bold text-[#0e134d]">{project.name}</h3>
+                    <h3 className="text-lg font-bold text-[#016B61]">{project.name}</h3>
                     <p className="text-sm text-slate-600">{project.email}</p>
                   </div>
                   <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
@@ -329,7 +329,7 @@ export default function UserDashboard() {
                       href={project.fileUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-sm text-[#ea8c06] hover:underline inline-flex items-center gap-1"
+                      className="text-sm text-[#016B61] hover:underline inline-flex items-center gap-1"
                     >
                       View Attachment →
                     </a>
@@ -359,7 +359,7 @@ export default function UserDashboard() {
         {activeTab === 'courses' && (
           <>
             <div className="mb-6">
-              <h2 className="text-xl font-bold text-[#0e134d] mb-2">My Course Registrations</h2>
+              <h2 className="text-xl font-bold text-[#016B61] mb-2">My Course Registrations</h2>
               <p className="text-sm text-slate-600">
                 Track the status of your course registrations and payment verification
               </p>
@@ -368,13 +368,13 @@ export default function UserDashboard() {
             {courseRegistrations.length === 0 ? (
               <div className="bg-white rounded-lg shadow p-12 text-center">
                 <div className="max-w-md mx-auto">
-                  <h3 className="text-lg font-semibold text-[#0e134d] mb-2">No course registrations yet</h3>
+                  <h3 className="text-lg font-semibold text-[#016B61] mb-2">No course registrations yet</h3>
                   <p className="text-sm text-slate-600 mb-6">
                     Register for a course to get started. After submitting your payment receipt, you can track the verification status here.
                   </p>
                   <Link
                     href="/learn"
-                    className="inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
+                    className="inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
                   >
                     Browse Courses
                   </Link>
@@ -386,7 +386,7 @@ export default function UserDashboard() {
                   <div key={registration.id} className="bg-white rounded-lg shadow p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div>
-                        <h3 className="text-lg font-bold text-[#0e134d]">{getCourseName(registration.courseId)}</h3>
+                        <h3 className="text-lg font-bold text-[#016B61]">{getCourseName(registration.courseId)}</h3>
                         <p className="text-sm text-slate-600">{registration.email}</p>
                       </div>
                       <span className={`px-3 py-1 rounded-full text-xs font-medium ${getCourseStatusColor(registration.status)}`}>
@@ -443,7 +443,7 @@ export default function UserDashboard() {
                           href={registration.paymentReceiptUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 text-sm text-[#ea8c06] hover:underline font-medium"
+                          className="inline-flex items-center gap-2 text-sm text-[#016B61] hover:underline font-medium"
                         >
                           View Payment Receipt →
                         </a>

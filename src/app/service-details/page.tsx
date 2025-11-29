@@ -70,7 +70,7 @@ export default async function ServiceDetailsPage({ searchParams }: ServiceDetail
         <div className="text-center px-4">
           <h1 className="text-3xl font-bold mb-3 text-slate-900">Service not found</h1>
           <p className="text-slate-600 mb-6">The service you are looking for does not exist or may have been moved.</p>
-          <Link href="/services" className="text-[#ea8c06] font-semibold hover:underline">
+          <Link href="/services" className="text-[#016B61] font-semibold hover:underline">
             Back to Services
           </Link>
         </div>
@@ -105,7 +105,7 @@ export default async function ServiceDetailsPage({ searchParams }: ServiceDetail
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row lg:justify-between gap-10 items-start">
           {/* Left: All Services list */}
           <aside className="bg-white rounded-2xl shadow-md p-6 w-full lg:w-1/3">
-            <h3 className="text-lg font-extrabold text-[#0e134d] mb-4 border-b pb-3">All Services</h3>
+            <h3 className="text-lg font-extrabold text-[#016B61] mb-4 border-b pb-3">All Services</h3>
             <ul className="space-y-3">
               {Object.entries(servicesData).map(([serviceId, svc]) => (
                 <li key={serviceId}>
@@ -113,8 +113,8 @@ export default async function ServiceDetailsPage({ searchParams }: ServiceDetail
                     href={`/service-details?title=${serviceId}`}
                     className={`flex items-center justify-between px-4 py-3 rounded-lg border text-sm font-medium transition-colors ${
                       serviceId === id
-                        ? "bg-[#0e134d] text-white border-[#0e134d]"
-                        : "bg-white text-slate-800 border-slate-200 hover:border-[#0e134d] hover:text-[#0e134d]"
+                        ? "bg-[#016B61] text-white border-[#016B61]"
+                        : "bg-white text-slate-800 border-slate-200 hover:border-[#016B61] hover:text-[#016B61]"
                     }`}
                   >
                     <span>{svc.title}</span>
@@ -134,7 +134,7 @@ export default async function ServiceDetailsPage({ searchParams }: ServiceDetail
                 className="w-full h-56 md:h-72 object-cover rounded-xl"
               />
             </div>
-            <h2 className="text-3xl font-extrabold text-[#0e134d] mb-4">{service.title}</h2>
+            <h2 className="text-3xl font-extrabold text-[#016B61] mb-4">{service.title}</h2>
             <p className="text-lg text-slate-700 mb-6">{service.description}</p>
             <p className="text-slate-600 leading-relaxed whitespace-pre-line mb-4">{service.body}</p>
             <p className="text-slate-600 leading-relaxed">

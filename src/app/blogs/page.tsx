@@ -40,7 +40,7 @@ export default function BlogsPage() {
         className="relative flex items-center justify-center py-24 md:py-40 text-white"
         style={{
           backgroundImage:
-            "linear-gradient(120deg, #020617 0%, #020617 40%, #0b3bbf 100%)",
+            "linear-gradient(120deg, #016B61 0%, #016B61 40%, #70B2B2 100%)",
         }}
       >
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -48,8 +48,8 @@ export default function BlogsPage() {
             <svg viewBox="0 0 800 600" className="w-full h-full" preserveAspectRatio="none">
               <defs>
                 <linearGradient id="blog-lines" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#1d4ed8" stopOpacity="0.2" />
-                  <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.5" />
+                  <stop offset="0%" stopColor="#70B2B2" stopOpacity="0.2" />
+                  <stop offset="100%" stopColor="#9ECFD4" stopOpacity="0.5" />
                 </linearGradient>
               </defs>
               {[...Array(12)].map((_, i) => (
@@ -65,7 +65,7 @@ export default function BlogsPage() {
             </svg>
           </div>
 
-          <div className="absolute -left-40 top-0 w-80 h-full bg-gradient-to-b from-indigo-600/80 via-indigo-700/60 to-transparent rotate-[-35deg]" />
+          <div className="absolute -left-40 top-0 w-80 h-full bg-gradient-to-b from-[#70B2B2]/80 via-[#016B61]/60 to-transparent rotate-[-35deg]" />
         </div>
 
         <div className="relative z-10 text-center px-4">
@@ -83,7 +83,7 @@ export default function BlogsPage() {
       <section className="py-16 md:py-20 bg-[#f3f7fb]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="max-w-3xl">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#0e134d] mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-4">
               Insights from the CodeAxis Team
             </h2>
             <p className="text-slate-600 text-base md:text-lg">
@@ -103,14 +103,14 @@ export default function BlogsPage() {
                   <p className="text-xs font-medium text-slate-500 mb-1">
                     {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} • {post.minutesToRead ? `${post.minutesToRead} min read` : ''}
                   </p>
-                  <h3 className="text-lg font-bold text-[#0e134d] mb-2">{post.title}</h3>
+                  <h3 className="text-lg font-bold text-[#016B61] mb-2">{post.title}</h3>
                   <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">{post.description}</p>
                   {post.linkUrl ? (
                     <a
                       href={post.linkUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-auto inline-flex items-center text-sm font-semibold text-[#ea8c06] hover:text-[#c46e04] cursor-pointer"
+                      className="mt-auto inline-flex items-center text-sm font-semibold text-[#016B61] hover:text-[#70B2B2] cursor-pointer"
                     >
                       Read More
                     </a>

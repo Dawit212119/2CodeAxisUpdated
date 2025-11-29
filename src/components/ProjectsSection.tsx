@@ -83,9 +83,9 @@ export default function ProjectsSection() {
         <div className="mb-16">
           <div className="flex items-end justify-between mb-4">
             <div className="flex-1 text-center md:text-left">
-              <p className="text-orange-500 font-bold text-sm tracking-wide mb-4">OUR PROJECTS</p>
+              <p className="text-[#016B61] font-bold text-sm tracking-wide mb-4">RECENT WORK</p>
               <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-                Latest Projects We Have Done
+                Projects We've Delivered
               </h2>
               <p className="text-slate-600 text-lg max-w-2xl mx-auto md:mx-0">
                 Explore our portfolio of successful projects delivered to clients worldwide
@@ -178,7 +178,7 @@ export default function ProjectsSection() {
             ) : (
               projects.map((project) => (
                 <SwiperSlide key={project.id}>
-                  <div className="group relative bg-white rounded-none border border-gray-200 overflow-hidden hover:border-orange-500 transition-all duration-300 cursor-pointer">
+                  <div className="group relative bg-white rounded-none border border-gray-200 overflow-hidden hover:border-[#70B2B2] transition-all duration-300 cursor-pointer">
                     {/* Project Image */}
                     <div className="project-image relative h-72 bg-gradient-to-br from-slate-700 to-slate-900 overflow-hidden">
                       {project.imageUrl ? (
@@ -198,11 +198,11 @@ export default function ProjectsSection() {
                     {/* Project Content */}
                     <div className="p-6">
                       {project.category && (
-                        <span className="inline-block text-xs font-semibold text-orange-500 mb-2 uppercase tracking-wide">
+                        <span className="inline-block text-xs font-semibold text-[#016B61] mb-2 uppercase tracking-wide">
                           {project.category}
                         </span>
                       )}
-                      <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-orange-500 transition-colors">
+                      <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-[#016B61] transition-colors">
                         {project.title}
                       </h3>
                       {project.description && (
@@ -213,7 +213,7 @@ export default function ProjectsSection() {
                       <div className="flex items-center gap-3">
                         <button
                           onClick={() => handleOpenModal(project)}
-                          className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer"
+                          className="inline-flex items-center gap-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-4 py-2 rounded-lg transition-colors cursor-pointer"
                         >
                           <Eye className="w-4 h-4" />
                           See Detail
@@ -223,7 +223,7 @@ export default function ProjectsSection() {
                             href={project.linkUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 text-orange-500 font-semibold hover:gap-3 transition-all group-hover:text-orange-600 cursor-pointer"
+                            className="inline-flex items-center gap-2 text-[#016B61] font-semibold hover:gap-3 transition-all group-hover:text-[#70B2B2] cursor-pointer"
                           >
                             View Project
                             <ArrowRight className="w-4 h-4" />
@@ -359,7 +359,7 @@ export default function ProjectsSection() {
         }
 
         .projects-swiper .swiper-pagination-bullet-active {
-          background: #ea8c06;
+          background: #016B61;
           width: 30px;
           border-radius: 6px;
         }
