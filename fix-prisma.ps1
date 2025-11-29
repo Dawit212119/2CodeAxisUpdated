@@ -20,3 +20,6 @@ if ($LASTEXITCODE -eq 0) {
     Write-Host "Make sure the dev server is stopped before running this script." -ForegroundColor Yellow
 }
 
+
+
+

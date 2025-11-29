@@ -11,8 +11,8 @@ export default function CtaSection() {
    
 
      //     {/* headline */}
-    <div className="bg-blue">  
-          <div className="text-black ">
+    <div className="bg-blue flex flex-col items-center justify-center gap-6">  
+          <div className="text-black text-center">
             <h2 className="text-3xl sm:text-4xl font-extrabold leading-snug">
               Stay Connected With
               <br />
@@ -21,10 +21,10 @@ export default function CtaSection() {
           </div>
 
           {/* button */}
-          <div className="justify-self-start lg:justify-self-end">
+          <div>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 bg-white text-[#0e134d] font-semibold rounded-xl px-6 py-4 shadow hover:shadow-md transition"
+              className="inline-flex items-center gap-2 bg-white text-[#0e134d] font-semibold rounded-xl px-6 py-4 shadow hover:shadow-md transition cursor-pointer"
             >
               Contact Us <ArrowRight className="h-4 w-4" />
             </a>

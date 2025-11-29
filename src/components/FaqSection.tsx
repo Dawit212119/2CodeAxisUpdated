@@ -2,6 +2,7 @@
 
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
+import Link from "next/link";
 
 type FAQ = { q: string; a: string };
 
@@ -78,6 +79,15 @@ export default function FaqSection() {
               {faqs.map((f, i) => (
                 <Item key={f.q} q={f.q} a={f.a} defaultOpen={i === 0} />
               ))}
+            </div>
+
+            <div className="mt-8">
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors cursor-pointer"
+              >
+                Ask
+              </Link>
             </div>
           </div>
         </div>

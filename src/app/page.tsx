@@ -1,6 +1,6 @@
 'use client';
 
-import { Play } from 'lucide-react';
+import Link from 'next/link';
 import AboutSection from '@/components/AboutSection';
 import ServicesSection from '@/components/ServicesSection';
 import AchievementSection from '@/components/AchievementSection';
@@ -40,15 +40,12 @@ export default function Home() {
 
             {/* Buttons */}
             <div className="flex flex-col sm:flex-row items-center gap-4">
-              <button className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded transition-colors duration-200 flex items-center gap-2">
+              <Link 
+                href="/about"
+                className="bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded transition-colors duration-200 flex items-center gap-2 cursor-pointer"
+              >
                 Explore More →
-              </button>
-              <button className="flex items-center gap-3 text-slate-900 hover:text-blue-600 transition-colors">
-                <div className="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-shadow">
-                  <Play className="w-5 h-5 text-blue-500 ml-1" />
-                </div>
-                <span className="font-semibold">About Us</span>
-              </button>
+              </Link>
             </div>
           </div>
 
@@ -56,8 +53,8 @@ export default function Home() {
           <div className="hidden md:block relative h-96 lg:h-full flex items-center justify-center">
             <div className="relative w-full h-full flex items-center justify-center">
               <img
-                src="https://www.genshifter.com/assets/img/hero/hero-1.png"
-                alt="CodeAxis Hero"
+                src="/images/hero/cybernetic-hero.png"
+                alt="CodeAxis Hero - Cybernetic Developer"
                 className="w-full h-full object-contain"
               />
             </div>

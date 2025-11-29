@@ -180,7 +180,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
                 required
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
                 placeholder="John Doe"
               />
             </div>
@@ -192,7 +192,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
                 required
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
                 placeholder="you@example.com"
               />
             </div>
@@ -206,7 +206,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
                 type="tel"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
                 placeholder="+251 ..."
               />
             </div>
@@ -249,7 +249,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
               rows={4}
               value={formData.message}
               onChange={handleInputChange}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
               placeholder="Share your goals, background, and expectations."
             />
           </div>
@@ -306,7 +306,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
                     type="text"
                     readOnly
                     value="dawit workye"
-                    className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 bg-slate-50 cursor-pointer"
+                    className="flex-1 rounded-lg border border-slate-200 px-3 py-2 text-sm text-black bg-slate-50 cursor-pointer"
                     onClick={(e) => (e.target as HTMLInputElement).select()}
                   />
                   <button

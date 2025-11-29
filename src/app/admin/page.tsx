@@ -47,12 +47,23 @@ export default function AdminDashboard() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<any>(null);
-  const [activeTab, setActiveTab] = useState<'projects' | 'courses' | 'schedules'>('projects');
+  const [activeTab, setActiveTab] = useState<'projects' | 'courses' | 'manage-courses' | 'manage-cards' | 'manage-lists' | 'manage-team' | 'manage-blogs' | 'manage-projects'>('projects');
   const [schedules, setSchedules] = useState<any[]>([]);
   const [editingSchedule, setEditingSchedule] = useState<any>(null);
   const [projectSubmissions, setProjectSubmissions] = useState<ProjectSubmission[]>([]);
   const [courseRegistrations, setCourseRegistrations] = useState<CourseRegistration[]>([]);
   const [updating, setUpdating] = useState<number | null>(null);
+  
+  // Filter states for Project Submissions
+  const [filterProjectName, setFilterProjectName] = useState('');
+  const [filterProjectCompany, setFilterProjectCompany] = useState('');
+  const [filterProjectType, setFilterProjectType] = useState('');
+  const [filterProjectStatus, setFilterProjectStatus] = useState<string>('all');
+  
+  // Filter states for Course Registrations
+  const [filterCourseName, setFilterCourseName] = useState('');
+  const [filterCourseId, setFilterCourseId] = useState('');
+  const [filterCourseStatus, setFilterCourseStatus] = useState<string>('all');
 
   useEffect(() => {
     checkSession();
@@ -242,14 +253,64 @@ export default function AdminDashboard() {
             Course Registrations ({courseRegistrations.length})
           </button>
           <button
-            onClick={() => setActiveTab('schedules')}
+            onClick={() => setActiveTab('manage-courses')}
             className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
-              activeTab === 'schedules'
+              activeTab === 'manage-courses'
                 ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
-            Course Schedules
+            Manage Course
+          </button>
+          <button
+            onClick={() => setActiveTab('manage-cards')}
+            className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
+              activeTab === 'manage-cards'
+                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Manage Services
+          </button>
+          <button
+            onClick={() => setActiveTab('manage-lists')}
+            className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
+              activeTab === 'manage-lists'
+                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Manage Lists
+          </button>
+          <button
+            onClick={() => setActiveTab('manage-team')}
+            className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
+              activeTab === 'manage-team'
+                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Manage Team
+          </button>
+          <button
+            onClick={() => setActiveTab('manage-blogs')}
+            className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
+              activeTab === 'manage-blogs'
+                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Manage Blogs
+          </button>
+          <button
+            onClick={() => setActiveTab('manage-projects')}
+            className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
+              activeTab === 'manage-projects'
+                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                : 'text-slate-600 hover:text-slate-900'
+            }`}
+          >
+            Manage Projects
           </button>
         </div>
       </div>
@@ -258,12 +319,72 @@ export default function AdminDashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === 'projects' && (
           <div className="space-y-4">
-            {projectSubmissions.length === 0 ? (
+            {/* Filters for Project Submissions */}
+            <div className="bg-white rounded-lg shadow p-4">
+              <h3 className="text-sm font-semibold text-slate-700 mb-3">Filters</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Name/Email</label>
+                  <input
+                    type="text"
+                    value={filterProjectName}
+                    onChange={(e) => setFilterProjectName(e.target.value)}
+                    placeholder="Filter by name or email..."
+                    className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Company</label>
+                  <input
+                    type="text"
+                    value={filterProjectCompany}
+                    onChange={(e) => setFilterProjectCompany(e.target.value)}
+                    placeholder="Filter by company..."
+                    className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Project Type</label>
+                  <input
+                    type="text"
+                    value={filterProjectType}
+                    onChange={(e) => setFilterProjectType(e.target.value)}
+                    placeholder="Filter by type..."
+                    className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Status</label>
+                  <select
+                    value={filterProjectStatus}
+                    onChange={(e) => setFilterProjectStatus(e.target.value)}
+                    className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+                  >
+                    <option value="all">All</option>
+                    <option value="pending">Pending</option>
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                    <option value="rejected">Rejected</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            {(() => {
+              const filteredProjects = projectSubmissions.filter(submission => {
+                if (filterProjectName && !submission.name.toLowerCase().includes(filterProjectName.toLowerCase()) && !submission.email.toLowerCase().includes(filterProjectName.toLowerCase())) return false;
+                if (filterProjectCompany && !submission.company?.toLowerCase().includes(filterProjectCompany.toLowerCase())) return false;
+                if (filterProjectType && !submission.projectType?.toLowerCase().includes(filterProjectType.toLowerCase())) return false;
+                if (filterProjectStatus !== 'all' && submission.status !== filterProjectStatus) return false;
+                return true;
+              });
+              
+              return filteredProjects.length === 0 ? (
               <div className="bg-white rounded-lg shadow p-8 text-center text-slate-600">
-                No project submissions yet.
+                {projectSubmissions.length === 0 ? 'No project submissions yet.' : 'No submissions match the filters.'}
               </div>
             ) : (
-              projectSubmissions.map((submission) => (
+              filteredProjects.map((submission) => (
                 <div key={submission.id} className="bg-white rounded-lg shadow p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div>
@@ -352,18 +473,69 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               ))
-            )}
+            );
+            })()}
           </div>
         )}
 
         {activeTab === 'courses' && (
           <div className="space-y-4">
-            {courseRegistrations.length === 0 ? (
+            {/* Filters for Course Registrations */}
+            <div className="bg-white rounded-lg shadow p-4">
+              <h3 className="text-sm font-semibold text-slate-700 mb-3">Filters</h3>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Name/Email</label>
+                  <input
+                    type="text"
+                    value={filterCourseName}
+                    onChange={(e) => setFilterCourseName(e.target.value)}
+                    placeholder="Filter by name or email..."
+                    className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Course ID</label>
+                  <input
+                    type="text"
+                    value={filterCourseId}
+                    onChange={(e) => setFilterCourseId(e.target.value)}
+                    placeholder="Filter by course ID..."
+                    className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-slate-600 mb-1">Status</label>
+                  <select
+                    value={filterCourseStatus}
+                    onChange={(e) => setFilterCourseStatus(e.target.value)}
+                    className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+                  >
+                    <option value="all">All</option>
+                    <option value="pending_payment">Pending Payment</option>
+                    <option value="pending_verification">Pending Verification</option>
+                    <option value="approved">Approved</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="completed">Completed</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            {(() => {
+              const filteredRegistrations = courseRegistrations.filter(registration => {
+                if (filterCourseName && !registration.name.toLowerCase().includes(filterCourseName.toLowerCase()) && !registration.email.toLowerCase().includes(filterCourseName.toLowerCase())) return false;
+                if (filterCourseId && !registration.courseId.toLowerCase().includes(filterCourseId.toLowerCase())) return false;
+                if (filterCourseStatus !== 'all' && registration.status !== filterCourseStatus) return false;
+                return true;
+              });
+              
+              return filteredRegistrations.length === 0 ? (
               <div className="bg-white rounded-lg shadow p-8 text-center text-slate-600">
-                No course registrations yet.
+                {courseRegistrations.length === 0 ? 'No course registrations yet.' : 'No registrations match the filters.'}
               </div>
             ) : (
-              courseRegistrations.map((registration) => (
+              filteredRegistrations.map((registration) => (
                 <div key={registration.id} className="bg-white rounded-lg shadow p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div>
@@ -507,26 +679,1658 @@ export default function AdminDashboard() {
                   </div>
                 </div>
               ))
-            )}
+            );
+            })()}
           </div>
         )}
 
-        {activeTab === 'schedules' && (
-          <ScheduleManagement 
-            courses={[
-              { id: "programming-fundamentals", title: "Programming Fundamentals with Python" },
-              { id: "frontend-web-dev", title: "Frontend Web Development (HTML, CSS, JavaScript)" },
-              { id: "fullstack-web-dev", title: "Full-Stack Web Development (React & Next.js)" },
-              { id: "mobile-app-dev", title: "Mobile App Development (Flutter)" },
-              { id: "backend-dotnet", title: "Backend Development with .NET & REST APIs" },
-              { id: "cloud-devops", title: "Cloud & DevOps Essentials (AWS / Azure)" },
-              { id: "data-engineering", title: "Data Engineering & Analytics Foundations" },
-              { id: "software-engineering-practices", title: "Software Engineering Practices (Git, Testing, Clean Code)" },
-              { id: "cybersecurity-basics", title: "Cybersecurity Fundamentals" },
-            ]}
+        {activeTab === 'manage-courses' && (
+          <UnifiedCourseManagement
             schedules={schedules}
-            onScheduleUpdate={loadData}
+            onUpdate={loadData}
           />
+        )}
+
+        {activeTab === 'manage-cards' && (
+          <ContentManagement
+            type="cards"
+            title="Manage Services"
+            onUpdate={loadData}
+          />
+        )}
+
+        {activeTab === 'manage-lists' && (
+          <ContentManagement
+            type="lists"
+            title="Manage Content Lists"
+            onUpdate={loadData}
+          />
+        )}
+
+        {activeTab === 'manage-team' && (
+          <TeamManagement onUpdate={loadData} />
+        )}
+
+        {activeTab === 'manage-blogs' && (
+          <BlogManagement onUpdate={loadData} />
+        )}
+
+        {activeTab === 'manage-projects' && (
+          <ProjectManagement onUpdate={loadData} />
+        )}
+      </div>
+    </div>
+  );
+}
+
+function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], onUpdate: () => void }) {
+  const [courses, setCourses] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editingCourse, setEditingCourse] = useState<any>(null);
+  const [showForm, setShowForm] = useState(false);
+  
+  // Filter states
+  const [filterTitle, setFilterTitle] = useState('');
+  const [filterDuration, setFilterDuration] = useState('');
+  const [filterMode, setFilterMode] = useState('');
+  const [filterLevel, setFilterLevel] = useState('');
+  const [filterActive, setFilterActive] = useState<'all' | 'active' | 'inactive'>('all');
+
+  // Schedule form data
+  const [scheduleData, setScheduleData] = useState({
+    title: '',
+    description: '',
+    startDate: '',
+    endDate: '',
+    duration: '6',
+    schedule: '',
+  });
+
+  useEffect(() => {
+    loadCourses();
+  }, []);
+
+  // Load existing schedule when editing a course
+  useEffect(() => {
+    if (editingCourse) {
+      const existingSchedule = schedules.find(s => s.courseId === editingCourse.id);
+      if (existingSchedule) {
+        setScheduleData({
+          title: existingSchedule.title || '',
+          description: existingSchedule.description || '',
+          startDate: existingSchedule.startDate ? new Date(existingSchedule.startDate).toISOString().split('T')[0] : '',
+          endDate: existingSchedule.endDate ? new Date(existingSchedule.endDate).toISOString().split('T')[0] : '',
+          duration: existingSchedule.duration?.toString() || '6',
+          schedule: existingSchedule.schedule || '',
+        });
+      } else {
+        setScheduleData({
+          title: '',
+          description: '',
+          startDate: '',
+          endDate: '',
+          duration: '6',
+          schedule: '',
+        });
+      }
+    }
+  }, [editingCourse, schedules]);
+
+  async function loadCourses() {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/courses');
+      const data = await res.json();
+      if (res.ok) {
+        setCourses(data.courses || []);
+      }
+    } catch (error) {
+      console.error('Error loading courses:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const courseData: any = {
+      title: formData.get('title')?.toString() || '',
+      description: formData.get('description')?.toString() || '',
+      duration: formData.get('duration')?.toString() || '',
+      mode: formData.get('mode')?.toString() || '',
+      level: formData.get('level')?.toString() || '',
+      order: parseInt(formData.get('order')?.toString() || '0'),
+      isActive: formData.get('isActive') === 'on',
+    };
+    
+    const featuresText = formData.get('features')?.toString() || '';
+    if (featuresText) {
+      courseData.features = featuresText.split('\n').filter(f => f.trim());
+    }
+
+    try {
+      // Save course
+      const endpoint = '/api/admin/courses';
+      const method = editingCourse ? 'PUT' : 'POST';
+      const url = editingCourse ? `${endpoint}/${editingCourse.id}` : endpoint;
+
+      const courseRes = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(courseData),
+      });
+
+      if (!courseRes.ok) {
+        const error = await courseRes.json();
+        alert(error.error || 'Failed to save course');
+        return;
+      }
+
+      const courseResult = await courseRes.json();
+      const courseId = editingCourse ? editingCourse.id : courseResult.course?.id;
+
+      // Save schedule if provided
+      if (scheduleData.title && scheduleData.startDate && scheduleData.endDate && scheduleData.schedule) {
+        const schedulePayload = {
+          courseId,
+          ...scheduleData,
+          duration: parseInt(scheduleData.duration),
+        };
+
+        const scheduleRes = await fetch('/api/admin/course-schedules', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(schedulePayload),
+        });
+
+        if (!scheduleRes.ok) {
+          alert('Course saved but schedule failed to save');
+        }
+      }
+
+      setShowForm(false);
+      setEditingCourse(null);
+      setScheduleData({
+        title: '',
+        description: '',
+        startDate: '',
+        endDate: '',
+        duration: '6',
+        schedule: '',
+      });
+      loadCourses();
+      onUpdate();
+    } catch (error) {
+      console.error('Error saving course:', error);
+      alert('Failed to save');
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm('Are you sure you want to delete this course?')) return;
+
+    try {
+      const res = await fetch(`/api/admin/courses/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        loadCourses();
+        onUpdate();
+      } else {
+        alert('Failed to delete');
+      }
+    } catch (error) {
+      console.error('Error deleting course:', error);
+      alert('Failed to delete');
+    }
+  }
+
+  function handleEdit(course: any) {
+    setEditingCourse(course);
+    setShowForm(true);
+  }
+
+  // Filter courses
+  const filteredCourses = courses.filter(course => {
+    if (filterTitle && !course.title.toLowerCase().includes(filterTitle.toLowerCase())) return false;
+    if (filterDuration && !course.duration?.toLowerCase().includes(filterDuration.toLowerCase())) return false;
+    if (filterMode && !course.mode?.toLowerCase().includes(filterMode.toLowerCase())) return false;
+    if (filterLevel && !course.level?.toLowerCase().includes(filterLevel.toLowerCase())) return false;
+    if (filterActive === 'active' && !course.isActive) return false;
+    if (filterActive === 'inactive' && course.isActive) return false;
+    return true;
+  });
+
+  if (loading) {
+    return <div className="text-center py-12 text-slate-600">Loading...</div>;
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-[#0e134d]">Manage Course</h2>
+        <button
+          onClick={() => {
+            setEditingCourse(null);
+            setShowForm(true);
+            setScheduleData({
+              title: '',
+              description: '',
+              startDate: '',
+              endDate: '',
+              duration: '6',
+              schedule: '',
+            });
+          }}
+          className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+        >
+          Add New Course
+        </button>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white rounded-lg shadow p-4">
+        <h3 className="text-sm font-semibold text-slate-700 mb-3">Filters</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Title</label>
+            <input
+              type="text"
+              value={filterTitle}
+              onChange={(e) => setFilterTitle(e.target.value)}
+              placeholder="Filter by title..."
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Duration</label>
+            <input
+              type="text"
+              value={filterDuration}
+              onChange={(e) => setFilterDuration(e.target.value)}
+              placeholder="Filter by duration..."
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Mode</label>
+            <input
+              type="text"
+              value={filterMode}
+              onChange={(e) => setFilterMode(e.target.value)}
+              placeholder="Filter by mode..."
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Level</label>
+            <input
+              type="text"
+              value={filterLevel}
+              onChange={(e) => setFilterLevel(e.target.value)}
+              placeholder="Filter by level..."
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Status</label>
+            <select
+              value={filterActive}
+              onChange={(e) => setFilterActive(e.target.value as 'all' | 'active' | 'inactive')}
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            >
+              <option value="all">All</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {showForm && (
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+            {editingCourse ? 'Edit' : 'Add New'} Course
+          </h3>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Course Fields */}
+            <div className="border-b border-slate-200 pb-4 mb-4">
+              <h4 className="text-sm font-semibold text-slate-700 mb-3">Course Information</h4>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Title *</label>
+                <input
+                  type="text"
+                  name="title"
+                  defaultValue={editingCourse?.title || ''}
+                  required
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                <textarea
+                  name="description"
+                  defaultValue={editingCourse?.description || ''}
+                  rows={3}
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Duration</label>
+                  <input
+                    type="text"
+                    name="duration"
+                    defaultValue={editingCourse?.duration || ''}
+                    placeholder="e.g., 8–12 weeks"
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Mode</label>
+                  <input
+                    type="text"
+                    name="mode"
+                    defaultValue={editingCourse?.mode || ''}
+                    placeholder="e.g., Hybrid (Addis Ababa + Online)"
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+              </div>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-slate-700 mb-1">Level</label>
+                <input
+                  type="text"
+                  name="level"
+                  defaultValue={editingCourse?.level || ''}
+                  placeholder="e.g., Beginner – Intermediate"
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-slate-700 mb-1">Features (one per line)</label>
+                <textarea
+                  name="features"
+                  defaultValue={editingCourse?.features ? (Array.isArray(editingCourse.features) ? editingCourse.features.join('\n') : '') : ''}
+                  rows={4}
+                  placeholder="Weekly live sessions with CodeAxis engineers&#10;Capstone project you can add to your portfolio&#10;Certificate of completion and career guidance"
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Order</label>
+                  <input
+                    type="number"
+                    name="order"
+                    defaultValue={editingCourse?.order || 0}
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+                <div className="flex items-center mt-6">
+                  <input
+                    type="checkbox"
+                    name="isActive"
+                    defaultChecked={editingCourse?.isActive !== false}
+                    className="w-4 h-4 text-[#ea8c06] border-slate-300 rounded focus:ring-[#ea8c06]"
+                  />
+                  <label className="ml-2 text-sm font-medium text-slate-700">Active</label>
+                </div>
+              </div>
+            </div>
+
+            {/* Schedule Fields */}
+            <div className="border-t border-slate-200 pt-4">
+              <h4 className="text-sm font-semibold text-slate-700 mb-3">Course Schedule (Optional)</h4>
+              <p className="text-xs text-slate-500 mb-4">
+                Create a schedule for this course. Students will see this schedule after their payment is verified.
+              </p>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Schedule Title</label>
+                <input
+                  type="text"
+                  value={scheduleData.title}
+                  onChange={(e) => setScheduleData({ ...scheduleData, title: e.target.value })}
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  placeholder="e.g., 6-Month Full-Stack Development Program"
+                />
+              </div>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-slate-700 mb-1">Schedule Description</label>
+                <textarea
+                  value={scheduleData.description}
+                  onChange={(e) => setScheduleData({ ...scheduleData, description: e.target.value })}
+                  rows={2}
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  placeholder="Brief description of the schedule"
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Start Date</label>
+                  <input
+                    type="date"
+                    value={scheduleData.startDate}
+                    onChange={(e) => setScheduleData({ ...scheduleData, startDate: e.target.value })}
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">End Date</label>
+                  <input
+                    type="date"
+                    value={scheduleData.endDate}
+                    onChange={(e) => setScheduleData({ ...scheduleData, endDate: e.target.value })}
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+              </div>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-slate-700 mb-1">Duration (months)</label>
+                <input
+                  type="number"
+                  value={scheduleData.duration}
+                  onChange={(e) => setScheduleData({ ...scheduleData, duration: e.target.value })}
+                  min="1"
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div className="mt-4">
+                <label className="block text-sm font-medium text-slate-700 mb-1">Schedule Details</label>
+                <textarea
+                  value={scheduleData.schedule}
+                  onChange={(e) => setScheduleData({ ...scheduleData, schedule: e.target.value })}
+                  rows={5}
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  placeholder="Enter the detailed schedule timeline. This will be displayed to students after payment verification."
+                />
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-4 pt-4 border-t">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowForm(false);
+                  setEditingCourse(null);
+                  setScheduleData({
+                    title: '',
+                    description: '',
+                    startDate: '',
+                    endDate: '',
+                    duration: '6',
+                    schedule: '',
+                  });
+                }}
+                className="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 font-medium text-sm hover:bg-slate-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+              >
+                {editingCourse ? 'Update Course' : 'Create Course'}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Courses List */}
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="p-4 border-b border-slate-200">
+          <h3 className="text-lg font-bold text-[#0e134d]">
+            Courses ({filteredCourses.length})
+          </h3>
+        </div>
+        {filteredCourses.length === 0 ? (
+          <div className="p-8 text-center text-slate-600">
+            {courses.length === 0 ? 'No courses created yet.' : 'No courses match the filters.'}
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Title</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Duration</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Mode</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Level</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Schedule</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {filteredCourses.map((course) => {
+                  const schedule = schedules.find(s => s.courseId === course.id);
+                  return (
+                    <tr key={course.id} className="hover:bg-slate-50">
+                      <td className="px-4 py-3 text-sm text-slate-900 font-medium">{course.title}</td>
+                      <td className="px-4 py-3 text-sm text-slate-600">{course.duration || '-'}</td>
+                      <td className="px-4 py-3 text-sm text-slate-600">{course.mode || '-'}</td>
+                      <td className="px-4 py-3 text-sm text-slate-600">{course.level || '-'}</td>
+                      <td className="px-4 py-3">
+                        <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                          course.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                        }`}>
+                          {course.isActive ? 'Active' : 'Inactive'}
+                        </span>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-slate-600">
+                        {schedule ? (
+                          <span className="text-green-600">✓ Has Schedule</span>
+                        ) : (
+                          <span className="text-slate-400">No Schedule</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => handleEdit(course)}
+                            className="px-3 py-1 text-xs bg-blue-500 hover:bg-blue-600 text-white rounded"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => handleDelete(course.id)}
+                            className="px-3 py-1 text-xs bg-red-500 hover:bg-red-600 text-white rounded"
+                          >
+                            Delete
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Team Management Component
+function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
+  const [members, setMembers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editingMember, setEditingMember] = useState<any>(null);
+  const [showForm, setShowForm] = useState(false);
+  
+  // Filter states
+  const [filterName, setFilterName] = useState('');
+  const [filterRole, setFilterRole] = useState('');
+  const [filterOwner, setFilterOwner] = useState<'all' | 'owner' | 'non-owner'>('all');
+  const [filterActive, setFilterActive] = useState<'all' | 'active' | 'inactive'>('all');
+
+  useEffect(() => {
+    loadMembers();
+  }, []);
+
+  async function loadMembers() {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/team-members');
+      const data = await res.json();
+      if (res.ok) {
+        setMembers(data.members || []);
+      }
+    } catch (error) {
+      console.error('Error loading team members:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const memberData: any = {
+      name: formData.get('name')?.toString() || '',
+      role: formData.get('role')?.toString() || '',
+      imageUrl: formData.get('imageUrl')?.toString() || '',
+      email: formData.get('email')?.toString() || '',
+      linkedin: formData.get('linkedin')?.toString() || '',
+      owner: formData.get('owner') === 'on',
+      order: parseInt(formData.get('order')?.toString() || '0'),
+      isActive: formData.get('isActive') === 'on',
+    };
+
+    try {
+      const endpoint = '/api/admin/team-members';
+      const method = editingMember ? 'PUT' : 'POST';
+      const url = editingMember ? `${endpoint}/${editingMember.id}` : endpoint;
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(memberData),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        alert(error.error || 'Failed to save team member');
+        return;
+      }
+
+      setShowForm(false);
+      setEditingMember(null);
+      loadMembers();
+      onUpdate();
+    } catch (error) {
+      console.error('Error saving team member:', error);
+      alert('Failed to save');
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm('Are you sure you want to delete this team member?')) return;
+
+    try {
+      const res = await fetch(`/api/admin/team-members/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        loadMembers();
+        onUpdate();
+      } else {
+        alert('Failed to delete');
+      }
+    } catch (error) {
+      console.error('Error deleting team member:', error);
+      alert('Failed to delete');
+    }
+  }
+
+  function handleEdit(member: any) {
+    setEditingMember(member);
+    setShowForm(true);
+  }
+
+  // Filter members
+  const filteredMembers = members.filter(member => {
+    if (filterName && !member.name.toLowerCase().includes(filterName.toLowerCase())) return false;
+    if (filterRole && !member.role.toLowerCase().includes(filterRole.toLowerCase())) return false;
+    if (filterOwner === 'owner' && !member.owner) return false;
+    if (filterOwner === 'non-owner' && member.owner) return false;
+    if (filterActive === 'active' && !member.isActive) return false;
+    if (filterActive === 'inactive' && member.isActive) return false;
+    return true;
+  });
+
+  if (loading) {
+    return <div className="text-center py-12 text-slate-600">Loading...</div>;
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-[#0e134d]">Manage Team</h2>
+        <button
+          onClick={() => {
+            setEditingMember(null);
+            setShowForm(true);
+          }}
+          className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+        >
+          Add New Member
+        </button>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white rounded-lg shadow p-4">
+        <h3 className="text-sm font-semibold text-slate-700 mb-3">Filters</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Name</label>
+            <input
+              type="text"
+              value={filterName}
+              onChange={(e) => setFilterName(e.target.value)}
+              placeholder="Filter by name..."
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Role</label>
+            <input
+              type="text"
+              value={filterRole}
+              onChange={(e) => setFilterRole(e.target.value)}
+              placeholder="Filter by role..."
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Owner</label>
+            <select
+              value={filterOwner}
+              onChange={(e) => setFilterOwner(e.target.value as 'all' | 'owner' | 'non-owner')}
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            >
+              <option value="all">All</option>
+              <option value="owner">Owner</option>
+              <option value="non-owner">Non-Owner</option>
+            </select>
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Status</label>
+            <select
+              value={filterActive}
+              onChange={(e) => setFilterActive(e.target.value as 'all' | 'active' | 'inactive')}
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            >
+              <option value="all">All</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {showForm && (
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+            {editingMember ? 'Edit' : 'Add New'} Team Member
+          </h3>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Full Name *</label>
+              <input
+                type="text"
+                name="name"
+                defaultValue={editingMember?.name || ''}
+                required
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Role *</label>
+              <input
+                type="text"
+                name="role"
+                defaultValue={editingMember?.role || ''}
+                required
+                placeholder="e.g., CEO & Co‑Founder, Head of Product, CTO"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                name="owner"
+                defaultChecked={editingMember?.owner === true}
+                className="w-4 h-4 text-[#ea8c06] border-slate-300 rounded focus:ring-[#ea8c06]"
+              />
+              <label className="ml-2 text-sm font-medium text-slate-700">
+                Owner (Shows in team section on homepage)
+              </label>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Image URL</label>
+              <input
+                type="url"
+                name="imageUrl"
+                defaultValue={editingMember?.imageUrl || ''}
+                placeholder="https://example.com/image.jpg"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  defaultValue={editingMember?.email || ''}
+                  placeholder="email@example.com"
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">LinkedIn URL</label>
+                <input
+                  type="url"
+                  name="linkedin"
+                  defaultValue={editingMember?.linkedin || ''}
+                  placeholder="https://linkedin.com/in/username"
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Order</label>
+                <input
+                  type="number"
+                  name="order"
+                  defaultValue={editingMember?.order || 0}
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div className="flex items-center mt-6">
+                <input
+                  type="checkbox"
+                  name="isActive"
+                  defaultChecked={editingMember?.isActive !== false}
+                  className="w-4 h-4 text-[#ea8c06] border-slate-300 rounded focus:ring-[#ea8c06]"
+                />
+                <label className="ml-2 text-sm font-medium text-slate-700">Active</label>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-4 pt-4 border-t">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowForm(false);
+                  setEditingMember(null);
+                }}
+                className="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 font-medium text-sm hover:bg-slate-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+              >
+                {editingMember ? 'Update Member' : 'Create Member'}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Members List */}
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="p-4 border-b border-slate-200">
+          <h3 className="text-lg font-bold text-[#0e134d]">
+            Team Members ({filteredMembers.length})
+          </h3>
+        </div>
+        {filteredMembers.length === 0 ? (
+          <div className="p-8 text-center text-slate-600">
+            {members.length === 0 ? 'No team members created yet.' : 'No members match the filters.'}
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Name</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Role</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Owner</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Email</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {filteredMembers.map((member) => (
+                  <tr key={member.id} className="hover:bg-slate-50">
+                    <td className="px-4 py-3 text-sm text-slate-900 font-medium">{member.name}</td>
+                    <td className="px-4 py-3 text-sm text-slate-600">{member.role}</td>
+                    <td className="px-4 py-3">
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                        member.owner ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'
+                      }`}>
+                        {member.owner ? 'Owner' : 'Member'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 text-sm text-slate-600">{member.email || '-'}</td>
+                    <td className="px-4 py-3">
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                        member.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                      }`}>
+                        {member.isActive ? 'Active' : 'Inactive'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleEdit(member)}
+                          className="px-3 py-1 text-xs bg-blue-500 hover:bg-blue-600 text-white rounded"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(member.id)}
+                          className="px-3 py-1 text-xs bg-red-500 hover:bg-red-600 text-white rounded"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Blog Management Component
+function BlogManagement({ onUpdate }: { onUpdate: () => void }) {
+  const [posts, setPosts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editingPost, setEditingPost] = useState<any>(null);
+  const [showForm, setShowForm] = useState(false);
+  
+  // Filter states
+  const [filterTitle, setFilterTitle] = useState('');
+  const [filterActive, setFilterActive] = useState<'all' | 'active' | 'inactive'>('all');
+
+  useEffect(() => {
+    loadPosts();
+  }, []);
+
+  async function loadPosts() {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/blog-posts');
+      const data = await res.json();
+      if (res.ok) {
+        setPosts(data.posts || []);
+      }
+    } catch (error) {
+      console.error('Error loading blog posts:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const postData: any = {
+      title: formData.get('title')?.toString() || '',
+      description: formData.get('description')?.toString() || '',
+      linkUrl: formData.get('linkUrl')?.toString() || '',
+      date: formData.get('date')?.toString() || '',
+      minutesToRead: formData.get('minutesToRead')?.toString() || '',
+      order: parseInt(formData.get('order')?.toString() || '0'),
+      isActive: formData.get('isActive') === 'on',
+    };
+
+    try {
+      const endpoint = '/api/admin/blog-posts';
+      const method = editingPost ? 'PUT' : 'POST';
+      const url = editingPost ? `${endpoint}/${editingPost.id}` : endpoint;
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(postData),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        alert(error.error || 'Failed to save blog post');
+        return;
+      }
+
+      setShowForm(false);
+      setEditingPost(null);
+      loadPosts();
+      onUpdate();
+    } catch (error) {
+      console.error('Error saving blog post:', error);
+      alert('Failed to save');
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm('Are you sure you want to delete this blog post?')) return;
+
+    try {
+      const res = await fetch(`/api/admin/blog-posts/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        loadPosts();
+        onUpdate();
+      } else {
+        alert('Failed to delete');
+      }
+    } catch (error) {
+      console.error('Error deleting blog post:', error);
+      alert('Failed to delete');
+    }
+  }
+
+  function handleEdit(post: any) {
+    setEditingPost(post);
+    setShowForm(true);
+  }
+
+  // Filter posts
+  const filteredPosts = posts.filter(post => {
+    if (filterTitle && !post.title.toLowerCase().includes(filterTitle.toLowerCase())) return false;
+    if (filterActive === 'active' && !post.isActive) return false;
+    if (filterActive === 'inactive' && post.isActive) return false;
+    return true;
+  });
+
+  if (loading) {
+    return <div className="text-center py-12 text-slate-600">Loading...</div>;
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-[#0e134d]">Manage Blogs</h2>
+        <button
+          onClick={() => {
+            setEditingPost(null);
+            setShowForm(true);
+          }}
+          className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+        >
+          Add New Post
+        </button>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white rounded-lg shadow p-4">
+        <h3 className="text-sm font-semibold text-slate-700 mb-3">Filters</h3>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Title</label>
+            <input
+              type="text"
+              value={filterTitle}
+              onChange={(e) => setFilterTitle(e.target.value)}
+              placeholder="Filter by title..."
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Status</label>
+            <select
+              value={filterActive}
+              onChange={(e) => setFilterActive(e.target.value as 'all' | 'active' | 'inactive')}
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            >
+              <option value="all">All</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {showForm && (
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+            {editingPost ? 'Edit' : 'Add New'} Blog Post
+          </h3>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Title *</label>
+              <input
+                type="text"
+                name="title"
+                defaultValue={editingPost?.title || ''}
+                required
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Description *</label>
+              <textarea
+                name="description"
+                defaultValue={editingPost?.description || ''}
+                required
+                rows={4}
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                placeholder="Summary/description of the blog post"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Read More Link URL</label>
+              <input
+                type="url"
+                name="linkUrl"
+                defaultValue={editingPost?.linkUrl || ''}
+                placeholder="https://example.com/blog-post"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Date *</label>
+                <input
+                  type="date"
+                  name="date"
+                  defaultValue={editingPost?.date ? new Date(editingPost.date).toISOString().split('T')[0] : ''}
+                  required
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Minutes to Read</label>
+                <input
+                  type="number"
+                  name="minutesToRead"
+                  defaultValue={editingPost?.minutesToRead || ''}
+                  min="1"
+                  placeholder="e.g., 5"
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Order</label>
+                <input
+                  type="number"
+                  name="order"
+                  defaultValue={editingPost?.order || 0}
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div className="flex items-center mt-6">
+                <input
+                  type="checkbox"
+                  name="isActive"
+                  defaultChecked={editingPost?.isActive !== false}
+                  className="w-4 h-4 text-[#ea8c06] border-slate-300 rounded focus:ring-[#ea8c06]"
+                />
+                <label className="ml-2 text-sm font-medium text-slate-700">Active</label>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-4 pt-4 border-t">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowForm(false);
+                  setEditingPost(null);
+                }}
+                className="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 font-medium text-sm hover:bg-slate-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+              >
+                {editingPost ? 'Update Post' : 'Create Post'}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Posts List */}
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="p-4 border-b border-slate-200">
+          <h3 className="text-lg font-bold text-[#0e134d]">
+            Blog Posts ({filteredPosts.length})
+          </h3>
+        </div>
+        {filteredPosts.length === 0 ? (
+          <div className="p-8 text-center text-slate-600">
+            {posts.length === 0 ? 'No blog posts created yet.' : 'No posts match the filters.'}
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Title</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Date</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Read Time</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {filteredPosts.map((post) => (
+                  <tr key={post.id} className="hover:bg-slate-50">
+                    <td className="px-4 py-3 text-sm text-slate-900 font-medium">{post.title}</td>
+                    <td className="px-4 py-3 text-sm text-slate-600">
+                      {new Date(post.date).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 text-sm text-slate-600">
+                      {post.minutesToRead ? `${post.minutesToRead} min read` : '-'}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                        post.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                      }`}>
+                        {post.isActive ? 'Active' : 'Inactive'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleEdit(post)}
+                          className="px-3 py-1 text-xs bg-blue-500 hover:bg-blue-600 text-white rounded"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(post.id)}
+                          className="px-3 py-1 text-xs bg-red-500 hover:bg-red-600 text-white rounded"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Project Management Component
+function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
+  const [projects, setProjects] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editingProject, setEditingProject] = useState<any>(null);
+  const [showForm, setShowForm] = useState(false);
+  
+  // Filter states
+  const [filterTitle, setFilterTitle] = useState('');
+  const [filterCategory, setFilterCategory] = useState('');
+  const [filterActive, setFilterActive] = useState<'all' | 'active' | 'inactive'>('all');
+
+  useEffect(() => {
+    loadProjects();
+  }, []);
+
+  async function loadProjects() {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/admin/projects');
+      const data = await res.json();
+      if (res.ok) {
+        setProjects(data.projects || []);
+      }
+    } catch (error) {
+      console.error('Error loading projects:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    
+    // Parse technologies and features from textarea (one per line)
+    const technologiesText = formData.get('technologies')?.toString() || '';
+    const technologies = technologiesText.split('\n').filter(t => t.trim()).map(t => t.trim());
+    
+    const featuresText = formData.get('features')?.toString() || '';
+    const features = featuresText.split('\n').filter(f => f.trim()).map(f => f.trim());
+
+    const projectData: any = {
+      title: formData.get('title')?.toString() || '',
+      category: formData.get('category')?.toString() || '',
+      description: formData.get('description')?.toString() || '',
+      imageUrl: formData.get('imageUrl')?.toString() || '',
+      modalImageUrl: formData.get('modalImageUrl')?.toString() || '',
+      detailDescription: formData.get('detailDescription')?.toString() || '',
+      linkUrl: formData.get('linkUrl')?.toString() || '',
+      technologies: technologies.length > 0 ? technologies : null,
+      client: formData.get('client')?.toString() || '',
+      date: formData.get('date')?.toString() || '',
+      duration: formData.get('duration')?.toString() || '',
+      features: features.length > 0 ? features : null,
+      order: parseInt(formData.get('order')?.toString() || '0'),
+      isActive: formData.get('isActive') === 'on',
+    };
+
+    try {
+      const endpoint = '/api/admin/projects';
+      const method = editingProject ? 'PUT' : 'POST';
+      const url = editingProject ? `${endpoint}/${editingProject.id}` : endpoint;
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(projectData),
+      });
+
+      if (!res.ok) {
+        const error = await res.json();
+        alert(error.error || 'Failed to save project');
+        return;
+      }
+
+      setShowForm(false);
+      setEditingProject(null);
+      loadProjects();
+      onUpdate();
+    } catch (error) {
+      console.error('Error saving project:', error);
+      alert('Failed to save');
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm('Are you sure you want to delete this project?')) return;
+
+    try {
+      const res = await fetch(`/api/admin/projects/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        loadProjects();
+        onUpdate();
+      } else {
+        alert('Failed to delete');
+      }
+    } catch (error) {
+      console.error('Error deleting project:', error);
+      alert('Failed to delete');
+    }
+  }
+
+  function handleEdit(project: any) {
+    setEditingProject(project);
+    setShowForm(true);
+  }
+
+  // Filter projects
+  const filteredProjects = projects.filter(project => {
+    if (filterTitle && !project.title.toLowerCase().includes(filterTitle.toLowerCase())) return false;
+    if (filterCategory && !project.category?.toLowerCase().includes(filterCategory.toLowerCase())) return false;
+    if (filterActive === 'active' && !project.isActive) return false;
+    if (filterActive === 'inactive' && project.isActive) return false;
+    return true;
+  });
+
+  if (loading) {
+    return <div className="text-center py-12 text-slate-600">Loading...</div>;
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-[#0e134d]">Manage Projects</h2>
+        <button
+          onClick={() => {
+            setEditingProject(null);
+            setShowForm(true);
+          }}
+          className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+        >
+          Add New Project
+        </button>
+      </div>
+
+      {/* Filters */}
+      <div className="bg-white rounded-lg shadow p-4">
+        <h3 className="text-sm font-semibold text-slate-700 mb-3">Filters</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Title</label>
+            <input
+              type="text"
+              value={filterTitle}
+              onChange={(e) => setFilterTitle(e.target.value)}
+              placeholder="Filter by title..."
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Category</label>
+            <input
+              type="text"
+              value={filterCategory}
+              onChange={(e) => setFilterCategory(e.target.value)}
+              placeholder="Filter by category..."
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-slate-600 mb-1">Status</label>
+            <select
+              value={filterActive}
+              onChange={(e) => setFilterActive(e.target.value as 'all' | 'active' | 'inactive')}
+              className="w-full border border-slate-300 rounded px-2 py-1.5 text-sm text-black"
+            >
+              <option value="all">All</option>
+              <option value="active">Active</option>
+              <option value="inactive">Inactive</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      {showForm && (
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+            {editingProject ? 'Edit' : 'Add New'} Project
+          </h3>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Title *</label>
+              <input
+                type="text"
+                name="title"
+                defaultValue={editingProject?.title || ''}
+                required
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
+              <input
+                type="text"
+                name="category"
+                defaultValue={editingProject?.category || ''}
+                placeholder="e.g., Web Development, Mobile App"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+              <textarea
+                name="description"
+                defaultValue={editingProject?.description || ''}
+                rows={3}
+                placeholder="Short description for project card"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Image URL (for card)</label>
+              <input
+                type="url"
+                name="imageUrl"
+                defaultValue={editingProject?.imageUrl || ''}
+                placeholder="https://example.com/image.jpg"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Modal Image URL</label>
+              <input
+                type="url"
+                name="modalImageUrl"
+                defaultValue={editingProject?.modalImageUrl || ''}
+                placeholder="Large image shown in modal (before title)"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Detail Explanation</label>
+              <textarea
+                name="detailDescription"
+                defaultValue={editingProject?.detailDescription || ''}
+                rows={5}
+                placeholder="Detailed explanation about the project shown in modal"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Project Link URL</label>
+              <input
+                type="url"
+                name="linkUrl"
+                defaultValue={editingProject?.linkUrl || ''}
+                placeholder="https://example.com/project"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Duration</label>
+                <input
+                  type="text"
+                  name="duration"
+                  defaultValue={editingProject?.duration || ''}
+                  placeholder="e.g., 3 months"
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Date</label>
+                <input
+                  type="text"
+                  name="date"
+                  defaultValue={editingProject?.date || ''}
+                  placeholder="e.g., January 2024"
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Client</label>
+              <input
+                type="text"
+                name="client"
+                defaultValue={editingProject?.client || ''}
+                placeholder="Client name or company"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Technologies (one per line)</label>
+              <textarea
+                name="technologies"
+                defaultValue={editingProject?.technologies ? (Array.isArray(editingProject.technologies) ? editingProject.technologies.join('\n') : editingProject.technologies) : ''}
+                rows={3}
+                placeholder="React&#10;Node.js&#10;TypeScript"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Key Features (one per line)</label>
+              <textarea
+                name="features"
+                defaultValue={editingProject?.features ? (Array.isArray(editingProject.features) ? editingProject.features.join('\n') : editingProject.features) : ''}
+                rows={4}
+                placeholder="Feature 1&#10;Feature 2&#10;Feature 3"
+                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Order</label>
+                <input
+                  type="number"
+                  name="order"
+                  defaultValue={editingProject?.order || 0}
+                  className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div className="flex items-center mt-6">
+                <input
+                  type="checkbox"
+                  name="isActive"
+                  defaultChecked={editingProject?.isActive !== false}
+                  className="w-4 h-4 text-[#ea8c06] border-slate-300 rounded focus:ring-[#ea8c06]"
+                />
+                <label className="ml-2 text-sm font-medium text-slate-700">Active</label>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-end gap-4 pt-4 border-t">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowForm(false);
+                  setEditingProject(null);
+                }}
+                className="px-4 py-2 border border-slate-300 rounded-lg text-slate-700 font-medium text-sm hover:bg-slate-50"
+              >
+                Cancel
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+              >
+                {editingProject ? 'Update Project' : 'Create Project'}
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* Projects List */}
+      <div className="bg-white rounded-lg shadow overflow-hidden">
+        <div className="p-4 border-b border-slate-200">
+          <h3 className="text-lg font-bold text-[#0e134d]">
+            Projects ({filteredProjects.length})
+          </h3>
+        </div>
+        {filteredProjects.length === 0 ? (
+          <div className="p-8 text-center text-slate-600">
+            {projects.length === 0 ? 'No projects created yet.' : 'No projects match the filters.'}
+          </div>
+        ) : (
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead className="bg-slate-50">
+                <tr>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Title</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Category</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Status</th>
+                  <th className="px-4 py-3 text-left text-xs font-semibold text-slate-700 uppercase">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-200">
+                {filteredProjects.map((project) => (
+                  <tr key={project.id} className="hover:bg-slate-50">
+                    <td className="px-4 py-3 text-sm text-slate-900 font-medium">{project.title}</td>
+                    <td className="px-4 py-3 text-sm text-slate-600">{project.category || '-'}</td>
+                    <td className="px-4 py-3">
+                      <span className={`px-2 py-1 text-xs font-medium rounded-full ${
+                        project.isActive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'
+                      }`}>
+                        {project.isActive ? 'Active' : 'Inactive'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => handleEdit(project)}
+                          className="px-3 py-1 text-xs bg-blue-500 hover:bg-blue-600 text-white rounded"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleDelete(project.id)}
+                          className="px-3 py-1 text-xs bg-red-500 hover:bg-red-600 text-white rounded"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         )}
       </div>
     </div>
@@ -775,5 +2579,653 @@ Month 2: State Management
   );
 }
 
+function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards' | 'lists', title: string, onUpdate: () => void }) {
+  const [items, setItems] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [editingItem, setEditingItem] = useState<any>(null);
+  const [showForm, setShowForm] = useState(false);
+  const [selectedCardType, setSelectedCardType] = useState<string>('');
+  
+  // Filter states for Cards (Services)
+  const [filterCardTitle, setFilterCardTitle] = useState('');
+  const [filterCardType, setFilterCardType] = useState<string>('all');
+  const [filterCardCategory, setFilterCardCategory] = useState('');
+  const [filterCardActive, setFilterCardActive] = useState<'all' | 'active' | 'inactive'>('all');
+  
+  // Filter states for Lists
+  const [filterListTitle, setFilterListTitle] = useState('');
+  const [filterListType, setFilterListType] = useState<string>('all');
+  const [filterListActive, setFilterListActive] = useState<'all' | 'active' | 'inactive'>('all');
 
+  useEffect(() => {
+    loadItems();
+  }, [type]);
+
+  // Show/hide project fields based on card type
+  useEffect(() => {
+    if (type !== 'cards') return;
+    
+    const typeSelect = document.getElementById('card-type-select') as HTMLSelectElement;
+    const projectFields = document.getElementById('project-fields');
+    
+    if (typeSelect && projectFields) {
+      const handleTypeChange = () => {
+        const value = typeSelect.value;
+        setSelectedCardType(value);
+        if (value === 'project') {
+          projectFields.style.display = 'block';
+        } else {
+          projectFields.style.display = 'none';
+        }
+      };
+      
+      typeSelect.addEventListener('change', handleTypeChange);
+      
+      // Set initial state
+      const currentValue = editingItem?.type || typeSelect.value;
+      if (currentValue === 'project') {
+        projectFields.style.display = 'block';
+        setSelectedCardType('project');
+      } else {
+        projectFields.style.display = 'none';
+      }
+      
+      return () => {
+        typeSelect.removeEventListener('change', handleTypeChange);
+      };
+    }
+  }, [editingItem, showForm, type]);
+
+  // Show/hide project fields based on card type
+  useEffect(() => {
+    const typeSelect = document.getElementById('card-type-select') as HTMLSelectElement;
+    const projectFields = document.getElementById('project-fields');
+    
+    if (typeSelect && projectFields) {
+      const handleTypeChange = () => {
+        const value = typeSelect.value;
+        setSelectedCardType(value);
+        if (value === 'project') {
+          projectFields.style.display = 'block';
+        } else {
+          projectFields.style.display = 'none';
+        }
+      };
+      
+      typeSelect.addEventListener('change', handleTypeChange);
+      
+      // Set initial state
+      if (editingItem?.type === 'project' || typeSelect.value === 'project') {
+        projectFields.style.display = 'block';
+        setSelectedCardType('project');
+      } else {
+        projectFields.style.display = 'none';
+      }
+      
+      return () => {
+        typeSelect.removeEventListener('change', handleTypeChange);
+      };
+    }
+  }, [editingItem, showForm]);
+
+  async function loadItems() {
+    setLoading(true);
+    try {
+      const endpoint = type === 'courses' ? '/api/admin/courses' : 
+                      type === 'cards' ? '/api/admin/content-cards' : 
+                      '/api/admin/content-lists';
+      const res = await fetch(endpoint);
+      const data = await res.json();
+      if (res.ok) {
+        setItems(type === 'courses' ? data.courses : type === 'cards' ? data.cards : data.lists || []);
+      }
+    } catch (error) {
+      console.error('Error loading items:', error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const data: any = {};
+
+    if (type === 'courses') {
+      data.title = formData.get('title')?.toString() || '';
+      data.description = formData.get('description')?.toString() || '';
+      data.duration = formData.get('duration')?.toString() || '';
+      data.mode = formData.get('mode')?.toString() || '';
+      data.level = formData.get('level')?.toString() || '';
+      data.order = parseInt(formData.get('order')?.toString() || '0');
+      data.isActive = formData.get('isActive') === 'on';
+      const featuresText = formData.get('features')?.toString() || '';
+      if (featuresText) {
+        data.features = featuresText.split('\n').filter(f => f.trim());
+      }
+    } else if (type === 'cards') {
+      data.type = formData.get('type')?.toString() || '';
+      data.title = formData.get('title')?.toString() || '';
+      data.category = formData.get('category')?.toString() || '';
+      data.description = formData.get('description')?.toString() || '';
+      data.imageUrl = formData.get('imageUrl')?.toString() || '';
+      data.iconName = formData.get('iconName')?.toString() || '';
+      data.linkUrl = formData.get('linkUrl')?.toString() || '';
+      data.order = parseInt(formData.get('order')?.toString() || '0');
+      data.isActive = formData.get('isActive') === 'on';
+      
+      // Collect project-specific metadata (only if type is project)
+      if (data.type === 'project') {
+        const metadata: any = {};
+        const modalImageUrl = formData.get('modalImageUrl')?.toString() || '';
+        const detailDescription = formData.get('detailDescription')?.toString() || '';
+        const duration = formData.get('duration')?.toString() || '';
+        const date = formData.get('date')?.toString() || '';
+        const client = formData.get('client')?.toString() || '';
+        const technologiesText = formData.get('technologies')?.toString() || '';
+        const featuresText = formData.get('features')?.toString() || '';
+        
+        if (modalImageUrl) metadata.modalImageUrl = modalImageUrl;
+        if (detailDescription) metadata.detailDescription = detailDescription;
+        if (duration) metadata.duration = duration;
+        if (date) metadata.date = date;
+        if (client) metadata.client = client;
+        if (technologiesText) {
+          metadata.technologies = technologiesText.split('\n').filter(t => t.trim());
+        }
+        if (featuresText) {
+          metadata.features = featuresText.split('\n').filter(f => f.trim());
+        }
+        
+        // Only add metadata if it has at least one field
+        if (Object.keys(metadata).length > 0) {
+          data.metadata = metadata;
+        }
+      }
+    } else {
+      data.type = formData.get('type')?.toString() || '';
+      data.title = formData.get('title')?.toString() || '';
+      data.content = formData.get('content')?.toString() || '';
+      data.order = parseInt(formData.get('order')?.toString() || '0');
+      data.isActive = formData.get('isActive') === 'on';
+    }
+
+    try {
+      const endpoint = type === 'courses' ? '/api/admin/courses' : 
+                      type === 'cards' ? '/api/admin/content-cards' : 
+                      '/api/admin/content-lists';
+      const method = editingItem ? 'PUT' : 'POST';
+      const url = editingItem ? `${endpoint}/${editingItem.id}` : endpoint;
+
+      const res = await fetch(url, {
+        method,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        setShowForm(false);
+        setEditingItem(null);
+        loadItems();
+        onUpdate();
+      } else {
+        const error = await res.json();
+        alert(error.error || 'Failed to save');
+      }
+    } catch (error) {
+      console.error('Error saving item:', error);
+      alert('Failed to save');
+    }
+  }
+
+  async function handleDelete(id: string) {
+    if (!confirm('Are you sure you want to delete this item?')) return;
+
+    try {
+      const endpoint = type === 'courses' ? '/api/admin/courses' : 
+                      type === 'cards' ? '/api/admin/content-cards' : 
+                      '/api/admin/content-lists';
+      const res = await fetch(`${endpoint}/${id}`, { method: 'DELETE' });
+
+      if (res.ok) {
+        loadItems();
+        onUpdate();
+      } else {
+        alert('Failed to delete');
+      }
+    } catch (error) {
+      console.error('Error deleting item:', error);
+      alert('Failed to delete');
+    }
+  }
+
+  // Filter items
+  const filteredItems = items.filter(item => {
+    if (type === 'cards') {
+      if (filterCardTitle && !item.title?.toLowerCase().includes(filterCardTitle.toLowerCase())) return false;
+      if (filterCardType !== 'all' && item.type !== filterCardType) return false;
+      if (filterCardCategory && !item.category?.toLowerCase().includes(filterCardCategory.toLowerCase())) return false;
+      if (filterCardActive === 'active' && !item.isActive) return false;
+      if (filterCardActive === 'inactive' && item.isActive) return false;
+    } else if (type === 'lists') {
+      if (filterListTitle && !item.title?.toLowerCase().includes(filterListTitle.toLowerCase())) return false;
+      if (filterListType !== 'all' && item.type !== filterListType) return false;
+      if (filterListActive === 'active' && !item.isActive) return false;
+      if (filterListActive === 'inactive' && item.isActive) return false;
+    }
+    return true;
+  });
+
+  // Get unique types for filter dropdowns
+  const uniqueCardTypes = Array.from(new Set(items.map(item => item.type).filter(Boolean)));
+  const uniqueListTypes = Array.from(new Set(items.map(item => item.type).filter(Boolean)));
+
+  if (loading) {
+    return <div className="text-center py-12 text-slate-600">Loading...</div>;
+  }
+
+  return (
+    <div className="space-y-6">
+      <div className="flex items-center justify-between">
+        <h2 className="text-2xl font-bold text-[#0e134d]">{title}</h2>
+        <button
+          onClick={() => {
+            setEditingItem(null);
+            setShowForm(true);
+          }}
+          className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+        >
+          Add New
+        </button>
+      </div>
+
+      {showForm && (
+        <div className="bg-white rounded-lg shadow p-6">
+          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+            {editingItem ? 'Edit' : 'Add New'} {type === 'courses' ? 'Course' : type === 'cards' ? 'Card' : 'List Item'}
+          </h3>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {type === 'courses' && (
+              <>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Title *</label>
+                  <input
+                    type="text"
+                    name="title"
+                    defaultValue={editingItem?.title || ''}
+                    required
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Description</label>
+                  <textarea
+                    name="description"
+                    defaultValue={editingItem?.description || ''}
+                    rows={3}
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Duration</label>
+                    <input
+                      type="text"
+                      name="duration"
+                      defaultValue={editingItem?.duration || ''}
+                      placeholder="e.g., 8–12 weeks"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Mode</label>
+                    <input
+                      type="text"
+                      name="mode"
+                      defaultValue={editingItem?.mode || ''}
+                      placeholder="e.g., Hybrid (Addis Ababa + Online)"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Level</label>
+                  <input
+                    type="text"
+                    name="level"
+                    defaultValue={editingItem?.level || ''}
+                    placeholder="e.g., Beginner – Intermediate"
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Features (one per line)</label>
+                  <textarea
+                    name="features"
+                    defaultValue={editingItem?.features ? (Array.isArray(editingItem.features) ? editingItem.features.join('\n') : '') : ''}
+                    rows={4}
+                    placeholder="Weekly live sessions with CodeAxis engineers&#10;Capstone project you can add to your portfolio&#10;Certificate of completion and career guidance"
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+              </>
+            )}
+
+            {type === 'cards' && (
+              <>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Type *</label>
+                    <select
+                      name="type"
+                      defaultValue={editingItem?.type || ''}
+                      required
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                      id="card-type-select"
+                    >
+                      <option value="">Select type</option>
+                      <option value="project">Project</option>
+                      <option value="service">Service</option>
+                      <option value="testimonial">Testimonial</option>
+                      <option value="team">Team</option>
+                      <option value="partner">Partner</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Title *</label>
+                    <input
+                      type="text"
+                      name="title"
+                      defaultValue={editingItem?.title || ''}
+                      required
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Category</label>
+                  <input
+                    type="text"
+                    name="category"
+                    defaultValue={editingItem?.category || ''}
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Description (Short preview)</label>
+                  <textarea
+                    name="description"
+                    defaultValue={editingItem?.description || ''}
+                    rows={3}
+                    placeholder="Short description shown on project card"
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Card Image URL</label>
+                    <input
+                      type="url"
+                      name="imageUrl"
+                      defaultValue={editingItem?.imageUrl || ''}
+                      placeholder="Image for project card"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Icon Name (for services)</label>
+                    <input
+                      type="text"
+                      name="iconName"
+                      defaultValue={editingItem?.iconName || ''}
+                      placeholder="e.g., Settings, Shield, Code"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Website URL (Optional)</label>
+                  <input
+                    type="url"
+                    name="linkUrl"
+                    defaultValue={editingItem?.linkUrl || ''}
+                    placeholder="https://example.com"
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+
+                {/* Project-specific fields (shown when type is project) */}
+                <div id="project-fields" className="border-t border-slate-200 pt-4 mt-4 space-y-4" style={{ display: editingItem?.type === 'project' ? 'block' : 'none' }}>
+                  <h3 className="text-sm font-semibold text-slate-700">Project Details (Optional - for Projects only)</h3>
+                  
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Modal Image URL (Optional)</label>
+                    <input
+                      type="url"
+                      name="modalImageUrl"
+                      defaultValue={editingItem?.metadata?.modalImageUrl || ''}
+                      placeholder="Large image shown in modal (before title)"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Detail Explanation (Optional)</label>
+                    <textarea
+                      name="detailDescription"
+                      defaultValue={editingItem?.metadata?.detailDescription || ''}
+                      rows={5}
+                      placeholder="Detailed explanation about the project shown in modal"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-1">Duration (Optional)</label>
+                      <input
+                        type="text"
+                        name="duration"
+                        defaultValue={editingItem?.metadata?.duration || ''}
+                        placeholder="e.g., 3 months"
+                        className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-slate-700 mb-1">Date (Optional)</label>
+                      <input
+                        type="text"
+                        name="date"
+                        defaultValue={editingItem?.metadata?.date || ''}
+                        placeholder="e.g., January 2024"
+                        className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Client (Optional)</label>
+                    <input
+                      type="text"
+                      name="client"
+                      defaultValue={editingItem?.metadata?.client || ''}
+                      placeholder="Client name or company"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Technologies (Optional - one per line)</label>
+                    <textarea
+                      name="technologies"
+                      defaultValue={editingItem?.metadata?.technologies ? (Array.isArray(editingItem.metadata.technologies) ? editingItem.metadata.technologies.join('\n') : editingItem.metadata.technologies) : ''}
+                      rows={3}
+                      placeholder="React&#10;Node.js&#10;TypeScript"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Key Features (Optional - one per line)</label>
+                    <textarea
+                      name="features"
+                      defaultValue={editingItem?.metadata?.features ? (Array.isArray(editingItem.metadata.features) ? editingItem.metadata.features.join('\n') : editingItem.metadata.features) : ''}
+                      rows={4}
+                      placeholder="Feature 1&#10;Feature 2&#10;Feature 3"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+                </div>
+              </>
+            )}
+
+            {type === 'lists' && (
+              <>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Type *</label>
+                    <select
+                      name="type"
+                      defaultValue={editingItem?.type || ''}
+                      required
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    >
+                      <option value="">Select type</option>
+                      <option value="faq">FAQ</option>
+                      <option value="achievement">Achievement</option>
+                      <option value="feature">Feature</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
+                    <input
+                      type="text"
+                      name="title"
+                      defaultValue={editingItem?.title || ''}
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 mb-1">Content *</label>
+                  <textarea
+                    name="content"
+                    defaultValue={editingItem?.content || ''}
+                    required
+                    rows={5}
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+              </>
+            )}
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 mb-1">Order</label>
+                <input
+                  type="number"
+                  name="order"
+                  defaultValue={editingItem?.order || 0}
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                />
+              </div>
+              <div className="flex items-center pt-6">
+                <label className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    name="isActive"
+                    defaultChecked={editingItem?.isActive !== false}
+                    className="rounded"
+                  />
+                  <span className="text-sm font-medium text-slate-700">Active</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="flex gap-4 pt-4">
+              <button
+                type="submit"
+                className="px-6 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+              >
+                {editingItem ? 'Update' : 'Create'}
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowForm(false);
+                  setEditingItem(null);
+                }}
+                className="px-6 py-2 border border-slate-300 hover:bg-slate-50 text-slate-700 font-semibold rounded-lg text-sm"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      <div className="bg-white rounded-lg shadow">
+        <div className="p-6">
+          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+            Existing {type === 'cards' ? 'Services' : type === 'lists' ? 'Lists' : 'Items'} ({filteredItems.length})
+          </h3>
+          {filteredItems.length === 0 ? (
+            <p className="text-sm text-slate-600">
+              {items.length === 0 
+                ? `No ${type === 'cards' ? 'services' : type === 'lists' ? 'lists' : 'items'} yet.`
+                : `No ${type === 'cards' ? 'services' : type === 'lists' ? 'lists' : 'items'} match the filters.`}
+            </p>
+          ) : (
+            <div className="space-y-4">
+              {filteredItems.map((item) => (
+                <div key={item.id} className="border border-slate-200 rounded-lg p-4">
+                  <div className="flex items-start justify-between">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 mb-2">
+                        <h4 className="font-semibold text-slate-900">{item.title || item.id}</h4>
+                        {!item.isActive && (
+                          <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">Inactive</span>
+                        )}
+                        {type === 'cards' && item.type && (
+                          <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">{item.type}</span>
+                        )}
+                        {type === 'lists' && item.type && (
+                          <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">{item.type}</span>
+                        )}
+                      </div>
+                      {item.description && (
+                        <p className="text-sm text-slate-600 mb-2 line-clamp-2">{item.description}</p>
+                      )}
+                      {type === 'lists' && item.content && (
+                        <p className="text-sm text-slate-600 mb-2 line-clamp-2">{item.content}</p>
+                      )}
+                      <p className="text-xs text-slate-500">Order: {item.order}</p>
+                    </div>
+                    <div className="flex gap-2 ml-4">
+                      <button
+                        onClick={() => {
+                          setEditingItem(item);
+                          setShowForm(true);
+                        }}
+                        className="px-3 py-1 text-sm text-[#ea8c06] hover:bg-orange-50 rounded font-medium"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(item.id)}
+                        className="px-3 py-1 text-sm text-red-600 hover:bg-red-50 rounded font-medium"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 

@@ -1,34 +1,38 @@
+'use client';
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
 
-export const metadata = {
-  title: "Blogs • CodeAxis",
+type BlogPost = {
+  id: string;
+  title: string;
+  description: string;
+  linkUrl: string | null;
+  date: string;
+  minutesToRead: number | null;
 };
 
-const posts = [
-  {
-    title: "Modernizing Legacy Systems: A Practical Roadmap",
-    date: "Oct 10, 2025",
-    readTime: "7 min read",
-    summary:
-      "Key steps and considerations for upgrading critical legacy applications without disrupting your business.",
-  },
-  {
-    title: "Building Secure Cloud-Native Applications",
-    date: "Sep 22, 2025",
-    readTime: "6 min read",
-    summary:
-      "Best practices for security-by-design when you are deploying workloads to AWS, Azure, or other clouds.",
-  },
-  {
-    title: "Why System Integration Matters More Than Ever",
-    date: "Aug 30, 2025",
-    readTime: "5 min read",
-    summary:
-      "How unified data flows and integrated platforms unlock better decision-making and automation.",
-  },
-];
-
 export default function BlogsPage() {
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchBlogPosts() {
+      try {
+        const res = await fetch('/api/blog-posts');
+        const data = await res.json();
+        if (res.ok && data.posts) {
+          setPosts(data.posts);
+        }
+      } catch (error) {
+        console.error('Error fetching blog posts:', error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchBlogPosts();
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
@@ -88,20 +92,37 @@ export default function BlogsPage() {
             </p>
           </div>
 
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post) => (
-              <article key={post.title} className="bg-white rounded-2xl shadow-md p-6 flex flex-col">
-                <p className="text-xs font-medium text-slate-500 mb-1">
-                  {post.date} • {post.readTime}
-                </p>
-                <h3 className="text-lg font-bold text-[#0e134d] mb-2">{post.title}</h3>
-                <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">{post.summary}</p>
-                <button className="mt-auto inline-flex items-center text-sm font-semibold text-[#ea8c06] hover:text-[#c46e04]">
-                  Read More
-                </button>
-              </article>
-            ))}
-          </div>
+          {loading ? (
+            <div className="text-center py-12 text-slate-600">Loading blog posts...</div>
+          ) : posts.length === 0 ? (
+            <div className="text-center py-12 text-slate-600">No blog posts available at the moment.</div>
+          ) : (
+            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post) => (
+                <article key={post.id} className="bg-white rounded-2xl shadow-md p-6 flex flex-col">
+                  <p className="text-xs font-medium text-slate-500 mb-1">
+                    {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} • {post.minutesToRead ? `${post.minutesToRead} min read` : ''}
+                  </p>
+                  <h3 className="text-lg font-bold text-[#0e134d] mb-2">{post.title}</h3>
+                  <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">{post.description}</p>
+                  {post.linkUrl ? (
+                    <a
+                      href={post.linkUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="mt-auto inline-flex items-center text-sm font-semibold text-[#ea8c06] hover:text-[#c46e04] cursor-pointer"
+                    >
+                      Read More
+                    </a>
+                  ) : (
+                    <span className="mt-auto inline-flex items-center text-sm font-semibold text-slate-400">
+                      Read More
+                    </span>
+                  )}
+                </article>
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </div>

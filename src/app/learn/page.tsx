@@ -5,53 +5,55 @@ export const metadata = {
   title: "Learn with CodeAxis",
 };
 
-const courses: Course[] = [
-  {
-    id: "programming-fundamentals",
-    title: "Programming Fundamentals with Python",
-  },
-  {
-    id: "frontend-web-dev",
-    title: "Frontend Web Development (HTML, CSS, JavaScript)",
-  },
-  {
-    id: "fullstack-web-dev",
-    title: "Full-Stack Web Development (React & Next.js)",
-  },
-  {
-    id: "mobile-app-dev",
-    title: "Mobile App Development (Flutter)",
-  },
-  {
-    id: "backend-dotnet",
-    title: "Backend Development with .NET & REST APIs",
-  },
-  {
-    id: "cloud-devops",
-    title: "Cloud & DevOps Essentials (AWS / Azure)",
-  },
-  {
-    id: "data-engineering",
-    title: "Data Engineering & Analytics Foundations",
-  },
-  {
-    id: "software-engineering-practices",
-    title: "Software Engineering Practices (Git, Testing, Clean Code)",
-  },
-  {
-    id: "cybersecurity-basics",
-    title: "Cybersecurity Fundamentals",
-  },
-];
-
 interface LearnPageProps {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}
+
+interface CourseData {
+  id: string;
+  title: string;
+  description: string | null;
+  duration: string | null;
+  mode: string | null;
+  level: string | null;
+  features: string[] | null;
+}
+
+async function getCourses(): Promise<CourseData[]> {
+  try {
+    // For server-side, try to use internal API or fetch from localhost
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
+                    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+                    'http://localhost:3000';
+    const res = await fetch(`${baseUrl}/api/courses`, {
+      cache: 'no-store', // Ensure fresh data
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    if (!res.ok) {
+      throw new Error('Failed to fetch courses');
+    }
+    const data = await res.json();
+    return data.courses || [];
+  } catch (error) {
+    console.error("Error fetching courses:", error);
+    return [];
+  }
 }
 
 export default async function LearnPage({ searchParams }: LearnPageProps) {
   const params = await searchParams;
   const courseParam = params?.course;
   const initialCourseId = Array.isArray(courseParam) ? courseParam[0] : courseParam;
+  
+  const coursesData = await getCourses();
+  
+  // Map to Course type for the form
+  const courses: Course[] = coursesData.map((course) => ({
+    id: course.id,
+    title: course.title,
+  }));
 
   return (
     <div className="min-h-screen bg-white">
@@ -121,33 +123,55 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
           </div>
 
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
-            {courses.map((course) => (
-              <div
-                key={course.id}
-                className="bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between"
-              >
-                <div>
-                  <h3 className="text-xl font-bold text-[#0e134d] mb-2">{course.title}</h3>
-                  <p className="text-sm text-slate-500 mb-3">
-                    Duration: 8–12 weeks • Mode: Hybrid (Addis Ababa + Online)
-                  </p>
-                  <ul className="text-sm text-slate-600 space-y-1 mb-4 list-disc list-inside">
-                    <li>Weekly live sessions with CodeAxis engineers</li>
-                    <li>Capstone project you can add to your portfolio</li>
-                    <li>Certificate of completion and career guidance</li>
-                  </ul>
-                </div>
-                <div className="flex items-center justify-between mt-2">
-                  <p className="text-sm font-semibold text-slate-700">Level: Beginner – Intermediate</p>
-                  <Link
-                    href={`/learn?course=${course.id}#register`}
-                    className="inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold px-4 py-2 text-sm shadow-sm transition-colors"
-                  >
-                    Register
-                  </Link>
-                </div>
+            {coursesData.length === 0 ? (
+              <div className="col-span-2 text-center py-12 text-slate-600">
+                No courses available at the moment. Please check back later.
               </div>
-            ))}
+            ) : (
+              coursesData.map((course: CourseData) => (
+                <div
+                  key={course.id}
+                  className="bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between"
+                >
+                  <div>
+                    <h3 className="text-xl font-bold text-[#0e134d] mb-2">{course.title}</h3>
+                    <p className="text-sm text-slate-500 mb-3">
+                      {course.duration && course.mode
+                        ? `Duration: ${course.duration} • Mode: ${course.mode}`
+                        : course.duration
+                        ? `Duration: ${course.duration}`
+                        : course.mode
+                        ? `Mode: ${course.mode}`
+                        : ""}
+                    </p>
+                    {course.features && Array.isArray(course.features) && course.features.length > 0 ? (
+                      <ul className="text-sm text-slate-600 space-y-1 mb-4 list-disc list-inside">
+                        {course.features.map((feature: string, idx: number) => (
+                          <li key={idx}>{feature}</li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <ul className="text-sm text-slate-600 space-y-1 mb-4 list-disc list-inside">
+                        <li>Weekly live sessions with CodeAxis engineers</li>
+                        <li>Capstone project you can add to your portfolio</li>
+                        <li>Certificate of completion and career guidance</li>
+                      </ul>
+                    )}
+                  </div>
+                  <div className="flex items-center justify-between mt-2">
+                    <p className="text-sm font-semibold text-slate-700">
+                      {course.level ? `Level: ${course.level}` : "Level: Beginner – Intermediate"}
+                    </p>
+                    <Link
+                      href={`/learn?course=${course.id}#register`}
+                      className="inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold px-4 py-2 text-sm shadow-sm transition-colors"
+                    >
+                      Register
+                    </Link>
+                  </div>
+                </div>
+              ))
+            )}
           </div>
 
           {/* Extra info / value props */}

@@ -63,23 +63,68 @@ export default function Footer() {
           {/* Additional Info */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
-              <li>
-                <Link href="/" className="hover:text-blue-400 transition-colors">
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link href="/about" className="hover:text-blue-400 transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-blue-400 transition-colors">
-                  Contact
-                </Link>
-              </li>
-            </ul>
+            <div className="flex gap-6">
+              {/* Left Column */}
+              <ul className="space-y-2 flex-1">
+                <li>
+                  <Link href="/" className="hover:text-blue-400 transition-colors cursor-pointer">
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/services" className="hover:text-blue-400 transition-colors cursor-pointer">
+                    Services
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/projects" className="hover:text-blue-400 transition-colors cursor-pointer">
+                    Projects
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/learn" className="hover:text-blue-400 transition-colors cursor-pointer">
+                    Learn
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/submit-project" className="hover:text-blue-400 transition-colors cursor-pointer">
+                    Submit Project
+                  </Link>
+                </li>
+              </ul>
+              
+              {/* Vertical Separator */}
+              <div className="w-px bg-slate-700"></div>
+              
+              {/* Right Column */}
+              <ul className="space-y-2 flex-1">
+                <li>
+                  <Link href="/about" className="hover:text-blue-400 transition-colors cursor-pointer">
+                    About Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/contact" className="hover:text-blue-400 transition-colors cursor-pointer">
+                    Contact Us
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/team" className="hover:text-blue-400 transition-colors cursor-pointer">
+                    Team
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/faqs" className="hover:text-blue-400 transition-colors cursor-pointer">
+                    Faq's
+                  </Link>
+                </li>
+                <li>
+                  <Link href="/blogs" className="hover:text-blue-400 transition-colors cursor-pointer">
+                    Blogs
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 

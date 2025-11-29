@@ -68,3 +68,113 @@ model CourseSchedule {
   
   @@unique([courseId])
 }
+
+model Course {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  duration    String?  // e.g., "8–12 weeks"
+  mode        String?  // e.g., "Hybrid (Addis Ababa + Online)"
+  level       String?  // e.g., "Beginner – Intermediate"
+  features    String?  // JSON string for list of features
+  isActive    Boolean  @default(true)
+  order       Int      @default(0) // For ordering courses
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([isActive])
+  @@index([order])
+}
+
+model ContentCard {
+  id          String   @id @default(uuid())
+  type        String   // "project", "service", "testimonial", "team", "partner", etc.
+  title       String
+  category    String?  // For projects/services categorization
+  description String?
+  imageUrl    String?
+  iconName    String?  // For services, icon name (e.g., "Settings", "Shield")
+  linkUrl     String?  // Optional link
+  order       Int      @default(0) // For ordering cards
+  isActive    Boolean  @default(true)
+  metadata    String?  // JSON string for additional data
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([type, isActive])
+  @@index([order])
+}
+
+model ContentList {
+  id          String   @id @default(uuid())
+  type        String   // "faq", "achievement", "feature", etc.
+  title       String?
+  content     String   // Main content
+  order       Int      @default(0) // For ordering list items
+  isActive    Boolean  @default(true)
+  metadata    String?  // JSON string for additional data
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([type, isActive])
+  @@index([order])
+}
+
+model TeamMember {
+  id          String   @id @default(uuid())
+  name        String
+  role        String   // e.g., "CEO & Co‑Founder", "Head of Product", "CTO", etc.
+  imageUrl    String?  // URL to team member image
+  email       String?
+  linkedin    String?
+  owner       Boolean  @default(false) // If true, shows in team section on homepage
+  order       Int      @default(0) // For ordering members
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([isActive])
+  @@index([order])
+  @@index([owner])
+}
+
+model BlogPost {
+  id          String   @id @default(uuid())
+  title       String
+  description String   // Summary/description of the blog post
+  linkUrl     String?  // URL for "Read More" button
+  date        DateTime // Date of the post
+  minutesToRead Int?   // Minutes to read
+  order       Int      @default(0) // For ordering posts
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([isActive])
+  @@index([order])
+  @@index([date])
+}
+
+model Project {
+  id                String   @id @default(uuid())
+  title             String
+  category          String?  // e.g., "Web Development", "Mobile App", etc.
+  description       String?  // Short description for card
+  imageUrl          String?  // Image for project card
+  modalImageUrl     String?  // Large image shown in modal (before title)
+  detailDescription String?  // Detailed explanation shown in modal
+  linkUrl           String?  // URL to project website
+  technologies      String?  // JSON string array of technologies
+  client            String?  // Client name or company
+  date              String?  // Project date (e.g., "January 2024")
+  duration          String?  // Project duration (e.g., "3 months")
+  features          String?  // JSON string array of key features
+  order             Int      @default(0) // For ordering projects
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  
+  @@index([isActive])
+  @@index([order])
+  @@index([category])
+}

@@ -3,13 +3,14 @@
 import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { Mail, Phone, Search, Menu, X, Facebook, Instagram, Twitter, Send, Linkedin, Youtube, User, LogOut } from 'lucide-react';
+import { Mail, Phone, Menu, X, Facebook, Instagram, Twitter, Send, Linkedin, Youtube, User, LogOut } from 'lucide-react';
 
 export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
   const [user, setUser] = useState<any>(null);
   const [loading, setLoading] = useState(true);
 
@@ -76,20 +77,17 @@ export default function Header() {
   ];
 
   const navLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'About Us', href: '/about' },
     { label: 'Services', href: '/services' },
     { label: 'Projects', href: '/projects' },
+    { label: 'Learn', href: '/learn' },
+    { label: 'Submit Project', href: '/submit-project' },
+    { label: 'About Us', href: '/about' },
     { label: 'Contact Us', href: '/contact' },
   ];
 
   const moreLinks = [
-    { label: "Learn", href: "/learn" },
-    { label: "Submit Project", href: "/submit-project" },
     { label: "Team", href: "/team" },
     { label: "Faq's", href: "/faqs" },
-    { label: "Careers", href: "/careers" },
-    { label: "Consultation", href: "/consultation" },
     { label: "Blogs", href: "/blogs" },
   ];
 
@@ -148,8 +146,8 @@ export default function Header() {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
+          {/* Desktop Navigation - Hidden on screens <= 1024px */}
+          <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
                 key={link.label}
@@ -161,17 +159,34 @@ export default function Header() {
             ))}
 
             {/* More dropdown (hover) */}
-            <div className="relative group">
+            <div 
+              className="relative"
+              onMouseLeave={() => setIsMoreDropdownOpen(false)}
+            >
               <button
                 type="button"
                 className="flex items-center gap-1 text-slate-700 hover:text-blue-500 transition-colors font-medium"
+                onMouseEnter={() => setIsMoreDropdownOpen(true)}
               >
                 <span>More</span>
-                <span className="text-xs transition-transform group-hover:rotate-180">▼</span>
+                <span className={`text-xs transition-transform ${isMoreDropdownOpen ? 'rotate-180' : ''}`}>▼</span>
               </button>
 
+              {/* Invisible bridge to maintain hover when moving to dropdown */}
+              <div 
+                className="absolute left-0 top-full w-full h-3"
+                onMouseEnter={() => setIsMoreDropdownOpen(true)}
+              ></div>
+
               {/* Desktop More dropdown */}
-              <div className="absolute left-0 mt-3 w-64 bg-white shadow-lg rounded-b-2xl border border-slate-100 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all z-[1000]">
+              <div 
+                className={`absolute left-0 top-full pt-3 w-64 bg-white shadow-lg rounded-b-2xl border border-slate-100 transition-all z-[1000] ${
+                  isMoreDropdownOpen 
+                    ? 'opacity-100 translate-y-0 pointer-events-auto' 
+                    : 'opacity-0 translate-y-2 pointer-events-none'
+                }`}
+                onMouseEnter={() => setIsMoreDropdownOpen(true)}
+              >
                 <ul className="py-2">
                   {moreLinks.map((item) => (
                     <li key={item.label}>
@@ -190,10 +205,6 @@ export default function Header() {
 
           {/* Right Icons */}
           <div className="flex items-center gap-4">
-            <button className="text-slate-700 hover:text-blue-500 transition-colors">
-              <Search className="w-5 h-5" />
-            </button>
-
             {/* Auth Section */}
             {!loading && (
               <>
@@ -227,19 +238,19 @@ export default function Header() {
               </>
             )}
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Visible on screens <= 1024px */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden text-slate-700 hover:text-blue-500 transition-colors"
+              className="lg:hidden text-slate-700 hover:text-blue-500 transition-colors"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile Navigation - Visible on screens <= 1024px */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t pt-4">
+          <div className="lg:hidden mt-4 pb-4 border-t pt-4">
             <div className="flex flex-col gap-3">
               {navLinks.map((link) => (
                 <Link
