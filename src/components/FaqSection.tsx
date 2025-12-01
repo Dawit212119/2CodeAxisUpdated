@@ -8,20 +8,20 @@ type FAQ = { q: string; a: string };
 
 const faqs: FAQ[] = [
   {
-    q: "What Services Does CodeAxis Technologies. Offer?",
-    a: "We provide a comprehensive range of IT solutions, including software development, managed services, infrastructure services, system integration, cybersecurity services, and training and development. Additionally, we specialize in ERP systems and school management systems, along with custom web and mobile applications. We tailor solutions to meet various industries' unique needs.",
+    q: "What services does Code Axis offer?",
+    a: "Code Axis provides custom software development, IT outsourcing, cloud solutions, system integration, cybersecurity consulting, and tech training programs. We build scalable solutions tailored to your business needs.",
   },
   {
-    q: "Can CodeAxis Software Customize ERP Solutions For My Industry?",
-    a: "Yes. We tailor ERP modules to your workflows, data structures, and reporting so adoption is smooth and ROI is clear.",
+    q: "Do you provide dedicated development teams?",
+    a: "Yes. We offer skilled engineers who integrate with your team to accelerate product development and scale your capacity on demand.",
   },
   {
-    q: "How Does The School Management System Help In Streamlining Operations?",
-    a: "It centralizes student information, attendance, grading, finance, and communication, reducing manual work and improving accuracy.",
+    q: "What industries do you work with?",
+    a: "We serve startups, SMEs, and enterprises across fintech, healthcare, e-commerce, education, and SaaS industries worldwide.",
   },
   {
-    q: "Do you offer support and maintenance?",
-    a: "Yes. We provide SLAs, monitoring, incident response, and regular updates for security and performance.",
+    q: "Do you provide ongoing support and maintenance?",
+    a: "Absolutely. We offer SLA-backed support, monitoring, regular updates, and proactive maintenance to keep your systems running smoothly.",
   },
 ];
 
@@ -70,9 +70,9 @@ export default function FaqSection() {
 
           {/* Right: Heading + Accordion */}
           <div className="relative order-1 lg:order-2 lg:min-h-[460px]">
-            <p className="uppercase tracking-wide font-bold text-[#ea8c06]">See our FAQs</p>
+            <p className="uppercase tracking-wide font-bold text-[#016B61]">FREQUENTLY ASKED QUESTIONS</p>
             <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-black">
-              Keep Your Business Safe & Ensure High Availability
+              Got Questions? We've Got Answers
             </h2>
 
             <div className="mt-8 space-y-4">
@@ -84,9 +84,9 @@ export default function FaqSection() {
             <div className="mt-8">
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition-colors cursor-pointer"
+                className="inline-flex items-center justify-center bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-6 py-3 rounded-lg transition-colors cursor-pointer"
               >
-                Ask
+                Contact Us
               </Link>
             </div>
           </div>

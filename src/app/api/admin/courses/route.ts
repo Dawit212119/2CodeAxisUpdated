@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getSession } from "@/lib/auth";
+import { getBetterAuthSession } from "@/lib/better-auth-server";
 
 // GET all courses (admin only)
 export async function GET() {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
 
     if (!session || session.role !== "admin") {
       return NextResponse.json(
@@ -40,7 +40,7 @@ export async function GET() {
 // POST create new course
 export async function POST(request: Request) {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
 
     if (!session || session.role !== "admin") {
       return NextResponse.json(

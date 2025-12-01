@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getSession } from '@/lib/auth';
+import { getBetterAuthSession } from '@/lib/better-auth-server';
 
 export async function GET() {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
     
     if (!session || session.role !== 'admin') {
       return NextResponse.json(

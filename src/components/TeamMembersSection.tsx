@@ -40,12 +40,12 @@ export default function TeamMembersSection() {
         {/* Header */}
         <div className="text-center mb-14">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <div className="w-2 h-2 bg-blue-500 rounded-full" />
-            <span className="text-orange-500 font-bold text-sm tracking-wide">OUR TEAM</span>
+            <div className="w-2 h-2 bg-[#70B2B2] rounded-full" />
+            <span className="text-[#016B61] font-bold text-sm tracking-wide">MEET THE TEAM</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Meet the Team</h2>
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900">Expert Engineers & Consultants</h2>
           <p className="mt-3 text-slate-600 max-w-2xl mx-auto">
-            The people behind CodeAxis — builders, designers, and strategists driving digital transformation.
+            Skilled professionals with deep expertise in software development, cloud architecture, and system design.
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export default function TeamMembersSection() {
                         <a
                           href={`mailto:${m.email}`}
                           aria-label={`Email ${m.name}`}
-                          className="h-11 w-11 grid place-items-center rounded-full bg-white text-slate-800 shadow-md hover:shadow-lg hover:text-blue-600 transition cursor-pointer"
+                          className="h-11 w-11 grid place-items-center rounded-full bg-white text-slate-800 shadow-md hover:shadow-lg hover:text-[#016B61] transition cursor-pointer"
                         >
                           <Mail className="h-5 w-5" />
                         </a>
@@ -93,7 +93,7 @@ export default function TeamMembersSection() {
                           target="_blank"
                           rel="noopener noreferrer"
                           aria-label={`${m.name} on LinkedIn`}
-                          className="h-11 w-11 grid place-items-center rounded-full bg-white text-slate-800 shadow-md hover:shadow-lg hover:text-blue-600 transition cursor-pointer"
+                          className="h-11 w-11 grid place-items-center rounded-full bg-white text-slate-800 shadow-md hover:shadow-lg hover:text-[#016B61] transition cursor-pointer"
                         >
                           <Linkedin className="h-5 w-5" />
                         </a>
@@ -103,7 +103,7 @@ export default function TeamMembersSection() {
                     {/* Slanted footer */}
                     <div
                       className="absolute bottom-0 left-0 w-full text-white"
-                      style={{ clipPath: "polygon(0 35%, 100% 20%, 100% 100%, 0 100%)", backgroundColor: "#0e134d" }}
+                      style={{ clipPath: "polygon(0 35%, 100% 20%, 100% 100%, 0 100%)", backgroundColor: "#016B61" }}
                     >
                       <div className="px-6 pt-8 pb-6">
                         <h3 className="text-2xl font-semibold">{m.name}</h3>
@@ -111,7 +111,7 @@ export default function TeamMembersSection() {
                       </div>
 
                       {/* Share bubble */}
-                      <div className="absolute -top-5 right-6 h-10 w-10 rounded-full bg-[#0e134d] grid place-items-center shadow-md">
+                      <div className="absolute -top-5 right-6 h-10 w-10 rounded-full bg-[#016B61] grid place-items-center shadow-md">
                         <Share2 className="h-5 w-5 text-white" />
                       </div>
                     </div>
@@ -124,9 +124,9 @@ export default function TeamMembersSection() {
             <div className="text-center mt-12">
               <Link
                 href="/team"
-                className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-8 rounded transition-colors duration-200 cursor-pointer"
+                className="inline-flex items-center justify-center bg-[#016B61] hover:bg-[#70B2B2] text-white font-bold py-3 px-8 rounded transition-colors duration-200 cursor-pointer"
               >
-                Team Members →
+                Meet the Full Team
               </Link>
             </div>
           </>

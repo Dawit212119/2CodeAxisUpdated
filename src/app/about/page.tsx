@@ -11,7 +11,7 @@ export default function AboutPage() {
       <section className="breadcrumb-wrapper py-24 md:py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-sm font-semibold tracking-widest text-[#ea8c06] uppercase">About Us</p>
+            <p className="text-sm font-semibold tracking-widest text-[#016B61] uppercase">About Us</p>
             <h1 className="mt-3 text-4xl md:text-5xl font-extrabold">Driving Digital Transformation</h1>
             <nav className="mt-4 text-sm opacity-90">
               <ol className="inline-flex items-center gap-2">
@@ -49,7 +49,7 @@ export default function AboutPage() {
               />
             </div>
             {/* Experience badge */}
-            <div className="absolute -bottom-6 left-0 bg-[#0e134d] text-white rounded-xl px-6 py-4 shadow-lg">
+            <div className="absolute -bottom-6 left-0 bg-[#016B61] text-white rounded-xl px-6 py-4 shadow-lg">
               <div className="text-lg font-bold">25 Years</div>
               <div className="text-sm opacity-90 -mt-1">Of Experience</div>
             </div>
@@ -57,7 +57,7 @@ export default function AboutPage() {
 
           {/* Right content */}
           <div>
-            <span className="inline-block text-[#ea8c06] font-bold uppercase tracking-wider mb-3">About CodeAxis</span>
+            <span className="inline-block text-[#016B61] font-bold uppercase tracking-wider mb-3">About CodeAxis</span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
               We Empower Clients With
               <br />
@@ -77,7 +77,7 @@ export default function AboutPage() {
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="flex items-start gap-4">
                 <div className="h-14 w-14 rounded-full bg-white shadow grid place-items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0e134d" strokeWidth="2" className="h-6 w-6"><path d="M3 3v18h18"/><path d="M7 13l3 3 7-7"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#016B61" strokeWidth="2" className="h-6 w-6"><path d="M3 3v18h18"/><path d="M7 13l3 3 7-7"/></svg>
                 </div>
                 <div>
                   <h3 className="font-semibold text-slate-900">Problem Solving</h3>
@@ -86,7 +86,7 @@ export default function AboutPage() {
               </div>
               <div className="flex items-start gap-4">
                 <div className="h-14 w-14 rounded-full bg-white shadow grid place-items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#0e134d" strokeWidth="2" className="h-6 w-6"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#016B61" strokeWidth="2" className="h-6 w-6"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
                 </div>
                 <div>
                   <h3 className="font-semibold text-slate-900">Mission & Vision</h3>
@@ -103,7 +103,7 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#ea8c06] mb-3">Why Choose Us</h2>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-3">Why Choose Us</h2>
             <p className="text-lg text-slate-800 font-semibold">Our Unique Advantages</p>
             <div className="mt-6 flex justify-center">
               <div className="w-3 h-3 rounded-full bg-slate-400"></div>
@@ -115,7 +115,7 @@ export default function AboutPage() {
             {/* Left column */}
             <div className="space-y-10">
               <div>
-                <h3 className="text-2xl font-bold text-[#ea8c06] mb-3">Experience</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Experience</h3>
                 <p className="text-slate-700 leading-7">
                   Our team boasts extensive industry experience, bringing deep technical expertise and a successful
                   track record in delivering complex projects across various sectors. We understand the unique
@@ -124,7 +124,7 @@ export default function AboutPage() {
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-[#ea8c06] mb-3">Products</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Products</h3>
                 <p className="text-slate-700 leading-7">
                   We offer a robust portfolio of innovative, scalable, and customizable software solutions. Whether you
                   need a tailored application or an integrated system, our products are designed to enhance your
@@ -133,7 +133,7 @@ export default function AboutPage() {
               </div>
 
               <div className="lg:hidden">
-                <h3 className="text-2xl font-bold text-[#ea8c06] mb-3">Pricing</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Pricing</h3>
                 <p className="text-slate-700 leading-7">
                   Our pricing models are designed to offer maximum value. We combine high-quality service with
                   cost-effective solutions, ensuring that you receive exceptional outcomes within your budget.
@@ -153,7 +153,7 @@ export default function AboutPage() {
             {/* Right column */}
             <div className="space-y-10">
               <div>
-                <h3 className="text-2xl font-bold text-[#ea8c06] mb-3">Approach</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Approach</h3>
                 <p className="text-slate-700 leading-7">
                   We believe in a client-first approach, partnering with you to fully understand your business objectives
                   and challenges. Our collaborative process ensures that the solutions we deliver are perfectly aligned
@@ -162,7 +162,7 @@ export default function AboutPage() {
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-[#ea8c06] mb-3">Delivery</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Delivery</h3>
                 <p className="text-slate-700 leading-7">
                   We are committed to delivering projects on time, without compromising on quality. Our streamlined
                   processes and meticulous project management ensure that you receive your solutions when you need them,
@@ -171,7 +171,7 @@ export default function AboutPage() {
               </div>
 
               <div className="hidden lg:block">
-                <h3 className="text-2xl font-bold text-[#ea8c06] mb-3">Pricing</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Pricing</h3>
                 <p className="text-slate-700 leading-7">
                   Our pricing models are designed to offer maximum value. We combine high-quality service with
                   cost-effective solutions, ensuring that you receive exceptional outcomes within your budget.
@@ -179,7 +179,7 @@ export default function AboutPage() {
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-[#ea8c06] mb-3">Support</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Support</h3>
                 <p className="text-slate-700 leading-7">
                   Our commitment to you doesn&apos;t end with delivery. We provide continuous, reliable support to keep your
                   systems running smoothly. Our dedicated support team is always ready to assist, ensuring that you have
@@ -227,7 +227,7 @@ export default function AboutPage() {
           {/* Right column - content */}
           <div className="space-y-8 bg-white/80 rounded-2xl p-8 shadow-xl">
             <div>
-              <h2 className="text-3xl font-extrabold text-[#ea8c06] mb-4">Who We Are</h2>
+              <h2 className="text-3xl font-extrabold text-[#016B61] mb-4">Who We Are</h2>
               <p className="text-slate-700 leading-relaxed">
                 CodeAxis Technologies is a U.S.-based IT company headquartered in Seattle, Washington, with a growing
                 branch in Addis Ababa, Ethiopia. As a product- and service-based company, we specialize in driving digital
@@ -244,7 +244,7 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-[#ea8c06] mb-2">Our Mission</h3>
+              <h3 className="text-2xl font-bold text-[#016B61] mb-2">Our Mission</h3>
               <p className="text-slate-700 leading-relaxed">
                 To empower businesses through innovative and reliable software solutions that drive growth and efficiency.
                 We are dedicated to delivering exceptional value by leveraging the latest technologies and fostering a
@@ -253,7 +253,7 @@ export default function AboutPage() {
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-[#ea8c06] mb-2">Our Vision</h3>
+              <h3 className="text-2xl font-bold text-[#016B61] mb-2">Our Vision</h3>
               <p className="text-slate-700 leading-relaxed">
                 To be the leading software solutions provider in Ethiopia and a trusted partner for businesses worldwide,
                 helping them set the benchmark for excellence and innovation in their industries.
@@ -264,7 +264,7 @@ export default function AboutPage() {
 
         {/* Our Goals - full width below content, stacked in column */}
         <div className="mt-12 bg-white/85 rounded-2xl p-8 shadow-xl">
-          <h3 className="text-2xl md:text-3xl font-extrabold text-[#0e134d] text-center mb-8">Our Goals</h3>
+          <h3 className="text-2xl md:text-3xl font-extrabold text-[#016B61] text-center mb-8">Our Goals</h3>
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {/* Goal card */}
             <div className="bg-white rounded-2xl shadow-md px-6 py-6 flex flex-col gap-2">

@@ -43,7 +43,7 @@ export default function SubmitProjectForm() {
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-8">
-      <h3 className="text-xl font-extrabold text-[#0e134d] mb-4">Project Submission Form</h3>
+      <h3 className="text-xl font-extrabold text-[#016B61] mb-4">Project Submission Form</h3>
 
       {status && (
         <div
@@ -65,7 +65,7 @@ export default function SubmitProjectForm() {
               name="name"
               type="text"
               required
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
               placeholder="John Doe"
             />
           </div>
@@ -75,7 +75,7 @@ export default function SubmitProjectForm() {
               name="email"
               type="email"
               required
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
               placeholder="you@example.com"
             />
           </div>
@@ -87,7 +87,7 @@ export default function SubmitProjectForm() {
             <input
               name="company"
               type="text"
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
               placeholder="Your company name"
             />
           </div>
@@ -95,7 +95,7 @@ export default function SubmitProjectForm() {
             <label className="block text-sm font-medium text-slate-700 mb-1">Project Type</label>
             <select
               name="projectType"
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
             >
               <option value="">Select type</option>
               <option>Web Application</option>
@@ -113,7 +113,7 @@ export default function SubmitProjectForm() {
             <label className="block text-sm font-medium text-slate-700 mb-1">Budget Range</label>
             <select
               name="budgetRange"
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
             >
               <option value="">Select budget (ETB)</option>
               <option>Below 250,000 ETB</option>
@@ -127,7 +127,7 @@ export default function SubmitProjectForm() {
             <label className="block text-sm font-medium text-slate-700 mb-1">Desired Timeline</label>
             <select
               name="timeline"
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
             >
               <option value="">Select timeline</option>
               <option>1 - 3 months</option>
@@ -146,7 +146,7 @@ export default function SubmitProjectForm() {
             name="description"
             required
             rows={6}
-            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+            className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
             placeholder="Describe your goals, key features, users, and any existing systems we should know about."
           />
         </div>
@@ -158,7 +158,7 @@ export default function SubmitProjectForm() {
           <input
             type="file"
             name="attachment"
-            className="w-full text-sm text-slate-700 file:mr-4 file:rounded-lg file:border-0 file:bg-[#ea8c06] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#d17b05]"
+            className="w-full text-sm text-slate-700 file:mr-4 file:rounded-lg file:border-0 file:bg-[#016B61] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#70B2B2]"
           />
           <p className="mt-1 text-xs text-slate-500">
             You can upload a brief document, presentation, or requirements file (PDF, DOCX, PPTX, images).
@@ -168,7 +168,7 @@ export default function SubmitProjectForm() {
         <button
           type="submit"
           disabled={isSubmitting}
-          className="inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] disabled:opacity-70 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors w-full md:w-auto"
+          className="inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] disabled:opacity-70 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors w-full md:w-auto"
         >
           {isSubmitting ? "Submitting..." : "Submit Project"}
         </button>

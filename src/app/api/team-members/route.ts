@@ -4,14 +4,13 @@ import { prisma } from "@/lib/prisma";
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const owner = searchParams.get("owner"); // Optional filter by owner (true/false)
+    const owner = searchParams.get("owner");
 
     const where: any = {
       isActive: true,
     };
 
     if (owner !== null) {
-      // Filter by owner field
       where.owner = owner === 'true';
     }
 
@@ -22,7 +21,10 @@ export async function GET(request: Request) {
       },
     });
 
-    return NextResponse.json({ members });
+    const response = NextResponse.json({ members });
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120');
+    
+    return response;
   } catch (error: any) {
     console.error("Error fetching team members:", error);
     return NextResponse.json(

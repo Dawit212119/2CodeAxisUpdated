@@ -156,7 +156,7 @@ export default function ServiceDetailPage({ params }: { params: { id: string } }
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-slate-900 mb-4">Service Not Found</h1>
-          <Link href="/services" className="text-orange-500 font-semibold hover:underline">
+          <Link href="/services" className="text-[#016B61] font-semibold hover:underline">
             Back to Services
           </Link>
         </div>
@@ -245,13 +245,13 @@ export default function ServiceDetailPage({ params }: { params: { id: string } }
                 <ul className="space-y-4">
                   {service.benefits.map((benefit: string, index: number) => (
                     <li key={index} className="flex items-start gap-3">
-                      <Check className="w-5 h-5 text-orange-500 flex-shrink-0 mt-1" />
+                      <Check className="w-5 h-5 text-[#70B2B2] flex-shrink-0 mt-1" />
                       <span className="text-slate-700">{benefit}</span>
                     </li>
                   ))}
                 </ul>
                 
-                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-3 px-6 rounded-lg mt-8 transition-colors">
+                <button className="w-full bg-[#016B61] hover:bg-[#70B2B2] text-white font-bold py-3 px-6 rounded-lg mt-8 transition-colors">
                   Get Started
                 </button>
               </div>
@@ -274,10 +274,10 @@ export default function ServiceDetailPage({ params }: { params: { id: string } }
                   href={`/services/${id}`}
                   className="group bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-all hover:-translate-y-1"
                 >
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-4 group-hover:bg-orange-100 transition-colors">
-                    <SvcIcon className="w-6 h-6 text-blue-500 group-hover:text-orange-500 transition-colors" />
+                  <div className="w-12 h-12 bg-[#E5E9C5] rounded-lg flex items-center justify-center mb-4 group-hover:bg-[#9ECFD4] transition-colors">
+                    <SvcIcon className="w-6 h-6 text-[#016B61] group-hover:text-[#016B61] transition-colors" />
                   </div>
-                  <h4 className="font-bold text-slate-900 group-hover:text-orange-500 transition-colors">{svc.title}</h4>
+                  <h4 className="font-bold text-slate-900 group-hover:text-[#016B61] transition-colors">{svc.title}</h4>
                 </Link>
               );
             })}

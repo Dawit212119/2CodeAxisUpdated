@@ -127,13 +127,13 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
   return (
     <div id="register" className="bg-white rounded-2xl shadow-md p-8">
       <div className="mb-6">
-        <h3 className="text-xl font-extrabold text-[#0e134d] mb-2">Register for a Course</h3>
+        <h3 className="text-xl font-extrabold text-[#016B61] mb-2">Register for a Course</h3>
         <div className="flex items-center gap-2 text-sm text-slate-600">
-          <span className={`px-3 py-1 rounded-full ${step >= 1 ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'}`}>
+          <span className={`px-3 py-1 rounded-full ${step >= 1 ? 'bg-[#9ECFD4] text-[#016B61]' : 'bg-slate-100 text-slate-500'}`}>
             Step 1
           </span>
           <ChevronRight className="w-4 h-4" />
-          <span className={`px-3 py-1 rounded-full ${step >= 2 ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-500'}`}>
+          <span className={`px-3 py-1 rounded-full ${step >= 2 ? 'bg-[#9ECFD4] text-[#016B61]' : 'bg-slate-100 text-slate-500'}`}>
             Step 2
           </span>
         </div>
@@ -160,7 +160,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
               required
               value={selectedCourseId}
               onChange={(e) => setSelectedCourseId(e.target.value)}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
             >
               <option value="">Select a course</option>
               {courses.map((course) => (
@@ -180,7 +180,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
                 required
                 value={formData.name}
                 onChange={handleInputChange}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                 placeholder="John Doe"
               />
             </div>
@@ -192,7 +192,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
                 required
                 value={formData.email}
                 onChange={handleInputChange}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                 placeholder="you@example.com"
               />
             </div>
@@ -206,7 +206,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
                 type="tel"
                 value={formData.phone}
                 onChange={handleInputChange}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
                 placeholder="+251 ..."
               />
             </div>
@@ -216,7 +216,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
                 name="experienceLevel"
                 value={formData.experienceLevel}
                 onChange={handleInputChange}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
               >
                 <option value="">Select level</option>
                 <option>Beginner</option>
@@ -232,7 +232,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
               name="preferredSchedule"
               value={formData.preferredSchedule}
               onChange={handleInputChange}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
             >
               <option value="">Select schedule</option>
               <option>Weekday evenings</option>
@@ -249,7 +249,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
               rows={4}
               value={formData.message}
               onChange={handleInputChange}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#ea8c06] focus:border-transparent bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-black focus:outline-none focus:ring-2 focus:ring-[#016B61] focus:border-transparent bg-slate-50"
               placeholder="Share your goals, background, and expectations."
             />
           </div>
@@ -259,7 +259,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
               type="button"
               onClick={handleNext}
               disabled={!validateStep1()}
-              className="inline-flex items-center gap-2 rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] disabled:opacity-70 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
+              className="inline-flex items-center gap-2 rounded-lg bg-[#016B61] hover:bg-[#70B2B2] disabled:opacity-70 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
             >
               Next
               <ChevronRight className="w-4 h-4" />
@@ -268,14 +268,14 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
         </div>
       ) : (
         <form className="space-y-5" onSubmit={handleSubmit}>
-          <div className="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-            <p className="text-sm text-blue-800 mb-3">
+          <div className="mb-4 p-4 bg-[#E5E9C5] border border-[#9ECFD4] rounded-lg">
+            <p className="text-sm text-[#016B61] mb-3">
               <strong>Payment Information:</strong> Please make payment to the account below and upload your payment receipt. 
               Your registration will be verified by our admin team before confirmation.
             </p>
             
             {/* Bank Account Details - Copyable */}
-            <div className="bg-white rounded-lg p-4 border border-blue-200">
+            <div className="bg-white rounded-lg p-4 border border-[#9ECFD4]">
               <div className="mb-3">
                 <label className="block text-xs font-medium text-slate-500 mb-1">Bank Account Number</label>
                 <div className="flex items-center gap-2">
@@ -332,7 +332,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
               accept="image/*,.pdf"
               required
               onChange={handleFileChange}
-              className="w-full text-sm text-slate-700 file:mr-4 file:rounded-lg file:border-0 file:bg-[#ea8c06] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#d17b05]"
+              className="w-full text-sm text-slate-700 file:mr-4 file:rounded-lg file:border-0 file:bg-[#016B61] file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-[#70B2B2]"
             />
             <p className="mt-1 text-xs text-slate-500">
               Upload a clear image or PDF of your payment receipt (JPG, PNG, or PDF)
@@ -356,7 +356,7 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
             <button
               type="submit"
               disabled={isSubmitting}
-              className="inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] disabled:opacity-70 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
+              className="inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] disabled:opacity-70 disabled:cursor-not-allowed text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
             >
               {isSubmitting ? "Submitting..." : "Submit Registration"}
             </button>

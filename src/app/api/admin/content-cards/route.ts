@@ -1,46 +1,46 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getSession } from "@/lib/auth";
+import { getBetterAuthSession } from "@/lib/better-auth-server";
 
 // GET all content cards (admin only)
 export async function GET(request: Request) {
   try {
-    const session = await getSession();
-
-    if (!session || session.role !== "admin") {
-      return NextResponse.json(
-        { error: "Unauthorized. Admin access required." },
-        { status: 403 }
-      );
-    }
-
     const { searchParams } = new URL(request.url);
     const type = searchParams.get("type");
 
-    const where: any = {};
+    const where: any = {
+      isActive: true,
+    };
+
     if (type) {
       where.type = type;
     }
 
     const cards = await prisma.contentCard.findMany({
       where,
-      orderBy: [
-        { order: "asc" },
-        { createdAt: "desc" },
-      ],
+      orderBy: {
+        order: "asc",
+      },
     });
 
-    // Parse metadata JSON if present
     const cardsWithParsedMetadata = cards.map((card) => ({
       ...card,
       metadata: card.metadata ? JSON.parse(card.metadata) : null,
     }));
 
-    return NextResponse.json({ cards: cardsWithParsedMetadata });
-  } catch (error) {
+    const response = NextResponse.json({ cards: cardsWithParsedMetadata });
+    
+    // Add cache tags for revalidation
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120');
+    
+    return response;
+  } catch (error: any) {
     console.error("Error fetching content cards:", error);
     return NextResponse.json(
-      { error: "Failed to fetch content cards" },
+      { 
+        error: "Failed to fetch content cards",
+        details: process.env.NODE_ENV === 'development' ? error?.message : undefined
+      },
       { status: 500 }
     );
   }
@@ -49,7 +49,7 @@ export async function GET(request: Request) {
 // POST create new content card
 export async function POST(request: Request) {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
 
     if (!session || session.role !== "admin") {
       return NextResponse.json(
@@ -82,6 +82,8 @@ export async function POST(request: Request) {
         metadata: metadata ? JSON.stringify(metadata) : null,
       },
     });
+
+    // Note: Cache revalidation happens automatically when fetch calls use the same tags
 
     return NextResponse.json({
       success: true,

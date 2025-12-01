@@ -79,7 +79,7 @@ export default function CareersPage() {
       <section className="py-16 md:py-20 bg-[#f3f7fb]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="max-w-3xl">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#0e134d] mb-4">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-4">
               Join the CodeAxis Team
             </h2>
             <p className="text-slate-600 text-base md:text-lg">
@@ -96,13 +96,13 @@ export default function CareersPage() {
                 className="bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between"
               >
                 <div>
-                  <h3 className="text-xl font-bold text-[#0e134d] mb-2">{role.title}</h3>
+                  <h3 className="text-xl font-bold text-[#016B61] mb-2">{role.title}</h3>
                   <p className="text-sm text-slate-500 mb-3">
                     {role.location} • {role.type}
                   </p>
                   <p className="text-slate-600 text-sm leading-relaxed mb-4">{role.summary}</p>
                 </div>
-                <button className="self-start mt-2 inline-flex items-center justify-center rounded-lg bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold px-4 py-2 text-sm shadow-sm transition-colors">
+                <button className="self-start mt-2 inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-4 py-2 text-sm shadow-sm transition-colors">
                   Apply Now
                 </button>
               </div>
@@ -116,7 +116,7 @@ export default function CareersPage() {
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center rounded-lg border border-[#ea8c06] text-[#ea8c06] hover:bg-[#ea8c06] hover:text-white font-semibold px-4 py-2 transition-colors"
+              className="inline-flex items-center justify-center rounded-lg border border-[#016B61] text-[#016B61] hover:bg-[#016B61] hover:text-white font-semibold px-4 py-2 transition-colors"
             >
               Talk to our team
             </Link>

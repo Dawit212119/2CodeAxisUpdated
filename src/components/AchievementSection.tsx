@@ -24,19 +24,19 @@ export default function AchievementSection() {
   const counters: Counter[] = [
     {
       id: 'experts',
-      label: 'Skilled Experts',
+      label: 'Expert Engineers',
       target: 15,
       icon: <Lightbulb className="w-12 h-12" />,
     },
     {
       id: 'projects',
-      label: 'Finished Projects',
+      label: 'Completed Projects',
       target: 38,
       icon: <Zap className="w-12 h-12" />,
     },
     {
       id: 'clients',
-      label: 'Satisfied Clients',
+      label: 'Happy Clients',
       target: 25,
       icon: <Users className="w-12 h-12" />,
     },
@@ -114,15 +114,15 @@ export default function AchievementSection() {
   return (
     <section
       ref={sectionRef}
-      className="achievement-section bg-slate-900 text-white py-20 lg:py-24 relative mx-auto sm:mx-6 lg:mx-8"
+      className="achievement-section bg-[#016B61] text-white py-20 lg:py-24 relative mx-auto sm:mx-6 lg:mx-8"
     >
       <div className="w-full">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-16">
-            <p className="text-orange-500 font-bold text-sm tracking-wide mb-4">ACHIEVEMENT</p>
+            <p className="text-[#9ECFD4] font-bold text-sm tracking-wide mb-4">PROVEN TRACK RECORD</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6 sm:mb-8">
-              We Are Increasing<br />Business Success
+              Delivering Results<br />That Matter
             </h2>
           </div>
         </div>
@@ -134,7 +134,7 @@ export default function AchievementSection() {
           {counters.map((counter) => (
             <div key={counter.id} className="flex flex-col items-center text-center">
               {/* Icon */}
-              <div className="mb-6 text-orange-500">
+              <div className="mb-6 text-[#70B2B2]">
                 {counter.icon}
               </div>
 
@@ -151,7 +151,7 @@ export default function AchievementSection() {
               </p>
 
               {/* Divider */}
-              <div className="mt-6 w-12 h-1 bg-gradient-to-r from-orange-500 to-transparent rounded"></div>
+              <div className="mt-6 w-12 h-1 bg-gradient-to-r from-[#70B2B2] to-transparent rounded"></div>
             </div>
             ))}
             </div>

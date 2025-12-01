@@ -25,9 +25,9 @@ export default function PartnersSection() {
     <section className="partners-section h-[1/2] text-center mb-20">
       <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-30">
-          <span className="inline-block text-sm font-bold tracking-wide text-orange-500  uppercase">Our Partners</span>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-black">Trusted by Industry Leaders</h2>
-          <p className="mt-2 text-black">We collaborate with top vendors to deliver reliable, scalable solutions.</p>
+          <span className="inline-block text-sm font-bold tracking-wide text-[#016B61]  uppercase">TECH STACK</span>
+          <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-black">Technology Partners We Work With</h2>
+          <p className="mt-2 text-black">Leveraging industry-leading platforms to build reliable, scalable solutions.</p>
         </div>
 
         <div className="relative mb-30">

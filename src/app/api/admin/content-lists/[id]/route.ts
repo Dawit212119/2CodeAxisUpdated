@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getSession } from "@/lib/auth";
+import { getBetterAuthSession } from "@/lib/better-auth-server";
 
 // PUT update content list
 export async function PUT(
@@ -8,7 +8,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
 
     if (!session || session.role !== "admin") {
       return NextResponse.json(
@@ -55,7 +55,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
 
     if (!session || session.role !== "admin") {
       return NextResponse.json(

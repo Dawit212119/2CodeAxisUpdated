@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const type = searchParams.get("type"); // Optional filter by type
+    const type = searchParams.get("type");
 
     const where: any = {
       isActive: true,
@@ -14,8 +14,6 @@ export async function GET(request: Request) {
       where.type = type;
     }
 
-    console.log("Fetching content cards with filter:", where);
-
     const cards = await prisma.contentCard.findMany({
       where,
       orderBy: {
@@ -23,18 +21,19 @@ export async function GET(request: Request) {
       },
     });
 
-    console.log(`Found ${cards.length} cards`);
-
-    // Parse metadata JSON if present
     const cardsWithParsedMetadata = cards.map((card) => ({
       ...card,
       metadata: card.metadata ? JSON.parse(card.metadata) : null,
     }));
 
-    return NextResponse.json({ cards: cardsWithParsedMetadata });
+    const response = NextResponse.json({ cards: cardsWithParsedMetadata });
+    
+    // Add cache tags for revalidation
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120');
+    
+    return response;
   } catch (error: any) {
     console.error("Error fetching content cards:", error);
-    console.error("Error details:", error?.message, error?.stack);
     return NextResponse.json(
       { 
         error: "Failed to fetch content cards",

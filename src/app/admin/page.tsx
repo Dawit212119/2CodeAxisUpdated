@@ -182,8 +182,8 @@ export default function AdminDashboard() {
     const colors: Record<string, string> = {
       pending: 'bg-yellow-100 text-yellow-800',
       pending_payment: 'bg-yellow-100 text-yellow-800',
-      pending_verification: 'bg-orange-100 text-orange-800',
-      in_progress: 'bg-blue-100 text-blue-800',
+      pending_verification: 'bg-[#E5E9C5] text-[#016B61]',
+      in_progress: 'bg-[#9ECFD4] text-[#016B61]',
       completed: 'bg-green-100 text-green-800',
       rejected: 'bg-red-100 text-red-800',
       approved: 'bg-green-100 text-green-800',
@@ -208,13 +208,13 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-extrabold text-[#0e134d]">Admin Dashboard</h1>
+              <h1 className="text-2xl font-extrabold text-[#016B61]">Admin Dashboard</h1>
               <p className="text-sm text-slate-600 mt-1">Welcome, {user?.name}</p>
             </div>
             <div className="flex items-center gap-4">
               <Link
                 href="/"
-                className="text-sm text-slate-600 hover:text-[#ea8c06]"
+                className="text-sm text-slate-600 hover:text-[#016B61]"
               >
                 Home
               </Link>
@@ -236,7 +236,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('projects')}
             className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
               activeTab === 'projects'
-                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                ? 'text-[#016B61] border-b-2 border-[#016B61]'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -246,7 +246,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('courses')}
             className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
               activeTab === 'courses'
-                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                ? 'text-[#016B61] border-b-2 border-[#016B61]'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -256,7 +256,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('manage-courses')}
             className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
               activeTab === 'manage-courses'
-                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                ? 'text-[#016B61] border-b-2 border-[#016B61]'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -266,7 +266,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('manage-cards')}
             className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
               activeTab === 'manage-cards'
-                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                ? 'text-[#016B61] border-b-2 border-[#016B61]'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -276,7 +276,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('manage-lists')}
             className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
               activeTab === 'manage-lists'
-                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                ? 'text-[#016B61] border-b-2 border-[#016B61]'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -286,7 +286,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('manage-team')}
             className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
               activeTab === 'manage-team'
-                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                ? 'text-[#016B61] border-b-2 border-[#016B61]'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -296,7 +296,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('manage-blogs')}
             className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
               activeTab === 'manage-blogs'
-                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                ? 'text-[#016B61] border-b-2 border-[#016B61]'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -306,7 +306,7 @@ export default function AdminDashboard() {
             onClick={() => setActiveTab('manage-projects')}
             className={`px-4 py-2 font-medium text-sm whitespace-nowrap ${
               activeTab === 'manage-projects'
-                ? 'text-[#ea8c06] border-b-2 border-[#ea8c06]'
+                ? 'text-[#016B61] border-b-2 border-[#016B61]'
                 : 'text-slate-600 hover:text-slate-900'
             }`}
           >
@@ -388,7 +388,7 @@ export default function AdminDashboard() {
                 <div key={submission.id} className="bg-white rounded-lg shadow p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-lg font-bold text-[#0e134d]">{submission.name}</h3>
+                      <h3 className="text-lg font-bold text-[#016B61]">{submission.name}</h3>
                       <p className="text-sm text-slate-600">{submission.email}</p>
                       {submission.user && (
                         <p className="text-xs text-slate-500 mt-1">
@@ -447,7 +447,7 @@ export default function AdminDashboard() {
                         href={submission.fileUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-[#ea8c06] hover:underline"
+                        className="text-sm text-[#016B61] hover:underline"
                       >
                         View Attachment →
                       </a>
@@ -460,7 +460,7 @@ export default function AdminDashboard() {
                       value={submission.status}
                       onChange={(e) => updateProjectStatus(submission.id, e.target.value)}
                       disabled={updating === submission.id}
-                      className="text-sm border border-slate-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-[#ea8c06]"
+                      className="text-sm border border-slate-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-[#016B61]"
                     >
                       <option value="pending">Pending</option>
                       <option value="in_progress">In Progress</option>
@@ -539,7 +539,7 @@ export default function AdminDashboard() {
                 <div key={registration.id} className="bg-white rounded-lg shadow p-6">
                   <div className="flex items-start justify-between mb-4">
                     <div>
-                      <h3 className="text-lg font-bold text-[#0e134d]">{registration.name}</h3>
+                      <h3 className="text-lg font-bold text-[#016B61]">{registration.name}</h3>
                       <p className="text-sm text-slate-600">{registration.email}</p>
                       {registration.user && (
                         <p className="text-xs text-slate-500 mt-1">
@@ -606,13 +606,13 @@ export default function AdminDashboard() {
                           <p className="text-sm font-semibold text-slate-900">dawit workye</p>
                         </div>
                         {registration.paymentReceiptUrl && (
-                          <div className="mt-3 p-3 bg-white rounded-lg border-2 border-blue-300">
+                          <div className="mt-3 p-3 bg-white rounded-lg border-2 border-[#9ECFD4]">
                             <p className="text-xs font-semibold text-slate-700 mb-2">Payment Receipt</p>
                             <a
                               href={registration.paymentReceiptUrl}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors"
+                              className="inline-flex items-center gap-2 px-4 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white text-sm font-medium rounded-lg transition-colors"
                             >
                               <span>Open Receipt in New Tab</span>
                               <span>↗</span>
@@ -665,7 +665,7 @@ export default function AdminDashboard() {
                       value={registration.status}
                       onChange={(e) => updateCourseStatus(registration.id, e.target.value)}
                       disabled={updating === registration.id}
-                      className="text-sm border border-slate-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-[#ea8c06]"
+                      className="text-sm border border-slate-300 rounded px-3 py-1 focus:outline-none focus:ring-2 focus:ring-[#016B61]"
                     >
                       <option value="pending_payment">Pending Payment</option>
                       <option value="pending_verification">Pending Verification</option>
@@ -907,7 +907,7 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#0e134d]">Manage Course</h2>
+        <h2 className="text-2xl font-bold text-[#016B61]">Manage Course</h2>
         <button
           onClick={() => {
             setEditingCourse(null);
@@ -921,7 +921,7 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
               schedule: '',
             });
           }}
-          className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+          className="px-4 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
         >
           Add New Course
         </button>
@@ -988,7 +988,7 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
 
       {showForm && (
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+          <h3 className="text-lg font-bold text-[#016B61] mb-4">
             {editingCourse ? 'Edit' : 'Add New'} Course
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -1071,7 +1071,7 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
                     type="checkbox"
                     name="isActive"
                     defaultChecked={editingCourse?.isActive !== false}
-                    className="w-4 h-4 text-[#ea8c06] border-slate-300 rounded focus:ring-[#ea8c06]"
+                    className="w-4 h-4 text-[#016B61] border-slate-300 rounded focus:ring-[#016B61]"
                   />
                   <label className="ml-2 text-sm font-medium text-slate-700">Active</label>
                 </div>
@@ -1167,7 +1167,7 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+                className="px-4 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
               >
                 {editingCourse ? 'Update Course' : 'Create Course'}
               </button>
@@ -1179,7 +1179,7 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
       {/* Courses List */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <div className="p-4 border-b border-slate-200">
-          <h3 className="text-lg font-bold text-[#0e134d]">
+          <h3 className="text-lg font-bold text-[#016B61]">
             Courses ({filteredCourses.length})
           </h3>
         </div>
@@ -1228,7 +1228,7 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
                         <div className="flex items-center gap-2">
                           <button
                             onClick={() => handleEdit(course)}
-                            className="px-3 py-1 text-xs bg-blue-500 hover:bg-blue-600 text-white rounded"
+                            className="px-3 py-1 text-xs bg-[#016B61] hover:bg-[#70B2B2] text-white rounded"
                           >
                             Edit
                           </button>
@@ -1365,13 +1365,13 @@ function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#0e134d]">Manage Team</h2>
+        <h2 className="text-2xl font-bold text-[#016B61]">Manage Team</h2>
         <button
           onClick={() => {
             setEditingMember(null);
             setShowForm(true);
           }}
-          className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+          className="px-4 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
         >
           Add New Member
         </button>
@@ -1430,7 +1430,7 @@ function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
 
       {showForm && (
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+          <h3 className="text-lg font-bold text-[#016B61] mb-4">
             {editingMember ? 'Edit' : 'Add New'} Team Member
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -1460,7 +1460,7 @@ function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
                 type="checkbox"
                 name="owner"
                 defaultChecked={editingMember?.owner === true}
-                className="w-4 h-4 text-[#ea8c06] border-slate-300 rounded focus:ring-[#ea8c06]"
+                className="w-4 h-4 text-[#016B61] border-slate-300 rounded focus:ring-[#016B61]"
               />
               <label className="ml-2 text-sm font-medium text-slate-700">
                 Owner (Shows in team section on homepage)
@@ -1513,7 +1513,7 @@ function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
                   type="checkbox"
                   name="isActive"
                   defaultChecked={editingMember?.isActive !== false}
-                  className="w-4 h-4 text-[#ea8c06] border-slate-300 rounded focus:ring-[#ea8c06]"
+                  className="w-4 h-4 text-[#016B61] border-slate-300 rounded focus:ring-[#016B61]"
                 />
                 <label className="ml-2 text-sm font-medium text-slate-700">Active</label>
               </div>
@@ -1532,7 +1532,7 @@ function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+                className="px-4 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
               >
                 {editingMember ? 'Update Member' : 'Create Member'}
               </button>
@@ -1544,7 +1544,7 @@ function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
       {/* Members List */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <div className="p-4 border-b border-slate-200">
-          <h3 className="text-lg font-bold text-[#0e134d]">
+          <h3 className="text-lg font-bold text-[#016B61]">
             Team Members ({filteredMembers.length})
           </h3>
         </div>
@@ -1572,7 +1572,7 @@ function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
                     <td className="px-4 py-3 text-sm text-slate-600">{member.role}</td>
                     <td className="px-4 py-3">
                       <span className={`px-2 py-1 text-xs font-medium rounded-full ${
-                        member.owner ? 'bg-blue-100 text-blue-700' : 'bg-slate-100 text-slate-600'
+                        member.owner ? 'bg-[#9ECFD4] text-[#016B61]' : 'bg-slate-100 text-slate-600'
                       }`}>
                         {member.owner ? 'Owner' : 'Member'}
                       </span>
@@ -1719,13 +1719,13 @@ function BlogManagement({ onUpdate }: { onUpdate: () => void }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#0e134d]">Manage Blogs</h2>
+        <h2 className="text-2xl font-bold text-[#016B61]">Manage Blogs</h2>
         <button
           onClick={() => {
             setEditingPost(null);
             setShowForm(true);
           }}
-          className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+          className="px-4 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
         >
           Add New Post
         </button>
@@ -1762,7 +1762,7 @@ function BlogManagement({ onUpdate }: { onUpdate: () => void }) {
 
       {showForm && (
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+          <h3 className="text-lg font-bold text-[#016B61] mb-4">
             {editingPost ? 'Edit' : 'Add New'} Blog Post
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -1835,7 +1835,7 @@ function BlogManagement({ onUpdate }: { onUpdate: () => void }) {
                   type="checkbox"
                   name="isActive"
                   defaultChecked={editingPost?.isActive !== false}
-                  className="w-4 h-4 text-[#ea8c06] border-slate-300 rounded focus:ring-[#ea8c06]"
+                  className="w-4 h-4 text-[#016B61] border-slate-300 rounded focus:ring-[#016B61]"
                 />
                 <label className="ml-2 text-sm font-medium text-slate-700">Active</label>
               </div>
@@ -1854,7 +1854,7 @@ function BlogManagement({ onUpdate }: { onUpdate: () => void }) {
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+                className="px-4 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
               >
                 {editingPost ? 'Update Post' : 'Create Post'}
               </button>
@@ -1866,7 +1866,7 @@ function BlogManagement({ onUpdate }: { onUpdate: () => void }) {
       {/* Posts List */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <div className="p-4 border-b border-slate-200">
-          <h3 className="text-lg font-bold text-[#0e134d]">
+          <h3 className="text-lg font-bold text-[#016B61]">
             Blog Posts ({filteredPosts.length})
           </h3>
         </div>
@@ -2054,13 +2054,13 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#0e134d]">Manage Projects</h2>
+        <h2 className="text-2xl font-bold text-[#016B61]">Manage Projects</h2>
         <button
           onClick={() => {
             setEditingProject(null);
             setShowForm(true);
           }}
-          className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+          className="px-4 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
         >
           Add New Project
         </button>
@@ -2107,7 +2107,7 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
 
       {showForm && (
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+          <h3 className="text-lg font-bold text-[#016B61] mb-4">
             {editingProject ? 'Edit' : 'Add New'} Project
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -2248,7 +2248,7 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
                   type="checkbox"
                   name="isActive"
                   defaultChecked={editingProject?.isActive !== false}
-                  className="w-4 h-4 text-[#ea8c06] border-slate-300 rounded focus:ring-[#ea8c06]"
+                  className="w-4 h-4 text-[#016B61] border-slate-300 rounded focus:ring-[#016B61]"
                 />
                 <label className="ml-2 text-sm font-medium text-slate-700">Active</label>
               </div>
@@ -2267,7 +2267,7 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
               </button>
               <button
                 type="submit"
-                className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+                className="px-4 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
               >
                 {editingProject ? 'Update Project' : 'Create Project'}
               </button>
@@ -2279,7 +2279,7 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
       {/* Projects List */}
       <div className="bg-white rounded-lg shadow overflow-hidden">
         <div className="p-4 border-b border-slate-200">
-          <h3 className="text-lg font-bold text-[#0e134d]">
+          <h3 className="text-lg font-bold text-[#016B61]">
             Projects ({filteredProjects.length})
           </h3>
         </div>
@@ -2400,7 +2400,7 @@ function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses:
   return (
     <div className="space-y-6">
       <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-bold text-[#0e134d] mb-4">Manage Course Schedules</h3>
+        <h3 className="text-lg font-bold text-[#016B61] mb-4">Manage Course Schedules</h3>
         <p className="text-sm text-slate-600 mb-6">
           Create or update schedules for each course. Students will see these schedules after their payment is verified.
         </p>
@@ -2420,7 +2420,7 @@ function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses:
                   setEditingSchedule(null);
                 }
               }}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#ea8c06] bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#016B61] bg-slate-50"
             >
               <option value="">Select a course</option>
               {courses.map((course) => (
@@ -2438,7 +2438,7 @@ function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses:
               required
               value={formData.title}
               onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] bg-slate-50"
               placeholder="e.g., 6-Month Full-Stack Development Program"
             />
           </div>
@@ -2449,7 +2449,7 @@ function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses:
               value={formData.description}
               onChange={(e) => setFormData({ ...formData, description: e.target.value })}
               rows={3}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] bg-slate-50"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] bg-slate-50"
               placeholder="Brief description of the schedule"
             />
           </div>
@@ -2462,7 +2462,7 @@ function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses:
                 required
                 value={formData.startDate}
                 onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] bg-slate-50"
               />
             </div>
             <div>
@@ -2472,7 +2472,7 @@ function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses:
                 required
                 value={formData.endDate}
                 onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] bg-slate-50"
               />
             </div>
             <div>
@@ -2483,7 +2483,7 @@ function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses:
                 min="1"
                 value={formData.duration}
                 onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
-                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] bg-slate-50"
+                className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] bg-slate-50"
               />
             </div>
           </div>
@@ -2495,7 +2495,7 @@ function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses:
               value={formData.schedule}
               onChange={(e) => setFormData({ ...formData, schedule: e.target.value })}
               rows={8}
-              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#ea8c06] bg-slate-50 font-mono text-xs"
+              className="w-full rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#016B61] bg-slate-50 font-mono text-xs"
               placeholder={`Example format:
 Month 1: Introduction to React
 - Week 1-2: React Basics
@@ -2515,7 +2515,7 @@ Month 2: State Management
           <div className="flex gap-2">
             <button
               type="submit"
-              className="px-6 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+              className="px-6 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
             >
               {editingSchedule ? 'Update Schedule' : 'Create Schedule'}
             </button>
@@ -2545,7 +2545,7 @@ Month 2: State Management
 
       {/* Existing Schedules */}
       <div className="bg-white rounded-lg shadow p-6">
-        <h3 className="text-lg font-bold text-[#0e134d] mb-4">Existing Schedules</h3>
+        <h3 className="text-lg font-bold text-[#016B61] mb-4">Existing Schedules</h3>
         {schedules.length === 0 ? (
           <p className="text-sm text-slate-600">No schedules created yet.</p>
         ) : (
@@ -2564,7 +2564,7 @@ Month 2: State Management
                     </div>
                     <button
                       onClick={() => setEditingSchedule(schedule)}
-                      className="px-4 py-2 text-sm text-[#ea8c06] hover:bg-orange-50 rounded-lg font-medium"
+                      className="px-4 py-2 text-sm text-[#016B61] hover:bg-[#E5E9C5] rounded-lg font-medium"
                     >
                       Edit
                     </button>
@@ -2827,13 +2827,13 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
-        <h2 className="text-2xl font-bold text-[#0e134d]">{title}</h2>
+        <h2 className="text-2xl font-bold text-[#016B61]">{title}</h2>
         <button
           onClick={() => {
             setEditingItem(null);
             setShowForm(true);
           }}
-          className="px-4 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+          className="px-4 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
         >
           Add New
         </button>
@@ -2841,7 +2841,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
 
       {showForm && (
         <div className="bg-white rounded-lg shadow p-6">
-          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+          <h3 className="text-lg font-bold text-[#016B61] mb-4">
             {editingItem ? 'Edit' : 'Add New'} {type === 'courses' ? 'Course' : type === 'cards' ? 'Card' : 'List Item'}
           </h3>
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -2926,6 +2926,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                       <option value="">Select type</option>
                       <option value="project">Project</option>
                       <option value="service">Service</option>
+                      <option value="service-section">Service Section Card</option>
                       <option value="testimonial">Testimonial</option>
                       <option value="team">Team</option>
                       <option value="partner">Partner</option>
@@ -3145,7 +3146,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
             <div className="flex gap-4 pt-4">
               <button
                 type="submit"
-                className="px-6 py-2 bg-[#ea8c06] hover:bg-[#d17b05] text-white font-semibold rounded-lg text-sm"
+                className="px-6 py-2 bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold rounded-lg text-sm"
               >
                 {editingItem ? 'Update' : 'Create'}
               </button>
@@ -3166,7 +3167,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
 
       <div className="bg-white rounded-lg shadow">
         <div className="p-6">
-          <h3 className="text-lg font-bold text-[#0e134d] mb-4">
+          <h3 className="text-lg font-bold text-[#016B61] mb-4">
             Existing {type === 'cards' ? 'Services' : type === 'lists' ? 'Lists' : 'Items'} ({filteredItems.length})
           </h3>
           {filteredItems.length === 0 ? (
@@ -3187,7 +3188,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                           <span className="px-2 py-1 bg-slate-100 text-slate-600 text-xs rounded">Inactive</span>
                         )}
                         {type === 'cards' && item.type && (
-                          <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded">{item.type}</span>
+                          <span className="px-2 py-1 bg-[#9ECFD4] text-[#016B61] text-xs rounded">{item.type}</span>
                         )}
                         {type === 'lists' && item.type && (
                           <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded">{item.type}</span>
@@ -3207,7 +3208,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                           setEditingItem(item);
                           setShowForm(true);
                         }}
-                        className="px-3 py-1 text-sm text-[#ea8c06] hover:bg-orange-50 rounded font-medium"
+                        className="px-3 py-1 text-sm text-[#016B61] hover:bg-[#E5E9C5] rounded font-medium"
                       >
                         Edit
                       </button>
@@ -3228,4 +3229,3 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
     </div>
   );
 }
-

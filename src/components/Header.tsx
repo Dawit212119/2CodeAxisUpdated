@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Mail, Phone, Menu, X, Facebook, Instagram, Twitter, Send, Linkedin, Youtube, User, LogOut } from 'lucide-react';
+import { authClient } from '@/lib/better-auth-client';
 
 export default function Header() {
   const router = useRouter();
@@ -40,9 +41,12 @@ export default function Header() {
       const data = await res.json();
       if (data.user) {
         setUser(data.user);
+      } else {
+        setUser(null);
       }
     } catch (error) {
       console.error('Error checking session', error);
+      setUser(null);
     } finally {
       setLoading(false);
     }
@@ -50,13 +54,23 @@ export default function Header() {
 
   async function handleLogout() {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
+      // Use better-auth client to sign out
+      await authClient.signOut();
+      
+      // Clear local state
       setUser(null);
       setIsProfileOpen(false);
+      setIsMenuOpen(false);
+      
+      // Redirect to home page
       router.push('/');
       router.refresh();
     } catch (error) {
       console.error('Error logging out', error);
+      // Even if there's an error, clear state and redirect
+      setUser(null);
+      router.push('/');
+      router.refresh();
     }
   }
 
@@ -94,18 +108,18 @@ export default function Header() {
   return (
     <header className="w-full sticky top-0 z-[10000]">
       {/* Top Bar */}
-      <div className="hidden md:block bg-slate-900 text-white py-3 px-4 sm:px-6 lg:px-8">
+      <div className="hidden md:block bg-[#016B61] text-white py-3 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-xs sm:text-sm">
             <div className="flex items-center gap-2">
-              <Mail className="w-4 h-4 text-blue-400" />
-              <a href="mailto:dawitworkye794@gmail.com" className="hover:text-blue-400 transition-colors">
+              <Mail className="w-4 h-4 text-[#9ECFD4]" />
+              <a href="mailto:dawitworkye794@gmail.com" className="hover:text-[#9ECFD4] transition-colors">
                 dawitworkye794@gmail.com
               </a>
             </div>
             <div className="flex items-center gap-2">
-              <Phone className="w-4 h-4 text-blue-400" />
-              <a href="tel:+251920245372" className="hover:text-blue-400 transition-colors">
+              <Phone className="w-4 h-4 text-[#9ECFD4]" />
+              <a href="tel:+251920245372" className="hover:text-[#9ECFD4] transition-colors">
                 +251 920 245 372
               </a>
             </div>
@@ -122,7 +136,7 @@ export default function Header() {
                     key={social.label}
                     href={social.href}
                     aria-label={social.label}
-                    className="text-white hover:text-blue-400 transition-colors"
+                    className="text-white hover:text-[#9ECFD4] transition-colors"
                   >
                     <Icon className="w-4 h-4" />
                   </a>
@@ -152,7 +166,7 @@ export default function Header() {
               <Link
                 key={link.label}
                 href={link.href}
-                className="text-slate-700 hover:text-blue-500 transition-colors font-medium"
+                className="text-slate-700 hover:text-[#016B61] transition-colors font-medium"
               >
                 {link.label}
               </Link>
@@ -165,7 +179,7 @@ export default function Header() {
             >
               <button
                 type="button"
-                className="flex items-center gap-1 text-slate-700 hover:text-blue-500 transition-colors font-medium"
+                className="flex items-center gap-1 text-slate-700 hover:text-[#016B61] transition-colors font-medium"
                 onMouseEnter={() => setIsMoreDropdownOpen(true)}
               >
                 <span>More</span>
@@ -192,7 +206,7 @@ export default function Header() {
                     <li key={item.label}>
                       <Link
                         href={item.href}
-                        className="block px-6 py-3 text-slate-800 hover:bg-slate-50 hover:text-blue-500 text-sm font-medium"
+                        className="block px-6 py-3 text-slate-800 hover:bg-slate-50 hover:text-[#016B61] text-sm font-medium"
                       >
                         {item.label}
                       </Link>
@@ -213,7 +227,7 @@ export default function Header() {
                   <div className="flex items-center gap-3">
                     <Link
                       href={getDashboardLink()}
-                      className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 hover:text-blue-500 transition-colors"
+                      className="hidden sm:inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-slate-700 hover:text-[#016B61] transition-colors"
                     >
                       <User className="w-4 h-4" />
                       Dashboard
@@ -230,7 +244,7 @@ export default function Header() {
                   /* Get Started Button - Only shown when NOT logged in */
                   <Link
                     href="/login"
-                    className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+                    className="inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white bg-[#016B61] hover:bg-[#70B2B2] rounded-lg transition-colors"
                   >
                     Get Started
                   </Link>
@@ -241,7 +255,7 @@ export default function Header() {
             {/* Mobile Menu Button - Visible on screens <= 1024px */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="lg:hidden text-slate-700 hover:text-blue-500 transition-colors"
+              className="lg:hidden text-slate-700 hover:text-[#016B61] transition-colors"
             >
               {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -256,7 +270,7 @@ export default function Header() {
                 <Link
                   key={link.label}
                   href={link.href}
-                  className="text-slate-700 hover:text-blue-500 transition-colors font-medium py-2"
+                  className="text-slate-700 hover:text-[#016B61] transition-colors font-medium py-2"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {link.label}
@@ -274,7 +288,7 @@ export default function Header() {
                     <Link
                       key={item.label}
                       href={item.href}
-                      className="py-2 text-sm text-slate-700 hover:text-blue-500"
+                      className="py-2 text-sm text-slate-700 hover:text-[#016B61]"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       {item.label}
@@ -290,7 +304,7 @@ export default function Header() {
                     <>
                       <Link
                         href={getDashboardLink()}
-                        className="flex items-center gap-2 text-slate-700 hover:text-blue-500 transition-colors font-medium py-2"
+                        className="flex items-center gap-2 text-slate-700 hover:text-[#016B61] transition-colors font-medium py-2"
                         onClick={() => setIsMenuOpen(false)}
                       >
                         <User className="w-4 h-4" />
@@ -310,7 +324,7 @@ export default function Header() {
                   ) : (
                     <Link
                       href="/login"
-                      className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-blue-500 hover:bg-blue-600 rounded-lg transition-colors"
+                      className="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-white bg-[#016B61] hover:bg-[#70B2B2] rounded-lg transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       Get Started

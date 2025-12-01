@@ -8,11 +8,14 @@ export async function GET() {
         isActive: true,
       },
       orderBy: {
-        date: "desc", // Most recent first
+        date: "desc",
       },
     });
 
-    return NextResponse.json({ posts });
+    const response = NextResponse.json({ posts });
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120');
+    
+    return response;
   } catch (error: any) {
     console.error("Error fetching blog posts:", error);
     return NextResponse.json(

@@ -86,7 +86,7 @@ body {
   position: absolute;
   content: "";
   inset: 0; /* top, right, bottom, left */
-  background-color: #0e134d; /* solid navy band */
+  background-color: #016B61; /* solid teal band */
   z-index: -1;
   top: 50%; /* only cover the bottom half */
 }
@@ -103,7 +103,7 @@ body {
   position: absolute;
   top: 0; left: 0; right: 0; bottom: 0;
   width: 100%; height: 100%; content: "";
-  background-image: linear-gradient(270.07deg, #002b98 .07%, #00060c 79.95%);
+  background-image: linear-gradient(270.07deg, #016B61 .07%, #016B61 79.95%);
   z-index: -1;
 }
 

@@ -12,13 +12,15 @@ export async function GET() {
       },
     });
 
-    // Parse features JSON if present
     const coursesWithParsedFeatures = courses.map((course) => ({
       ...course,
       features: course.features ? JSON.parse(course.features) : null,
     }));
 
-    return NextResponse.json({ courses: coursesWithParsedFeatures });
+    const response = NextResponse.json({ courses: coursesWithParsedFeatures });
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120');
+    
+    return response;
   } catch (error) {
     console.error("Error fetching courses:", error);
     return NextResponse.json(

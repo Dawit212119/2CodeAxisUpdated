@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getSession } from '@/lib/auth';
+import { getBetterAuthSession } from '@/lib/better-auth-server';
 
 export async function GET() {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
     
     if (!session) {
       return NextResponse.json(
@@ -13,7 +13,6 @@ export async function GET() {
       );
     }
 
-    // Get course registrations for the logged-in user
     const registrations = await prisma.courseRegistration.findMany({
       where: { userId: session.id },
       orderBy: { createdAt: 'desc' },
@@ -21,7 +20,7 @@ export async function GET() {
 
     return NextResponse.json({ registrations });
   } catch (error) {
-    console.error('Error fetching user course registrations', error);
+    console.error('Error fetching course registrations', error);
     return NextResponse.json(
       { error: 'Something went wrong while fetching your course registrations.' },
       { status: 500 }
