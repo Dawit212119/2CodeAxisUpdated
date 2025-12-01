@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata = {
   title: "About • CodeAxis",
@@ -35,17 +36,23 @@ export default function AboutPage() {
           {/* Left images */}
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1534759846116-5799c33ce22a?q=80&w=1200&auto=format&fit=crop"
                 alt="Technology collaboration"
+                width={1200}
+                height={420}
                 className="w-full h-[420px] object-cover"
+                unoptimized
               />
             </div>
             <div className="absolute -bottom-8 left-16 rounded-2xl overflow-hidden ring-8 ring-white/50 shadow-xl">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1521790797524-b2497295b8a0?q=80&w=800&auto=format&fit=crop"
                 alt="Handshake overlay"
+                width={800}
+                height={448}
                 className="w-80 h-56 object-cover"
+                unoptimized
               />
             </div>
             {/* Experience badge */}
@@ -143,9 +150,11 @@ export default function AboutPage() {
 
             {/* Center illustration */}
             <div className="flex justify-center">
-              <img
+              <Image
                 src="/images/advantages-center-illustration.png"
                 alt="Team working on digital solutions"
+                width={400}
+                height={400}
                 className="max-w-xs md:max-w-md w-full h-auto"
               />
             </div>
@@ -200,25 +209,34 @@ export default function AboutPage() {
           {/* Left column - stacked images */}
           <div className="grid gap-6 grid-rows-1 sm:grid-rows-[2fr,1fr]">
             <div className="rounded-2xl overflow-hidden shadow-2xl">
-              <img
+              <Image
                 src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=1200&auto=format&fit=crop"
                 alt="Focused professional working on a laptop"
+                width={1200}
+                height={360}
                 className="w-full h-[360px] object-cover"
+                unoptimized
               />
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="rounded-2xl overflow-hidden shadow-lg">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"
                   alt="Team collaborating in a meeting"
+                  width={800}
+                  height={160}
                   className="w-full h-40 object-cover"
+                  unoptimized
                 />
               </div>
               <div className="rounded-2xl overflow-hidden shadow-lg">
-                <img
+                <Image
                   src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=800&auto=format&fit=crop"
                   alt="Colleagues discussing work"
+                  width={800}
+                  height={160}
                   className="w-full h-40 object-cover"
+                  unoptimized
                 />
               </div>
             </div>

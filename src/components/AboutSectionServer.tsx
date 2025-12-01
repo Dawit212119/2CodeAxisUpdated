@@ -24,7 +24,7 @@ async function fetchServices(): Promise<string[]> {
   
   const data = await res.json();
   if (data.cards) {
-    return data.cards.map((card: any) => card.title);
+    return data.cards.map((card: { title: string }) => card.title);
   }
   
   return [

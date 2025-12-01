@@ -1,7 +1,18 @@
-import { Settings, Shield, Code, Users, Network, Lock, ArrowRight, Check } from 'lucide-react';
+import { Settings, Shield, Code, Users, Network, Lock, Check } from 'lucide-react';
 import Link from 'next/link';
+import type { LucideIcon } from 'lucide-react';
 
-const servicesData: Record<string, any> = {
+interface ServiceData {
+  title: string;
+  icon: LucideIcon;
+  description: string;
+  fullDescription: string;
+  features: string[];
+  benefits: string[];
+  useCases: string[];
+}
+
+const servicesData: Record<string, ServiceData> = {
   'managed-services': {
     title: 'Managed Services',
     icon: Settings,
@@ -24,6 +35,19 @@ By partnering with us, you can focus on your core business while we ensure your 
       'Enhanced security posture',
       'Scalable solutions',
       'Predictable budgeting',
+    ],
+    features: [
+      'Proactive system monitoring',
+      'Security threat detection',
+      'Regular backups',
+      'Performance optimization',
+      'Help desk support',
+      'Infrastructure management',
+    ],
+    useCases: [
+      'Small to medium businesses needing IT support',
+      'Organizations wanting to reduce IT overhead',
+      'Companies requiring 24/7 monitoring',
     ],
   },
   'cybersecurity-services': {
@@ -49,6 +73,19 @@ We stay ahead of emerging threats to ensure your organization remains secure.`,
       'Rapid incident response',
       'Peace of mind',
     ],
+    features: [
+      'Vulnerability assessments',
+      'Penetration testing',
+      'Security awareness training',
+      'Incident response',
+      'Compliance support',
+      'Data encryption',
+    ],
+    useCases: [
+      'Organizations handling sensitive data',
+      'Companies needing compliance support',
+      'Businesses wanting to improve security posture',
+    ],
   },
   'software-development': {
     title: 'Software Development',
@@ -72,6 +109,19 @@ From concept to deployment, we partner with you to create software that exceeds 
       'Ongoing support and maintenance',
       'Faster time to market',
       'Cost-effective development',
+    ],
+    features: [
+      'Custom application development',
+      'Web application development',
+      'Mobile app development',
+      'Cloud-based solutions',
+      'API development',
+      'Legacy system modernization',
+    ],
+    useCases: [
+      'Startups needing custom software',
+      'Businesses requiring web applications',
+      'Companies needing mobile apps',
     ],
   },
   'training-development': {
@@ -97,6 +147,19 @@ Our expert trainers deliver engaging, practical training that translates directl
       'Competitive advantage',
       'Professional growth',
     ],
+    features: [
+      'Technical skills training',
+      'Leadership development',
+      'Certification preparation',
+      'Custom training solutions',
+      'Workshops and seminars',
+      'Mentoring and coaching',
+    ],
+    useCases: [
+      'Companies wanting to upskill employees',
+      'Organizations needing certification training',
+      'Businesses requiring custom training programs',
+    ],
   },
   'infrastructure-services': {
     title: 'Infrastructure Services',
@@ -120,6 +183,19 @@ We build infrastructure that scales with your business needs.`,
       'Reduced downtime',
       'Cost optimization',
       'Future-proof solutions',
+    ],
+    features: [
+      'Data center design',
+      'Cloud infrastructure setup',
+      'Network design',
+      'Server and storage solutions',
+      'Virtualization services',
+      'Infrastructure monitoring',
+    ],
+    useCases: [
+      'Companies needing infrastructure setup',
+      'Organizations requiring cloud migration',
+      'Businesses wanting infrastructure optimization',
     ],
   },
   'system-integration': {
@@ -145,6 +221,19 @@ We ensure all your systems work together harmoniously.`,
       'Increased efficiency',
       'Seamless operations',
     ],
+    features: [
+      'Enterprise application integration',
+      'API development',
+      'Data migration',
+      'Legacy system integration',
+      'Middleware solutions',
+      'Integration testing',
+    ],
+    useCases: [
+      'Companies with multiple systems',
+      'Organizations needing data migration',
+      'Businesses requiring API integration',
+    ],
   },
 };
 
@@ -163,8 +252,6 @@ export default function ServiceDetailPage({ params }: { params: { id: string } }
       </div>
     );
   }
-
-  const Icon = service.icon;
 
   return (
     <div className="min-h-screen bg-white">
@@ -265,7 +352,7 @@ export default function ServiceDetailPage({ params }: { params: { id: string } }
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h3 className="text-3xl font-bold text-slate-900 mb-8">Other Services</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {Object.entries(servicesData).map(([id, svc]: [string, any]) => {
+            {Object.entries(servicesData).map(([id, svc]: [string, ServiceData]) => {
               if (id === params.id) return null;
               const SvcIcon = svc.icon;
               return (

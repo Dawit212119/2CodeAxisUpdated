@@ -73,7 +73,7 @@ export async function DELETE(
 
     const { id } = await params;
 
-    const card = await prisma.contentCard.delete({
+    await prisma.contentCard.delete({
       where: { id },
     });
 

@@ -31,7 +31,7 @@ function LoginForm() {
             router.push('/dashboard');
           }
         }
-      } catch (error) {
+      } catch {
         // Ignore errors, user is not logged in
       }
     }
@@ -45,7 +45,7 @@ function LoginForm() {
     setStatus(null);
 
     try {
-      const { data, error } = await authClient.signIn.email({
+      const {  error } = await authClient.signIn.email({
         email: formData.email,
         password: formData.password,
       });
@@ -75,10 +75,11 @@ function LoginForm() {
           router.push('/dashboard');
         }
       }, 1000);
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Something went wrong. Please try again.';
       setStatus({
         type: 'error',
-        message: error?.message || 'Something went wrong. Please try again.',
+        message: errorMessage,
       });
     } finally {
       setIsSubmitting(false);
@@ -92,10 +93,11 @@ function LoginForm() {
         provider: 'google',
         callbackURL: '/login?fromGoogle=true',
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to sign in with Google.';
       setStatus({
         type: 'error',
-        message: error?.message || 'Failed to sign in with Google.',
+        message: errorMessage
       });
     }
   }
@@ -115,7 +117,7 @@ function LoginForm() {
           } else {
             router.push('/dashboard');
           }
-        } catch (error) {
+        } catch {
           router.push('/dashboard');
         }
       }

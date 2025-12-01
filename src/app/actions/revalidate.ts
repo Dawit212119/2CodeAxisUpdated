@@ -25,3 +25,4 @@ export async function revalidateTags(tags: string[]) {
     revalidateTag(tag,'default')
   })
 }
+

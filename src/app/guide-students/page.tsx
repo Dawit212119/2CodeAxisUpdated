@@ -68,7 +68,7 @@ export default function GuideStudentsPage() {
               We Help You Build Projects That Matter
             </h2>
             <p className="max-w-3xl mx-auto text-slate-600 text-lg">
-              At CodeAxis, we understand that university projects are more than just assignments—they're opportunities to build something meaningful. 
+              At CodeAxis, we understand that university projects are more than just assignments—they&apos;re opportunities to build something meaningful. 
               Our team of experienced developers and mentors is here to guide you through every step of your project journey, from concept to completion.
             </p>
           </div>
@@ -182,8 +182,8 @@ export default function GuideStudentsPage() {
               Ready to Build Something Amazing?
             </h3>
             <p className="text-slate-600 mb-8 max-w-2xl mx-auto">
-              Whether you're working on a final year project, a capstone assignment, or a personal project, 
-              we're here to help you succeed. Submit your project details and let's turn your ideas into reality.
+              Whether you&apos;re working on a final year project, a capstone assignment, or a personal project, 
+              we&apos;re here to help you succeed. Submit your project details and let&apos;s turn your ideas into reality.
             </p>
             <Link
               href="/submit-project"
@@ -198,3 +198,4 @@ export default function GuideStudentsPage() {
     </div>
   );
 }
+

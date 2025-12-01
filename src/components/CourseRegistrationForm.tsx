@@ -114,10 +114,11 @@ export default function CourseRegistrationForm({ courses, initialCourseId }: Cou
       });
       setSelectedCourseId("");
       setStep(1);
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Something went wrong. Please try again.";
       setStatus({
         type: "error",
-        message: error?.message || "Something went wrong. Please try again.",
+        message: errorMessage,
       });
     } finally {
       setIsSubmitting(false);

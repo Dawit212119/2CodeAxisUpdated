@@ -2,14 +2,15 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
-import { Settings, Shield, Code, Users, Network, Lock, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Settings, Shield, Code, Users, Network, Lock, ArrowRight } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, Mousewheel } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
+import type { LucideIcon } from 'lucide-react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const iconMap: { [key: string]: any } = {
+const iconMap: { [key: string]: LucideIcon } = {
   Settings,
   Shield,
   Code,
@@ -28,8 +29,6 @@ interface Service {
 
 export default function ServicesSectionClient({ services }: { services: Service[] }) {
   const swiperRef = useRef<SwiperType | null>(null);
-  const prevButtonRef = useRef<HTMLButtonElement>(null);
-  const nextButtonRef = useRef<HTMLButtonElement>(null);
 
   if (services.length === 0) {
     return (

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 /**
  * Test script to verify content cards API endpoint logic
  * This simulates what the API endpoint does

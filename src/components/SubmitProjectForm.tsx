@@ -31,10 +31,11 @@ export default function SubmitProjectForm() {
         message: "Your project has been submitted successfully. We will contact you shortly.",
       });
       form.reset();
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : "Something went wrong. Please try again.";
       setStatus({
         type: "error",
-        message: error?.message || "Something went wrong. Please try again.",
+        message: errorMessage,
       });
     } finally {
       setIsSubmitting(false);

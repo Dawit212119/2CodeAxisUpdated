@@ -2,6 +2,7 @@
 
 import { Check, Handshake } from 'lucide-react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 export default function AboutSection() {
@@ -21,7 +22,7 @@ export default function AboutSection() {
         const res = await fetch('/api/content-cards?type=service');
         const data = await res.json();
         if (res.ok && data.cards) {
-          setServices(data.cards.map((card: any) => card.title));
+          setServices(data.cards.map((card: { title: string }) => card.title));
         } else {
           // Fallback to default services if API fails
           setServices([
@@ -59,30 +60,39 @@ export default function AboutSection() {
               {/* Large image on left */}
               <div className="row-span-2">
                 <div className="w-full h-full bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&h=800&fit=crop"
                     alt="Coding workspace"
+                    width={600}
+                    height={800}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    unoptimized
                   />
                 </div>
               </div>
               {/* Top right image */}
               <div>
                 <div className="w-full h-full bg-gradient-to-br from-[#016B61] to-[#70B2B2] rounded-lg overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&h=300&fit=crop"
                     alt="Code on screen"
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    unoptimized
                   />
                 </div>
               </div>
               {/* Bottom right image */}
               <div>
                 <div className="w-full h-full bg-gradient-to-br from-green-500 to-teal-500 rounded-lg overflow-hidden">
-                  <img
+                  <Image
                     src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=300&fit=crop"
                     alt="Programming"
+                    width={400}
+                    height={300}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    unoptimized
                   />
                 </div>
               </div>

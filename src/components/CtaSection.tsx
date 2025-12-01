@@ -7,11 +7,8 @@ export default function CtaSection() {
     <section className="cta-section section-padding fix">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-blue">
         {/* stepped navy band is handled by :before in globals.css */}
-
-   
-
-     //     {/* headline */}
-    <div className="bg-blue flex flex-col items-center justify-center gap-6">  
+        {/* headline */}
+        <div className="bg-blue flex flex-col items-center justify-center gap-6">
           <div className="text-black text-center">
             <h2 className="text-3xl sm:text-4xl font-extrabold leading-snug">
               Ready to Build

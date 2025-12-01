@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 import { Lightbulb, Zap, Users, Briefcase } from 'lucide-react';
 
 interface Counter {
@@ -48,7 +48,33 @@ export default function AchievementSection() {
     },
   ];
 
+  const animateCounters = useCallback(() => {
+    const duration = 5000; // 5 seconds
+    const startTime = Date.now();
+
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+
+      setCounts({
+        experts: Math.floor(15 * progress),
+        projects: Math.floor(38 * progress),
+        clients: Math.floor(25 * progress),
+        services: Math.floor(9 * progress),
+      });
+
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      }
+    };
+
+    requestAnimationFrame(animate);
+  }, []);
+
   useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         if (entries[0].isIntersecting) {
@@ -74,42 +100,17 @@ export default function AchievementSection() {
       { threshold: 0.3 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    observer.observe(section);
 
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+      if (section) {
+        observer.unobserve(section);
       }
       if (animationTimeoutRef.current) {
         clearTimeout(animationTimeoutRef.current);
       }
     };
-  }, []);
-
-  const animateCounters = () => {
-    const duration = 5000; // 5 seconds
-    const startTime = Date.now();
-
-    const animate = () => {
-      const elapsed = Date.now() - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      setCounts({
-        experts: Math.floor(15 * progress),
-        projects: Math.floor(38 * progress),
-        clients: Math.floor(25 * progress),
-        services: Math.floor(9 * progress),
-      });
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  };
+  }, [animateCounters]);
 
   return (
     <section

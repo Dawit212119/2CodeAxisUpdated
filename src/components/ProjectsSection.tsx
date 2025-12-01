@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, Mousewheel } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -17,7 +18,7 @@ interface Project {
   description: string | null;
   imageUrl: string | null;
   linkUrl: string | null;
-  metadata?: any;
+  metadata?: Record<string, unknown> | null;
 }
 
 export default function ProjectsSection() {
@@ -49,7 +50,23 @@ export default function ProjectsSection() {
         
         if (res.ok && data.projects) {
           // Map to Project interface format
-          const mappedProjects = data.projects.map((project: any) => ({
+          type ApiProject = {
+            id: string;
+            title: string;
+            category: string | null;
+            description: string | null;
+            imageUrl: string | null;
+            linkUrl: string | null;
+            modalImageUrl?: string | null;
+            detailDescription?: string | null;
+            technologies?: unknown;
+            client?: string | null;
+            date?: string | null;
+            duration?: string | null;
+            features?: unknown;
+            metadata?: Record<string, unknown> | null;
+          };
+          const mappedProjects = (data.projects as ApiProject[]).map((project): Project => ({
             id: project.id,
             title: project.title,
             category: project.category,
@@ -57,13 +74,14 @@ export default function ProjectsSection() {
             imageUrl: project.imageUrl,
             linkUrl: project.linkUrl,
             metadata: {
-              modalImageUrl: project.modalImageUrl,
-              detailDescription: project.detailDescription,
-              technologies: project.technologies,
-              client: project.client,
-              date: project.date,
-              duration: project.duration,
-              features: project.features,
+              ...(project.metadata || {}),
+              modalImageUrl: project.modalImageUrl ?? (project.metadata as { modalImageUrl?: string | null } | undefined)?.modalImageUrl,
+              detailDescription: project.detailDescription ?? (project.metadata as { detailDescription?: string | null } | undefined)?.detailDescription,
+              technologies: project.technologies ?? (project.metadata as { technologies?: unknown } | undefined)?.technologies,
+              client: project.client ?? (project.metadata as { client?: string | null } | undefined)?.client,
+              date: project.date ?? (project.metadata as { date?: string | null } | undefined)?.date,
+              duration: project.duration ?? (project.metadata as { duration?: string | null } | undefined)?.duration,
+              features: project.features ?? (project.metadata as { features?: unknown } | undefined)?.features,
             },
           }));
           setProjects(mappedProjects);
@@ -90,7 +108,7 @@ export default function ProjectsSection() {
             <div className="flex-1 text-center md:text-left">
               <p className="text-[#016B61] font-bold text-sm tracking-wide mb-4">RECENT WORK</p>
               <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-                Projects We've Delivered
+                Projects We&apos;ve Delivered
               </h2>
               <p className="text-slate-600 text-lg max-w-2xl mx-auto md:mx-0">
                 Explore our portfolio of successful projects delivered to clients worldwide
@@ -187,10 +205,12 @@ export default function ProjectsSection() {
                     {/* Project Image */}
                     <div className="project-image relative h-72 bg-gradient-to-br from-slate-700 to-slate-900 overflow-hidden">
                       {project.imageUrl ? (
-                        <img
+                        <Image
                           src={project.imageUrl}
                           alt={project.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-500"
+                          unoptimized
                         />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-white text-4xl font-bold">

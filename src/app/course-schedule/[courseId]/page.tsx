@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useParams, useRouter } from 'next/navigation';
+import { useState, useEffect, useCallback } from 'react';
+import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import { Calendar, Clock, BookOpen, ArrowLeft } from 'lucide-react';
 
@@ -18,16 +18,11 @@ interface Schedule {
 
 export default function CourseSchedulePage() {
   const params = useParams();
-  const router = useRouter();
   const courseId = params.courseId as string;
   const [schedule, setSchedule] = useState<Schedule | null>(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    loadSchedule();
-  }, [courseId]);
-
-  async function loadSchedule() {
+  const loadSchedule = useCallback(async () => {
     try {
       const res = await fetch(`/api/course-schedule?courseId=${courseId}`);
       const data = await res.json();
@@ -40,7 +35,13 @@ export default function CourseSchedulePage() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [courseId]);
+
+  useEffect(() => {
+    if (courseId) {
+      loadSchedule();
+    }
+  }, [courseId, loadSchedule]);
 
   if (loading) {
     return (

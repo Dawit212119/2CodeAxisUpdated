@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { authClient } from '@/lib/better-auth-client';
@@ -33,14 +33,42 @@ interface CourseRegistration {
   createdAt: string;
   updatedAt: string;
 }
-
+interface User {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+}
 export default function UserDashboard() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [courseRegistrations, setCourseRegistrations] = useState<CourseRegistration[]>([]);
   const [activeTab, setActiveTab] = useState<'projects' | 'courses'>('projects');
+  const checkSession = useCallback(async () => {
+    try {
+      const res = await fetch('/api/auth/session');
+      const data = await res.json();
+      
+      if (!data.user) {
+        router.push('/login');
+        return;
+      }
+      
+      // Check if user is admin and redirect to admin dashboard
+      if (data.user.role === 'admin') {
+        router.push('/admin');
+        return;
+      }
+      
+      setUser(data.user);
+      loadProjects();
+      loadCourseRegistrations();
+    } catch {
+      router.push('/login');
+    }
+  }, [router]);
 
   useEffect(() => {
     checkSession();
@@ -57,48 +85,9 @@ export default function UserDashboard() {
     return () => {
       window.removeEventListener('focus', handleFocus);
     };
-  }, [activeTab]);
+  }, [activeTab, checkSession]);
 
-  // Refresh when switching to courses tab
-  useEffect(() => {
-    if (activeTab === 'courses') {
-      loadCourseRegistrations();
-    }
-  }, [activeTab]);
-
-  async function checkSession() {
-    try {
-      const res = await fetch('/api/auth/session');
-      const data = await res.json();
-      
-      if (!data.user) {
-        console.log('=== CLIENT: No user session ===');
-        router.push('/login');
-        return;
-      }
-      
-      // Log the user role on client side
-      console.log('=== CLIENT: Current logged-in user role ===');
-      console.log('Role:', data.user.role);
-      console.log('User:', data.user);
-      console.log('==========================================');
-      
-      // Check if user is admin and redirect to admin dashboard
-      if (data.user.role === 'admin') {
-        console.log('CLIENT: User is admin, redirecting to /admin');
-        router.push('/admin');
-        return;
-      }
-      
-      console.log('CLIENT: User is not admin, showing user dashboard');
-      setUser(data.user);
-      loadProjects();
-      loadCourseRegistrations();
-    } catch (error) {
-      console.error('CLIENT: Error checking session:', error);
-      router.push('/login');
-    }
-  }
+  // ... rest of the component ...
 
   async function loadProjects() {
     try {

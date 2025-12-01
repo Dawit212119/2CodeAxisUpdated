@@ -17,7 +17,11 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get("type");
 
-    const where: any = {};
+    interface WhereClause {
+      type?: string;
+    }
+
+    const where: WhereClause = {};
     if (type) {
       where.type = type;
     }

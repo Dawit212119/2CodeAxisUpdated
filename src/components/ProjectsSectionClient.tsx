@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Autoplay, Mousewheel } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -17,7 +18,7 @@ interface Project {
   description: string | null;
   imageUrl: string | null;
   linkUrl: string | null;
-  metadata?: any;
+  metadata?: Record<string, unknown> | null;
 }
 
 export default function ProjectsSectionClient({ projects }: { projects: Project[] }) {
@@ -122,10 +123,12 @@ export default function ProjectsSectionClient({ projects }: { projects: Project[
                 {/* Project Image */}
                 <div className="project-image relative h-72 bg-gradient-to-br from-slate-700 to-slate-900 overflow-hidden">
                   {project.imageUrl ? (
-                    <img
+                    <Image
                       src={project.imageUrl}
                       alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      unoptimized
                     />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center text-white text-4xl font-bold">

@@ -39,7 +39,7 @@ export default function RegisterPage() {
     setStatus(null);
 
     try {
-      const { data, error } = await authClient.signUp.email({
+      const { error } = await authClient.signUp.email({
         email: formData.email,
         password: formData.password,
         name: formData.name,
@@ -59,10 +59,11 @@ export default function RegisterPage() {
         router.push('/dashboard');
         router.refresh();
       }, 1000);
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to register.';
       setStatus({
         type: 'error',
-        message: error?.message || 'Something went wrong. Please try again.',
+        message: errorMessage
       });
     } finally {
       setIsSubmitting(false);
@@ -75,10 +76,11 @@ export default function RegisterPage() {
         provider: 'google',
         callbackURL: '/dashboard',
       });
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Failed to sign up with Google.';
       setStatus({
         type: 'error',
-        message: error?.message || 'Failed to sign up with Google.',
+        message: errorMessage,
       });
     }
   }

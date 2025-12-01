@@ -2,8 +2,10 @@
 
 import Link from 'next/link';
 import { Settings, Shield, Code, Users, Network, Lock, ArrowRight } from 'lucide-react';
+import Image from 'next/image';
+import type { LucideIcon } from 'lucide-react';
 
-const iconMap: { [key: string]: any } = {
+const iconMap: { [key: string]: LucideIcon } = {
   Settings,
   Shield,
   Code,
@@ -44,10 +46,12 @@ export default function ServicesGridClient({ services }: { services: Service[] }
           >
             {service.imageUrl ? (
               <div className="relative h-48 overflow-hidden">
-                <img
+                <Image
                   src={service.imageUrl}
                   alt={service.title}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover group-hover:scale-110 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-all duration-300"></div>
               </div>
