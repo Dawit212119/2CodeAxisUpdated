@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
@@ -8,27 +8,68 @@ import "swiper/css";
 import "swiper/css/navigation";
 
 const partners = [
-  { name: "Microsoft", logo: "https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" },
-  { name: "AWS", logo: "https://upload.wikimedia.org/wikipedia/commons/9/93/Amazon_Web_Services_Logo.svg" },
-  { name: "Google Cloud", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5f/Google_Cloud_logo.svg" },
-  { name: "Docker", logo: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Docker_%28container_engine%29_logo.svg" },
-  { name: "Kubernetes", logo: "https://upload.wikimedia.org/wikipedia/commons/3/39/Kubernetes_logo_without_workmark.svg" },
-  { name: "Azure", logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Microsoft_Azure.svg" },
-  { name: "DigitalOcean", logo: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Digitalocean-logo.svg" },
-  { name: "GitHub", logo: "https://upload.wikimedia.org/wikipedia/commons/9/91/Octicons-mark-github.svg" },
+  { 
+    name: "INSA", 
+    logo: "/images/partners/insa.png",
+    fallback: "INSA",
+    initials: "INSA"
+  },
+  { 
+    name: "Ethiopian Airlines", 
+    logo: "/images/partners/ethioairlines.png",
+    fallback: "Ethiopian",
+    initials: "ET"
+  },
+  { 
+    name: "Ethio Telecom", 
+    logo: "/images/partners/ethiotelecom.png",
+    fallback: "Ethio Telecom",
+    initials: "ET"
+  },
+  { 
+    name: "Safaricom Ethiopia", 
+    logo: "/images/partners/safaricom.png",
+    fallback: "Safaricom",
+    initials: "SE"
+  },
+  { 
+    name: "ICOGS", 
+    logo: "/images/partners/icog.png",
+    fallback: "ICOGS",
+    initials: "ICOGS"
+  },
+  { 
+    name: "Chapa", 
+    logo: "/images/partners/chapa.png",
+    fallback: "Chapa",
+    initials: "CH"
+  },
+  { 
+    name: "Kifiya", 
+    logo: "/images/partners/kififya.png",
+    fallback: "Kifiya",
+    initials: "KF"
+  },
+  { 
+    name: "Gebeya", 
+    logo: "/images/partners/gebeya.png",
+    fallback: "Gebeya",
+    initials: "GB"
+  },
 ];
 
 export default function PartnersSection() {
   const prevRef = useRef<HTMLButtonElement>(null);
   const nextRef = useRef<HTMLButtonElement>(null);
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   return (
     <section className="partners-section h-[1/2] text-center mb-20">
       <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-30">
-          <span className="inline-block text-sm font-bold tracking-wide text-[#016B61]  uppercase">TECH STACK</span>
-          <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-black">Technology Partners We Work With</h2>
-          <p className="mt-2 text-black">Leveraging industry-leading platforms to build reliable, scalable solutions.</p>
+          <span className="inline-block text-sm font-bold tracking-wide text-[#016B61]  uppercase">OUR PARTNERS</span>
+          <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-black">Local Technology Partners</h2>
+          <p className="mt-2 text-black">Collaborating with leading Ethiopian technology companies to deliver innovative solutions.</p>
         </div>
 
         <div className="relative mb-30">
@@ -61,13 +102,36 @@ export default function PartnersSection() {
               1024: { slidesPerView: 3, spaceBetween: 32, centeredSlides: true },
             }}
           >
-            {partners.map((p) => (
-              <SwiperSlide key={p.name}>
-                <div className="h-24 flex items-center justify-center  rounded-xl ring-1 ring-white/10">
-                  <Image src={p.logo} alt={p.name} width={160} height={40} className="partners-logo max-h-10 max-w-[160px]" unoptimized />
-                </div>
-              </SwiperSlide>
-            ))}
+            {partners.map((p) => {
+              const hasError = imageErrors[p.name];
+              return (
+                <SwiperSlide key={p.name}>
+                  <div className="h-32 flex items-center justify-center rounded-xl ring-1 ring-white/10 bg-white/5 backdrop-blur-sm">
+                    {!hasError && p.logo ? (
+                      <Image 
+                        src={p.logo} 
+                        alt={p.name} 
+                        width={240} 
+                        height={80} 
+                        className="partners-logo max-h-16 max-w-[240px] object-contain"
+                        onError={() => {
+                          setImageErrors(prev => ({ ...prev, [p.name]: true }));
+                        }}
+                        onLoadingComplete={() => {
+                          // Image loaded successfully
+                        }}
+                      />
+                    ) : (
+                      <div className="partner-fallback w-full h-full flex items-center justify-center">
+                        <div className="bg-gradient-to-br from-[#016B61] to-[#70B2B2] text-white font-bold text-xs sm:text-sm px-3 py-2 rounded-lg shadow-md">
+                          {p.initials || p.fallback || p.name}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </SwiperSlide>
+              );
+            })}
           </Swiper>
         </div>
       </div>

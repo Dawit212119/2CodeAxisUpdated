@@ -15,6 +15,38 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'upload.wikimedia.org',
       },
+      {
+        protocol: 'https',
+        hostname: 'www.insa.gov.et',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.ethiopianairlines.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.ethiotelecom.et',
+      },
+      {
+        protocol: 'https',
+        hostname: 'www.safaricom.et',
+      },
+      {
+        protocol: 'https',
+        hostname: 'chapa.co',
+      },
+      {
+        protocol: 'https',
+        hostname: 'icog-labs.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'kifiya.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'gebeya.com',
+      },
     ],
   },
 };

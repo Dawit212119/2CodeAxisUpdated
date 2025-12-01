@@ -1,5 +1,3 @@
-'use client';
-
 import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -16,7 +14,7 @@ type Member = {
 
 async function fetchTeamMembers(): Promise<Member[]> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/team-members?owner=false`, {
+  const res = await fetch(`${baseUrl}/api/team-members`, {
     next: { 
       revalidate: 60,
       tags: ['team-members']
