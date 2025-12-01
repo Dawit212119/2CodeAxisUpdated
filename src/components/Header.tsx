@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { Mail, Phone, Menu, X, Facebook, Instagram, Twitter, Send, Linkedin, Youtube, User, LogOut } from 'lucide-react';
+import { authClient } from '@/lib/better-auth-client';
 
 export default function Header() {
   const router = useRouter();
@@ -40,9 +41,12 @@ export default function Header() {
       const data = await res.json();
       if (data.user) {
         setUser(data.user);
+      } else {
+        setUser(null);
       }
     } catch (error) {
       console.error('Error checking session', error);
+      setUser(null);
     } finally {
       setLoading(false);
     }
@@ -50,13 +54,23 @@ export default function Header() {
 
   async function handleLogout() {
     try {
-      await fetch('/api/auth/logout', { method: 'POST' });
+      // Use better-auth client to sign out
+      await authClient.signOut();
+      
+      // Clear local state
       setUser(null);
       setIsProfileOpen(false);
+      setIsMenuOpen(false);
+      
+      // Redirect to home page
       router.push('/');
       router.refresh();
     } catch (error) {
       console.error('Error logging out', error);
+      // Even if there's an error, clear state and redirect
+      setUser(null);
+      router.push('/');
+      router.refresh();
     }
   }
 

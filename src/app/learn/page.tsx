@@ -1,5 +1,7 @@
+import { Suspense } from 'react';
 import Link from "next/link";
 import CourseRegistrationForm, { type Course } from "@/components/CourseRegistrationForm";
+import CoursesListClient from "@/components/CoursesListClient";
 
 export const metadata = {
   title: "Learn with CodeAxis",
@@ -19,7 +21,7 @@ interface CourseData {
   features: string[] | null;
 }
 
-async function getCourses(): Promise<CourseData[]> {
+async function fetchCourses(): Promise<CourseData[]> {
   try {
     // For server-side, try to use internal API or fetch from localhost
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
@@ -42,14 +44,37 @@ async function getCourses(): Promise<CourseData[]> {
   }
 }
 
+function CoursesSkeleton() {
+  return (
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
+      {[...Array(4)].map((_, i) => (
+        <div key={i} className="bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between">
+          <div className="animate-pulse">
+            <div className="h-4 bg-slate-200 rounded w-3/4 mb-2"></div>
+            <div className="h-3 bg-slate-200 rounded w-1/2 mb-2"></div>
+            <div className="h-3 bg-slate-200 rounded w-2/3 mb-2"></div>
+            <div className="h-3 bg-slate-200 rounded w-1/3"></div>
+          </div>
+          <div className="flex items-center justify-between mt-2 gap-2">
+            <div className="h-3 bg-slate-200 rounded w-1/4"></div>
+            <div className="flex gap-2">
+              <div className="h-8 bg-slate-200 rounded w-20"></div>
+              <div className="h-8 bg-slate-200 rounded w-24"></div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default async function LearnPage({ searchParams }: LearnPageProps) {
   const params = await searchParams;
   const courseParam = params?.course;
   const initialCourseId = Array.isArray(courseParam) ? courseParam[0] : courseParam;
   
-  const coursesData = await getCourses();
-  
-  // Map to Course type for the form
+  // Fetch courses for the form (needed immediately)
+  const coursesData = await fetchCourses();
   const courses: Course[] = coursesData.map((course) => ({
     id: course.id,
     title: course.title,
@@ -107,9 +132,10 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
         </div>
       </section>
 
-      {/* Courses list */}
+      {/* Courses list with Suspense */}
       <section className="py-16 md:py-20 bg-[#f3f7fb]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          {/* Static header */}
           <div className="max-w-3xl">
             <p className="text-[#016B61] font-bold text-sm tracking-wide mb-3">TECH TRAINING</p>
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-4">
@@ -121,57 +147,9 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
             </p>
           </div>
 
-          <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-2">
-            {coursesData.length === 0 ? (
-              <div className="col-span-2 text-center py-12 text-slate-600">
-                No courses available at the moment. Please check back later.
-              </div>
-            ) : (
-              coursesData.map((course: CourseData) => (
-                <div
-                  key={course.id}
-                  className="bg-white rounded-2xl shadow-md p-6 flex flex-col justify-between"
-                >
-                  <div>
-                    <h3 className="text-xl font-bold text-[#016B61] mb-2">{course.title}</h3>
-                    <p className="text-sm text-slate-500 mb-3">
-                      {course.duration && course.mode
-                        ? `Duration: ${course.duration} • Mode: ${course.mode}`
-                        : course.duration
-                        ? `Duration: ${course.duration}`
-                        : course.mode
-                        ? `Mode: ${course.mode}`
-                        : ""}
-                    </p>
-                    {course.features && Array.isArray(course.features) && course.features.length > 0 ? (
-                      <ul className="text-sm text-slate-600 space-y-1 mb-4 list-disc list-inside">
-                        {course.features.map((feature: string, idx: number) => (
-                          <li key={idx}>{feature}</li>
-                        ))}
-                      </ul>
-                    ) : (
-                      <ul className="text-sm text-slate-600 space-y-1 mb-4 list-disc list-inside">
-                        <li>Weekly live sessions with CodeAxis engineers</li>
-                        <li>Capstone project you can add to your portfolio</li>
-                        <li>Certificate of completion and career guidance</li>
-                      </ul>
-                    )}
-                  </div>
-                  <div className="flex items-center justify-between mt-2">
-                    <p className="text-sm font-semibold text-slate-700">
-                      {course.level ? `Level: ${course.level}` : "Level: Beginner – Intermediate"}
-                    </p>
-                    <Link
-                      href={`/learn?course=${course.id}#register`}
-                      className="inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-4 py-2 text-sm shadow-sm transition-colors"
-                    >
-                      Register
-                    </Link>
-                  </div>
-                </div>
-              ))
-            )}
-          </div>
+          <Suspense fallback={<CoursesSkeleton />}>
+            <CoursesListClient courses={coursesData} />
+          </Suspense>
 
           {/* Extra info / value props */}
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 text-sm text-slate-700">

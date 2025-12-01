@@ -2926,6 +2926,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                       <option value="">Select type</option>
                       <option value="project">Project</option>
                       <option value="service">Service</option>
+                      <option value="service-section">Service Section Card</option>
                       <option value="testimonial">Testimonial</option>
                       <option value="team">Team</option>
                       <option value="partner">Partner</option>
@@ -3228,4 +3229,3 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
     </div>
   );
 }
-

@@ -12,14 +12,18 @@ export async function GET() {
       },
     });
 
-    // Parse JSON strings back to arrays
     const projectsWithParsedData = projects.map((project) => ({
       ...project,
       technologies: project.technologies ? JSON.parse(project.technologies) : null,
       features: project.features ? JSON.parse(project.features) : null,
     }));
 
-    return NextResponse.json({ projects: projectsWithParsedData });
+    const response = NextResponse.json({ projects: projectsWithParsedData });
+    
+    // Add cache tags for revalidation
+    response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120');
+    
+    return response;
   } catch (error: any) {
     console.error("Error fetching projects:", error);
     return NextResponse.json(

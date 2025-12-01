@@ -1,7 +1,9 @@
 'use client';
 
-import { useState, useEffect } from "react";
+import { Suspense } from 'react';
 import Link from "next/link";
+import BlogPostsClient from '@/components/BlogPostsClient';
+import BlogPostsSkeleton from '@/components/BlogPostsSkeleton';
 
 type BlogPost = {
   id: string;
@@ -12,30 +14,32 @@ type BlogPost = {
   minutesToRead: number | null;
 };
 
+async function fetchBlogPosts(): Promise<BlogPost[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+  const res = await fetch(`${baseUrl}/api/blog-posts`, {
+    next: { 
+      revalidate: 60,
+      tags: ['blog-posts']
+    },
+  });
+  
+  if (!res.ok) {
+    return [];
+  }
+  
+  const data = await res.json();
+  return data.posts || [];
+}
+
+async function BlogPostsData() {
+  const posts = await fetchBlogPosts();
+  return <BlogPostsClient posts={posts} />;
+}
+
 export default function BlogsPage() {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchBlogPosts() {
-      try {
-        const res = await fetch('/api/blog-posts');
-        const data = await res.json();
-        if (res.ok && data.posts) {
-          setPosts(data.posts);
-        }
-      } catch (error) {
-        console.error('Error fetching blog posts:', error);
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchBlogPosts();
-  }, []);
-
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero */}
+      {/* Hero - Static content */}
       <section
         className="relative flex items-center justify-center py-24 md:py-40 text-white"
         style={{
@@ -80,8 +84,10 @@ export default function BlogsPage() {
         </div>
       </section>
 
+      {/* Blog Posts Section with Suspense */}
       <section className="py-16 md:py-20 bg-[#f3f7fb]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+          {/* Static header */}
           <div className="max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-4">
               Insights from the CodeAxis Team
@@ -92,37 +98,9 @@ export default function BlogsPage() {
             </p>
           </div>
 
-          {loading ? (
-            <div className="text-center py-12 text-slate-600">Loading blog posts...</div>
-          ) : posts.length === 0 ? (
-            <div className="text-center py-12 text-slate-600">No blog posts available at the moment.</div>
-          ) : (
-            <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-              {posts.map((post) => (
-                <article key={post.id} className="bg-white rounded-2xl shadow-md p-6 flex flex-col">
-                  <p className="text-xs font-medium text-slate-500 mb-1">
-                    {new Date(post.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} • {post.minutesToRead ? `${post.minutesToRead} min read` : ''}
-                  </p>
-                  <h3 className="text-lg font-bold text-[#016B61] mb-2">{post.title}</h3>
-                  <p className="text-slate-600 text-sm leading-relaxed mb-4 flex-1">{post.description}</p>
-                  {post.linkUrl ? (
-                    <a
-                      href={post.linkUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-auto inline-flex items-center text-sm font-semibold text-[#016B61] hover:text-[#70B2B2] cursor-pointer"
-                    >
-                      Read More
-                    </a>
-                  ) : (
-                    <span className="mt-auto inline-flex items-center text-sm font-semibold text-slate-400">
-                      Read More
-                    </span>
-                  )}
-                </article>
-              ))}
-            </div>
-          )}
+          <Suspense fallback={<BlogPostsSkeleton />}>
+            <BlogPostsData />
+          </Suspense>
         </div>
       </section>
     </div>

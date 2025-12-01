@@ -1,18 +1,19 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import SubmitProjectForm from "@/components/SubmitProjectForm";
-import { getSession } from "@/lib/auth";
+import { getBetterAuthSession } from "@/lib/better-auth-server";
 
 export const metadata = {
   title: "Submit Project • CodeAxis",
 };
 
 export default async function SubmitProjectPage() {
-  const session = await getSession();
+  const session = await getBetterAuthSession();
   
   if (!session) {
     redirect("/login?redirect=/submit-project");
   }
+  
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}

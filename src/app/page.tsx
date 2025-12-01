@@ -1,16 +1,16 @@
-'use client';
 
 import Link from 'next/link';
-import AboutSection from '@/components/AboutSection';
-import ServicesSection from '@/components/ServicesSection';
+import AboutSectionServer from '@/components/AboutSectionServer';
+import ServicesSectionServer from '@/components/ServicesSectionServer';
 import AchievementSection from '@/components/AchievementSection';
-import ProjectsSection from '@/components/ProjectsSection';
+import ProjectsSectionServer from '@/components/ProjectsSectionServer';
 import ProjectCtaSection from '@/components/ProjectCtaSection';
-import TeamMembersSection from '@/components/TeamMembersSection';
+import TeamMembersSectionServer from '@/components/TeamMembersSectionServer';
 import FaqSection from '@/components/FaqSection';
 import PartnersSection from '@/components/PartnersSection';
 import CtaSection from '@/components/CtaSection';
 import TestimonialSection from '@/components/TestimonialSection';
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-blue-100 relative overflow-hidden">
@@ -62,13 +62,13 @@ export default function Home() {
         </div>
       </div>
 
-      <AboutSection />
-      <ServicesSection />
+      <AboutSectionServer />
+      <ServicesSectionServer />
       <AchievementSection />
-      <ProjectsSection />
+      <ProjectsSectionServer />
       <ProjectCtaSection />
       <TestimonialSection />
-      <TeamMembersSection />
+      <TeamMembersSectionServer />
       <FaqSection />
       <PartnersSection />
       <CtaSection />

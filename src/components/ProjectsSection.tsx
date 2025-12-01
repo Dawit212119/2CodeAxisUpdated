@@ -44,6 +44,9 @@ export default function ProjectsSection() {
       try {
         const res = await fetch('/api/projects');
         const data = await res.json();
+        
+        console.log('Projects API response:', data); // Debug log
+        
         if (res.ok && data.projects) {
           // Map to Project interface format
           const mappedProjects = data.projects.map((project: any) => ({
@@ -64,6 +67,8 @@ export default function ProjectsSection() {
             },
           }));
           setProjects(mappedProjects);
+        } else {
+          console.error('Failed to fetch projects:', data);
         }
       } catch (error) {
         console.error('Error fetching projects:', error);

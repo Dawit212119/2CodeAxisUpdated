@@ -1,4 +1,4 @@
-import ServicesSection from '@/components/ServicesSection';
+import ServicesGridServer from '@/components/ServicesGridServer';
 
 export default function ServicesPage() {
   return (
@@ -46,7 +46,7 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <ServicesSection />
+      <ServicesGridServer />
     </div>
   );
 }

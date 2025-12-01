@@ -1,12 +1,20 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getSession } from "@/lib/auth";
+import { getBetterAuthSession } from "@/lib/better-auth-server";
 import { cloudinary } from "@/lib/cloudinary";
 import type { UploadApiResponse } from "cloudinary";
 
 export async function POST(request: Request) {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
+    
+    if (!session) {
+      return NextResponse.json(
+        { error: "You must be logged in to register for a course." },
+        { status: 401 }
+      );
+    }
+
     const formData = await request.formData();
 
     const courseId = formData.get("courseId")?.toString().trim() ?? "";

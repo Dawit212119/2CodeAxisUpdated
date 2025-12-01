@@ -1,17 +1,26 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import { getSession } from '@/lib/auth';
+import { getBetterAuthSession } from '@/lib/better-auth-server';
 
 export async function PATCH(request: Request) {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
     
     if (!session || session.role !== 'admin') {
+      console.log('Verify Payment: Unauthorized access attempt', { 
+        hasSession: !!session, 
+        role: session?.role 
+      });
       return NextResponse.json(
         { error: 'Unauthorized. Admin access required.' },
         { status: 403 }
       );
     }
+
+    console.log('Verify Payment: Admin session verified', { 
+      userId: session.id, 
+      role: session.role 
+    });
 
     const body = await request.json();
     const { id, verified } = body; // verified: true = approve, false = reject
@@ -29,6 +38,11 @@ export async function PATCH(request: Request) {
         status: verified ? 'approved' : 'rejected',
         verifiedAt: verified ? new Date() : null,
       },
+    });
+
+    console.log('Verify Payment: Success', { 
+      registrationId: id, 
+      status: registration.status 
     });
 
     return NextResponse.json({ success: true, registration });

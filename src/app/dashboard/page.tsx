@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { authClient } from '@/lib/better-auth-client';
 
 interface Project {
   id: number;
@@ -71,14 +72,30 @@ export default function UserDashboard() {
       const data = await res.json();
       
       if (!data.user) {
+        console.log('=== CLIENT: No user session ===');
         router.push('/login');
         return;
       }
       
+      // Log the user role on client side
+      console.log('=== CLIENT: Current logged-in user role ===');
+      console.log('Role:', data.user.role);
+      console.log('User:', data.user);
+      console.log('==========================================');
+      
+      // Check if user is admin and redirect to admin dashboard
+      if (data.user.role === 'admin') {
+        console.log('CLIENT: User is admin, redirecting to /admin');
+        router.push('/admin');
+        return;
+      }
+      
+      console.log('CLIENT: User is not admin, showing user dashboard');
       setUser(data.user);
       loadProjects();
       loadCourseRegistrations();
     } catch (error) {
+      console.error('CLIENT: Error checking session:', error);
       router.push('/login');
     }
   }
@@ -112,8 +129,15 @@ export default function UserDashboard() {
   }
 
   async function handleLogout() {
-    await fetch('/api/auth/logout', { method: 'POST' });
-    router.push('/login');
+    try {
+      await authClient.signOut();
+      router.push('/');
+      router.refresh();
+    } catch (error) {
+      console.error('Error logging out', error);
+      router.push('/');
+      router.refresh();
+    }
   }
 
   function getStatusColor(status: string) {
@@ -246,113 +270,113 @@ export default function UserDashboard() {
               </p>
             </div>
 
-        {projects.length === 0 ? (
-          <div className="bg-white rounded-lg shadow p-12 text-center">
-            <div className="max-w-md mx-auto">
-              <h3 className="text-lg font-semibold text-[#016B61] mb-2">No projects submitted yet</h3>
-              <p className="text-sm text-slate-600 mb-6">
-                Submit your first project to get started. Our team will review it and update you on the status.
-              </p>
-              <Link
-                href="/submit-project"
-                className="inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
-              >
-                Submit Your First Project
-              </Link>
-            </div>
-          </div>
-        ) : (
-          <div className="space-y-4">
-            {projects.map((project) => (
-              <div key={project.id} className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="text-lg font-bold text-[#016B61]">{project.name}</h3>
-                    <p className="text-sm text-slate-600">{project.email}</p>
-                  </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
-                    {getStatusLabel(project.status)}
-                  </span>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4 mb-4 text-sm">
-                  {project.company && (
-                    <div>
-                      <span className="font-medium text-slate-700">Company:</span>{' '}
-                      <span className="text-slate-600">{project.company}</span>
-                    </div>
-                  )}
-                  {project.projectType && (
-                    <div>
-                      <span className="font-medium text-slate-700">Type:</span>{' '}
-                      <span className="text-slate-600">{project.projectType}</span>
-                    </div>
-                  )}
-                  {project.budgetRange && (
-                    <div>
-                      <span className="font-medium text-slate-700">Budget:</span>{' '}
-                      <span className="text-slate-600">{project.budgetRange}</span>
-                    </div>
-                  )}
-                  {project.timeline && (
-                    <div>
-                      <span className="font-medium text-slate-700">Timeline:</span>{' '}
-                      <span className="text-slate-600">{project.timeline}</span>
-                    </div>
-                  )}
-                  <div>
-                    <span className="font-medium text-slate-700">Submitted:</span>{' '}
-                    <span className="text-slate-600">
-                      {new Date(project.createdAt).toLocaleDateString()}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="font-medium text-slate-700">Last Updated:</span>{' '}
-                    <span className="text-slate-600">
-                      {new Date(project.createdAt).toLocaleDateString()}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="mb-4">
-                  <p className="text-sm text-slate-700 mb-2">
-                    <span className="font-medium">Description:</span>
+            {projects.length === 0 ? (
+              <div className="bg-white rounded-lg shadow p-12 text-center">
+                <div className="max-w-md mx-auto">
+                  <h3 className="text-lg font-semibold text-[#016B61] mb-2">No projects submitted yet</h3>
+                  <p className="text-sm text-slate-600 mb-6">
+                    Submit your first project to get started. Our team will review it and update you on the status.
                   </p>
-                  <p className="text-sm text-slate-600 bg-slate-50 p-3 rounded line-clamp-3">
-                    {project.description}
-                  </p>
-                </div>
-
-                {project.fileUrl && (
-                  <div className="mb-4">
-                    <a
-                      href={project.fileUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-sm text-[#016B61] hover:underline inline-flex items-center gap-1"
-                    >
-                      View Attachment →
-                    </a>
-                  </div>
-                )}
-
-                <div className="pt-4 border-t">
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1">
-                      <p className="text-xs text-slate-500 mb-1">Status Information</p>
-                      <p className="text-sm text-slate-600">
-                        {project.status === 'pending' && 'Your project is pending review by our team.'}
-                        {project.status === 'in_progress' && 'Your project is currently being worked on.'}
-                        {project.status === 'completed' && 'Your project has been completed!'}
-                        {project.status === 'rejected' && 'Unfortunately, your project submission was not approved.'}
-                      </p>
-                    </div>
-                  </div>
+                  <Link
+                    href="/submit-project"
+                    className="inline-flex items-center justify-center rounded-lg bg-[#016B61] hover:bg-[#70B2B2] text-white font-semibold px-6 py-3 text-sm shadow-sm transition-colors"
+                  >
+                    Submit Your First Project
+                  </Link>
                 </div>
               </div>
-            ))}
-          </div>
-        )}
+            ) : (
+              <div className="space-y-4">
+                {projects.map((project) => (
+                  <div key={project.id} className="bg-white rounded-lg shadow p-6">
+                    <div className="flex items-start justify-between mb-4">
+                      <div>
+                        <h3 className="text-lg font-bold text-[#016B61]">{project.name}</h3>
+                        <p className="text-sm text-slate-600">{project.email}</p>
+                      </div>
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(project.status)}`}>
+                        {getStatusLabel(project.status)}
+                      </span>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4 mb-4 text-sm">
+                      {project.company && (
+                        <div>
+                          <span className="font-medium text-slate-700">Company:</span>{' '}
+                          <span className="text-slate-600">{project.company}</span>
+                        </div>
+                      )}
+                      {project.projectType && (
+                        <div>
+                          <span className="font-medium text-slate-700">Type:</span>{' '}
+                          <span className="text-slate-600">{project.projectType}</span>
+                        </div>
+                      )}
+                      {project.budgetRange && (
+                        <div>
+                          <span className="font-medium text-slate-700">Budget:</span>{' '}
+                          <span className="text-slate-600">{project.budgetRange}</span>
+                        </div>
+                      )}
+                      {project.timeline && (
+                        <div>
+                          <span className="font-medium text-slate-700">Timeline:</span>{' '}
+                          <span className="text-slate-600">{project.timeline}</span>
+                        </div>
+                      )}
+                      <div>
+                        <span className="font-medium text-slate-700">Submitted:</span>{' '}
+                        <span className="text-slate-600">
+                          {new Date(project.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                      <div>
+                        <span className="font-medium text-slate-700">Last Updated:</span>{' '}
+                        <span className="text-slate-600">
+                          {new Date(project.createdAt).toLocaleDateString()}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="mb-4">
+                      <p className="text-sm text-slate-700 mb-2">
+                        <span className="font-medium">Description:</span>
+                      </p>
+                      <p className="text-sm text-slate-600 bg-slate-50 p-3 rounded line-clamp-3">
+                        {project.description}
+                      </p>
+                    </div>
+
+                    {project.fileUrl && (
+                      <div className="mb-4">
+                        <a
+                          href={project.fileUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-sm text-[#016B61] hover:underline inline-flex items-center gap-1"
+                        >
+                          View Attachment →
+                        </a>
+                      </div>
+                    )}
+
+                    <div className="pt-4 border-t">
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1">
+                          <p className="text-xs text-slate-500 mb-1">Status Information</p>
+                          <p className="text-sm text-slate-600">
+                            {project.status === 'pending' && 'Your project is pending review by our team.'}
+                            {project.status === 'in_progress' && 'Your project is currently being worked on.'}
+                            {project.status === 'completed' && 'Your project has been completed!'}
+                            {project.status === 'rejected' && 'Unfortunately, your project submission was not approved.'}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </>
         )}
 
@@ -436,7 +460,6 @@ export default function UserDashboard() {
                       </div>
                     )}
 
-                    {/* Payment Receipt */}
                     {registration.paymentReceiptUrl && (
                       <div className="mb-4">
                         <a
@@ -450,7 +473,6 @@ export default function UserDashboard() {
                       </div>
                     )}
 
-                    {/* Status Messages */}
                     <div className="pt-4 border-t">
                       <div className="flex items-center gap-2">
                         <div className="flex-1">
@@ -466,7 +488,6 @@ export default function UserDashboard() {
                       </div>
                     </div>
 
-                    {/* Approved - Show Schedule Link */}
                     {registration.status === 'approved' && (
                       <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded-lg">
                         <Link

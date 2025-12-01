@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getSession } from "@/lib/auth";
+import { getBetterAuthSession } from "@/lib/better-auth-server";
 
 // PUT update content card
 export async function PUT(
@@ -8,7 +8,7 @@ export async function PUT(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
 
     if (!session || session.role !== "admin") {
       return NextResponse.json(
@@ -37,6 +37,9 @@ export async function PUT(
       },
     });
 
+    // Note: Cache revalidation happens automatically when fetch calls use the same tags
+    // The cache will be revalidated on the next request that uses these tags
+
     return NextResponse.json({
       success: true,
       card: {
@@ -59,7 +62,7 @@ export async function DELETE(
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const session = await getSession();
+    const session = await getBetterAuthSession();
 
     if (!session || session.role !== "admin") {
       return NextResponse.json(
@@ -70,9 +73,11 @@ export async function DELETE(
 
     const { id } = await params;
 
-    await prisma.contentCard.delete({
+    const card = await prisma.contentCard.delete({
       where: { id },
     });
+
+    // Note: Cache revalidation happens automatically when fetch calls use the same tags
 
     return NextResponse.json({ success: true });
   } catch (error) {
