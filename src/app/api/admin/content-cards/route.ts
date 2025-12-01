@@ -2,13 +2,17 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { getBetterAuthSession } from "@/lib/better-auth-server";
 
+interface WhereClause {
+  isActive: boolean;
+  type?: string;
+}
 // GET all content cards (admin only)
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get("type");
 
-    const where: any = {
+    const where: WhereClause = {
       isActive: true,
     };
 
@@ -34,12 +38,14 @@ export async function GET(request: Request) {
     response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120');
     
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : "Failed to fetch content cards";        
+
     console.error("Error fetching content cards:", error);
     return NextResponse.json(
       { 
         error: "Failed to fetch content cards",
-        details: process.env.NODE_ENV === 'development' ? error?.message : undefined
+        details: process.env.NODE_ENV === 'development' ? errorMessage: undefined
       },
       { status: 500 }
     );

@@ -1,12 +1,17 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
+interface WhereClause {
+  isActive: boolean;
+  type?: string;
+}
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
     const type = searchParams.get("type"); // Optional filter by type
 
-    const where: any = {
+    const where: WhereClause = {
       isActive: true,
     };
 

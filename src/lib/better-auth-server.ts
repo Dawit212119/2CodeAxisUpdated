@@ -44,3 +44,4 @@ export async function getBetterAuthSession(): Promise<SessionUser | null> {
     return null;
   }
 }
+

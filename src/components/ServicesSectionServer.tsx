@@ -4,7 +4,16 @@ import ServicesSwiperSkeleton from './ServicesSwiperSkeleton';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-async function fetchServices() {
+interface ServiceCard {
+  id: string;
+  title: string;
+  description: string | null;
+  iconName: string | null;
+  linkUrl: string | null;
+  order?: number | null;
+}
+
+async function fetchServices(): Promise<ServiceCard[]> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const res = await fetch(`${baseUrl}/api/content-cards?type=service-section`, {
     next: { 
@@ -19,7 +28,7 @@ async function fetchServices() {
   
   const data = await res.json();
   if (data.cards) {
-    return data.cards.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+    return (data.cards as ServiceCard[]).sort((a, b) => (a.order || 0) - (b.order || 0));
   }
   return [];
 }

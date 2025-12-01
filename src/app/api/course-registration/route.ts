@@ -75,15 +75,28 @@ export async function POST(request: Request) {
     }
 
     // Create registration with pending_verification status (not saved to DB as "approved" yet)
-    const registrationData: any = {
+    interface RegistrationData {
+      courseId: string;
+      name: string;
+      email: string;
+      phone: string;
+      experienceLevel: string;
+      preferredSchedule: string;
+      message: string | null;
+      paymentReceiptUrl: string | null;
+      status: string;
+      user?: { connect: { id: string } };
+    }
+
+    const registrationData: RegistrationData = {
       courseId,
       name,
       email,
-      phone,
-      experienceLevel,
-      preferredSchedule,
-      message,
-      paymentReceiptUrl,
+      phone: phone || '',
+      experienceLevel: experienceLevel || '',
+      preferredSchedule: preferredSchedule || '',
+      message: message || null,
+      paymentReceiptUrl: paymentReceiptUrl || null,
       status: "pending_verification",
     };
 
@@ -121,10 +134,11 @@ export async function POST(request: Request) {
       registrationId: registration.id,
       message: "Your registration and payment receipt have been submitted. We will verify your payment and contact you shortly."
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error creating course registration", error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json(
-      { error: error.message || "Something went wrong while submitting your registration." },
+      { error: errorMessage },
       { status: 500 }
     );
   }

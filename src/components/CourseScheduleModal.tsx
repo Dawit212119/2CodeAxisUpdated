@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { X, Calendar, Clock, BookOpen, Users, Award } from 'lucide-react';
-
+import { useCallback } from 'react';
 interface CourseSchedule {
   id: number;
   courseId: string;
@@ -22,40 +22,39 @@ interface CourseScheduleModalProps {
 }
 
 export default function CourseScheduleModal({
-  courseId,
-  courseTitle,
-  isOpen,
-  onClose,
-}: CourseScheduleModalProps) {
-  const [schedule, setSchedule] = useState<CourseSchedule | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (isOpen && courseId) {
-      fetchSchedule();
-    }
-  }, [isOpen, courseId]);
-
-  async function fetchSchedule() {
-    setLoading(true);
-    setError(null);
-    try {
-      const res = await fetch(`/api/course-schedule?courseId=${courseId}`);
-      const data = await res.json();
-      
-      if (res.ok && data.schedule) {
-        setSchedule(data.schedule);
-      } else {
-        setError(data.error || 'Schedule not available');
+    courseId,
+    courseTitle,
+    isOpen,
+    onClose,
+  }: CourseScheduleModalProps) {
+    const [schedule, setSchedule] = useState<CourseSchedule | null>(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState<string | null>(null);
+  
+    const fetchSchedule = useCallback(async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const res = await fetch(`/api/course-schedule?courseId=${courseId}`);
+        const data = await res.json();
+        
+        if (res.ok && data.schedule) {
+          setSchedule(data.schedule);
+        } else {
+          setError(data.error || 'Schedule not available');
+        }
+      } catch {
+        setError('Failed to load schedule');
+      } finally {
+        setLoading(false);
       }
-    } catch (err) {
-      setError('Failed to load schedule');
-    } finally {
-      setLoading(false);
-    }
-  }
-
+    }, [courseId]);
+  
+    useEffect(() => {
+      if (isOpen && courseId) {
+        fetchSchedule();
+      }
+    }, [isOpen, courseId, fetchSchedule]);
   function formatDate(dateString: string) {
     return new Date(dateString).toLocaleDateString('en-US', {
       year: 'numeric',
@@ -252,3 +251,4 @@ export default function CourseScheduleModal({
     </div>
   );
 }
+

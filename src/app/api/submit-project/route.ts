@@ -82,28 +82,32 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true, submissionId: submission.id });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error creating project submission", error);
     
     // Provide more specific error messages
-    if (error.code === 'P2002') {
+    const prismaError = error as { code?: string; message?: string };
+    if (prismaError.code === 'P2002') {
       return NextResponse.json(
         { error: "A submission with this information already exists." },
         { status: 400 }
       );
     }
     
-    if (error.code === 'P2003') {
+    if (prismaError.code === 'P2003') {
       return NextResponse.json(
         { error: "Invalid user reference. Please log in again." },
         { status: 401 }
       );
     }
 
+    const errorMessage = prismaError.message || "Something went wrong while submitting your project.";
+    const errorStack = error instanceof Error ? error.stack : undefined;
+
     return NextResponse.json(
       { 
-        error: error.message || "Something went wrong while submitting your project.",
-        details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+        error: errorMessage,
+        details: process.env.NODE_ENV === 'development' ? errorStack : undefined
       },
       { status: 500 }
     );

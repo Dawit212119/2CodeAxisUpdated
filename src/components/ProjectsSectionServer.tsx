@@ -11,11 +11,11 @@ interface Project {
   linkUrl: string | null;
   modalImageUrl?: string | null;
   detailDescription?: string | null;
-  technologies?: any;
+  technologies?: string[] | null;
   client?: string | null;
   date?: string | null;
   duration?: string | null;
-  features?: any;
+  features?: string[] | null;
 }
 
 async function fetchProjects(): Promise<Project[]> {
@@ -34,7 +34,21 @@ async function fetchProjects(): Promise<Project[]> {
   const data = await res.json();
   if (data.projects) {
     // Map to Project interface format
-    return data.projects.map((project: any) => ({
+    return (data.projects as Array<{
+      id: string;
+      title: string;
+      category: string | null;
+      description: string | null;
+      imageUrl: string | null;
+      linkUrl: string | null;
+      modalImageUrl?: string | null;
+      detailDescription?: string | null;
+      technologies?: string[] | null;
+      client?: string | null;
+      date?: string | null;
+      duration?: string | null;
+      features?: string[] | null;
+    }>).map((project) => ({
       id: project.id,
       title: project.title,
       category: project.category,
@@ -70,7 +84,7 @@ export default function ProjectsSectionServer() {
             <div className="flex-1 text-center md:text-left">
               <p className="text-[#016B61] font-bold text-sm tracking-wide mb-4">RECENT WORK</p>
               <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-6">
-                Projects We've Delivered
+                Projects We&apos;ve Delivered
               </h2>
               <p className="text-slate-600 text-lg max-w-2xl mx-auto md:mx-0">
                 Explore our portfolio of successful projects delivered to clients worldwide

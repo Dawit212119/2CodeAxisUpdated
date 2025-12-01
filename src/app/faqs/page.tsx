@@ -42,13 +42,13 @@ export default function FaqsPage() {
         </div>
 
         <div className="relative z-10 text-center px-4">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">FAQ's</h1>
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">FAQ&apos;s</h1>
           <nav className="text-sm md:text-base font-medium flex items-center justify-center gap-2">
             <Link href="/" className="opacity-80 hover:underline">
               Home
             </Link>
             <span className="opacity-70">/</span>
-            <span className="opacity-100">FAQ's</span>
+            <span className="opacity-100">FAQ&apos;s</span>
           </nav>
         </div>
       </section>

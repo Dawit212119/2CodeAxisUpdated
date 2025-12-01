@@ -4,7 +4,8 @@ import { prisma } from '@/lib/prisma';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { type, registrationId, studentName, studentEmail, courseId } = body;
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { type: _type, registrationId, studentName, studentEmail, courseId } = body;
 
     // Get admin email
     const admin = await prisma.user.findFirst({

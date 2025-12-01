@@ -4,7 +4,7 @@ import { getBetterAuthSession } from "@/lib/better-auth-server";
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getBetterAuthSession();
@@ -15,7 +15,7 @@ export async function GET(
       );
     }
 
-    const { id } = params;
+    const { id } = await params;
     const post = await prisma.blogPost.findUnique({
       where: { id },
     });
@@ -39,7 +39,7 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getBetterAuthSession();
@@ -50,7 +50,7 @@ export async function PUT(
       );
     }
 
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
     const { title, description, linkUrl, date, minutesToRead, order, isActive } = body;
 
@@ -86,7 +86,7 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getBetterAuthSession();
@@ -97,7 +97,7 @@ export async function DELETE(
       );
     }
 
-    const { id } = params;
+    const { id } = await params;
     await prisma.blogPost.delete({
       where: { id },
     });
@@ -111,5 +111,6 @@ export async function DELETE(
     );
   }
 }
+
 
 

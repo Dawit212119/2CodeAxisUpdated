@@ -3,6 +3,7 @@
 import { Suspense } from 'react';
 import Link from 'next/link';
 import { Settings, Shield, Code, Users, Network, Lock, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import React from 'react';
 import { Navigation, Autoplay, Mousewheel } from 'swiper/modules';
@@ -11,7 +12,7 @@ import ServicesSwiperSkeleton from './ServicesSwiperSkeleton';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const iconMap: { [key: string]: any } = {
+const iconMap: { [key: string]: LucideIcon } = {
   Settings,
   Shield,
   Code,
@@ -26,6 +27,7 @@ interface Service {
   description: string | null;
   iconName: string | null;
   linkUrl: string | null;
+  order?: number | null;
 }
 
 // Server component for fetching data
@@ -44,7 +46,7 @@ async function fetchServices(): Promise<Service[]> {
   
   const data = await res.json();
   if (data.cards) {
-    return data.cards.sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+    return (data.cards as Service[]).sort((a, b) => (a.order || 0) - (b.order || 0));
   }
   return [];
 }
@@ -52,8 +54,7 @@ async function fetchServices(): Promise<Service[]> {
 // Client component for Swiper
 function ServicesSwiper({ services }: { services: Service[] }) {
   const swiperRef = React.useRef<SwiperType | null>(null);
-  const prevButtonRef = React.useRef<HTMLButtonElement>(null);
-  const nextButtonRef = React.useRef<HTMLButtonElement>(null);
+ 
 
   if (services.length === 0) {
     return (

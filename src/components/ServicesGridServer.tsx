@@ -1,8 +1,18 @@
 import { Suspense } from 'react';
 import ServicesGridClient from './ServicesGridClient';
 import ServicesGridSkeleton from './ServicesGridSkeleton';
+interface ServiceCard {
+    id: string;
+    title: string;
+    description: string | null;
+    iconName: string | null;
+    linkUrl: string | null;
+    imageUrl: string | null;
+    category?: string | null;
+    order?: number | null;
+  }
 
-async function fetchServices() {
+async function fetchServices(): Promise<ServiceCard[]> {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
   const res = await fetch(`${baseUrl}/api/content-cards?type=service`, {
     next: { 
@@ -18,9 +28,9 @@ async function fetchServices() {
   const data = await res.json();
   if (data.cards) {
     // Filter by category "Software Solutions" or no category
-    return data.cards
-      .filter((card: any) => !card.category || card.category === 'Software Solutions')
-      .sort((a: any, b: any) => (a.order || 0) - (b.order || 0));
+    return (data.cards as ServiceCard[])
+      .filter((card) => !card.category || card.category === 'Software Solutions')
+      .sort((a, b) => (a.order || 0) - (b.order || 0));
   }
   return [];
 }

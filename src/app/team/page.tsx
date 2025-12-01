@@ -2,6 +2,7 @@
 
 import { Suspense } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Linkedin, Mail, Share2 } from 'lucide-react';
 
 type Member = {
@@ -63,10 +64,12 @@ async function TeamMembersList() {
           {/* Same structure as TeamMembersSectionClient */}
           <div className="relative aspect-[3/4] w-full">
             {m.imageUrl ? (
-              <img
+              <Image
                 src={m.imageUrl}
                 alt={m.name}
-                className="absolute inset-0 h-full w-full object-cover"
+                fill
+                className="object-cover"
+                unoptimized
               />
             ) : (
               <div className="absolute inset-0 h-full w-full bg-gradient-to-br from-blue-500 to-purple-500 flex items-center justify-center text-white text-4xl font-bold">

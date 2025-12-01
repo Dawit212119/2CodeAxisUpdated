@@ -10,9 +10,18 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_isProfileOpen, _setIsProfileOpen] = useState(false);
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
-  const [user, setUser] = useState<any>(null);
+  
+  interface User {
+    id: string;
+    email: string;
+    name: string;
+    role: string;
+  }
+  
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -59,7 +68,6 @@ export default function Header() {
       
       // Clear local state
       setUser(null);
-      setIsProfileOpen(false);
       setIsMenuOpen(false);
       
       // Redirect to home page

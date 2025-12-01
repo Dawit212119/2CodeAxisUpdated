@@ -34,3 +34,4 @@ The Prisma client needs to be regenerated after adding new models. Please follow
 After adding new Prisma models (Course, ContentCard, ContentList), the Prisma client needs to be regenerated so that TypeScript and the runtime code can access these new models. The dev server caches the Prisma client, so it needs to be restarted after regeneration.
 
 
+

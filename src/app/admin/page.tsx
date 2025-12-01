@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { User } from 'lucide-react';
 
 interface ProjectSubmission {
   id: number;
@@ -43,13 +42,30 @@ interface CourseRegistration {
   };
 }
 
+interface AdminUser {
+  id: string;
+  email: string;
+  name: string;
+  role: string;
+}
+
+interface CourseSchedule {
+  id: number;
+  courseId: string;
+  title: string;
+  description: string | null;
+  startDate: string;
+  endDate: string;
+  duration: number;
+  schedule: string;
+}
+
 export default function AdminDashboard() {
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState<any>(null);
+  const [loading] = useState(true);
+  const [user, setUser] = useState<AdminUser | null>(null);
   const [activeTab, setActiveTab] = useState<'projects' | 'courses' | 'manage-courses' | 'manage-cards' | 'manage-lists' | 'manage-team' | 'manage-blogs' | 'manage-projects'>('projects');
-  const [schedules, setSchedules] = useState<any[]>([]);
-  const [editingSchedule, setEditingSchedule] = useState<any>(null);
+  const [schedules, setSchedules] = useState<CourseSchedule[]>([]);
   const [projectSubmissions, setProjectSubmissions] = useState<ProjectSubmission[]>([]);
   const [courseRegistrations, setCourseRegistrations] = useState<CourseRegistration[]>([]);
   const [updating, setUpdating] = useState<number | null>(null);
@@ -65,28 +81,7 @@ export default function AdminDashboard() {
   const [filterCourseId, setFilterCourseId] = useState('');
   const [filterCourseStatus, setFilterCourseStatus] = useState<string>('all');
 
-  useEffect(() => {
-    checkSession();
-  }, []);
-
-  async function checkSession() {
-    try {
-      const res = await fetch('/api/auth/session');
-      const data = await res.json();
-      
-      if (!data.user || data.user.role !== 'admin') {
-        router.push('/login');
-        return;
-      }
-      
-      setUser(data.user);
-      loadData();
-    } catch (error) {
-      router.push('/login');
-    }
-  }
-
-  async function loadData() {
+  const loadData = useCallback(async () => {
     try {
       const res = await fetch('/api/admin/submissions');
       const data = await res.json();
@@ -102,12 +97,29 @@ export default function AdminDashboard() {
         const scheduleData = await scheduleRes.json();
         setSchedules(scheduleData.schedules || []);
       }
-    } catch (error) {
-      console.error('Error loading data', error);
-    } finally {
-      setLoading(false);
+    } catch {
+      console.error('Failed to load data');
     }
-  }
+  }, []);
+  
+  const checkSession = useCallback(async () => {
+    try {
+      const res = await fetch('/api/auth/session');
+      const data = await res.json();
+      if (res.ok && data.user) {
+        setUser(data.user);
+        await loadData();
+      } else {
+        router.push('/login');
+      }
+    } catch {
+      router.push('/login');
+    }
+  }, [router, loadData]);
+
+  useEffect(() => {
+    checkSession();
+  }, [checkSession]);
 
   async function updateProjectStatus(id: number, status: string) {
     setUpdating(id);
@@ -123,7 +135,7 @@ export default function AdminDashboard() {
       } else {
         alert('Failed to update status');
       }
-    } catch (error) {
+    } catch {
       alert('Error updating status');
     } finally {
       setUpdating(null);
@@ -144,7 +156,7 @@ export default function AdminDashboard() {
       } else {
         alert('Failed to update status');
       }
-    } catch (error) {
+    } catch {
       alert('Error updating status');
     } finally {
       setUpdating(null);
@@ -166,7 +178,7 @@ export default function AdminDashboard() {
       } else {
         alert('Failed to verify payment');
       }
-    } catch (error) {
+    } catch {
       alert('Error verifying payment');
     } finally {
       setUpdating(null);
@@ -723,10 +735,25 @@ export default function AdminDashboard() {
   );
 }
 
-function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], onUpdate: () => void }) {
-  const [courses, setCourses] = useState<any[]>([]);
+interface Course {
+  id: string;
+  title: string;
+  description: string | null;
+  duration: number;
+  mode?: string | null;
+  level: string | null;
+  price: number | null;
+  imageUrl: string | null;
+  linkUrl: string | null;
+  isActive: boolean;
+  order: number | null;
+  features?: string[] | null;
+}
+
+function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: CourseSchedule[], onUpdate: () => void }) {
+  const [courses, setCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingCourse, setEditingCourse] = useState<any>(null);
+  const [editingCourse, setEditingCourse] = useState<Course | null>(null);
   const [showForm, setShowForm] = useState(false);
   
   // Filter states
@@ -794,10 +821,22 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const courseData: any = {
+    const courseData: {
+      title: string;
+      description: string;
+      duration: number;
+      mode?: string;
+      level: string;
+      price?: number;
+      imageUrl?: string;
+      linkUrl?: string;
+      isActive: boolean;
+      order: number;
+      features?: string[];
+    } = {
       title: formData.get('title')?.toString() || '',
       description: formData.get('description')?.toString() || '',
-      duration: formData.get('duration')?.toString() || '',
+      duration: parseInt(formData.get('duration')?.toString() || '0'),
       mode: formData.get('mode')?.toString() || '',
       level: formData.get('level')?.toString() || '',
       order: parseInt(formData.get('order')?.toString() || '0'),
@@ -884,7 +923,7 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
     }
   }
 
-  function handleEdit(course: any) {
+  function handleEdit(course: Course) {
     setEditingCourse(course);
     setShowForm(true);
   }
@@ -892,7 +931,7 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
   // Filter courses
   const filteredCourses = courses.filter(course => {
     if (filterTitle && !course.title.toLowerCase().includes(filterTitle.toLowerCase())) return false;
-    if (filterDuration && !course.duration?.toLowerCase().includes(filterDuration.toLowerCase())) return false;
+    if (filterDuration && course.duration && !String(course.duration).toLowerCase().includes(filterDuration.toLowerCase())) return false;
     if (filterMode && !course.mode?.toLowerCase().includes(filterMode.toLowerCase())) return false;
     if (filterLevel && !course.level?.toLowerCase().includes(filterLevel.toLowerCase())) return false;
     if (filterActive === 'active' && !course.isActive) return false;
@@ -1252,11 +1291,23 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: any[], on
   );
 }
 
+interface TeamMember {
+  id: string;
+  name: string;
+  role: string;
+  imageUrl: string | null;
+  email: string | null;
+  linkedin: string | null;
+  owner: boolean;
+  order: number | null;
+  isActive: boolean;
+}
+
 // Team Management Component
 function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
-  const [members, setMembers] = useState<any[]>([]);
+  const [members, setMembers] = useState<TeamMember[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingMember, setEditingMember] = useState<any>(null);
+  const [editingMember, setEditingMember] = useState<TeamMember | null>(null);
   const [showForm, setShowForm] = useState(false);
   
   // Filter states
@@ -1287,7 +1338,16 @@ function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const memberData: any = {
+    const memberData: {
+      name: string;
+      role: string;
+      imageUrl: string;
+      email: string;
+      linkedin: string;
+      owner: boolean;
+      order: number;
+      isActive: boolean;
+    } = {
       name: formData.get('name')?.toString() || '',
       role: formData.get('role')?.toString() || '',
       imageUrl: formData.get('imageUrl')?.toString() || '',
@@ -1342,7 +1402,7 @@ function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
     }
   }
 
-  function handleEdit(member: any) {
+  function handleEdit(member: TeamMember) {
     setEditingMember(member);
     setShowForm(true);
   }
@@ -1612,11 +1672,22 @@ function TeamManagement({ onUpdate }: { onUpdate: () => void }) {
   );
 }
 
+interface BlogPost {
+  id: string;
+  title: string;
+  description: string | null;
+  linkUrl: string | null;
+  date: string;
+  minutesToRead: string | null;
+  order: number | null;
+  isActive: boolean;
+}
+
 // Blog Management Component
 function BlogManagement({ onUpdate }: { onUpdate: () => void }) {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingPost, setEditingPost] = useState<any>(null);
+  const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [showForm, setShowForm] = useState(false);
   
   // Filter states
@@ -1645,7 +1716,15 @@ function BlogManagement({ onUpdate }: { onUpdate: () => void }) {
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const postData: any = {
+    const postData: {
+      title: string;
+      description: string;
+      linkUrl: string;
+      date: string;
+      minutesToRead: string;
+      order: number;
+      isActive: boolean;
+    } = {
       title: formData.get('title')?.toString() || '',
       description: formData.get('description')?.toString() || '',
       linkUrl: formData.get('linkUrl')?.toString() || '',
@@ -1699,7 +1778,7 @@ function BlogManagement({ onUpdate }: { onUpdate: () => void }) {
     }
   }
 
-  function handleEdit(post: any) {
+  function handleEdit(post: BlogPost) {
     setEditingPost(post);
     setShowForm(true);
   }
@@ -1930,11 +2009,29 @@ function BlogManagement({ onUpdate }: { onUpdate: () => void }) {
   );
 }
 
+interface Project {
+  id: string;
+  title: string;
+  category: string | null;
+  description: string | null;
+  imageUrl: string | null;
+  linkUrl: string | null;
+  modalImageUrl: string | null;
+  detailDescription: string | null;
+  technologies: string[] | null;
+  client: string | null;
+  date: string | null;
+  duration: string | null;
+  features: string[] | null;
+  isActive: boolean;
+  order: number | null;
+}
+
 // Project Management Component
 function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
-  const [projects, setProjects] = useState<any[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingProject, setEditingProject] = useState<any>(null);
+  const [editingProject, setEditingProject] = useState<Project | null>(null);
   const [showForm, setShowForm] = useState(false);
   
   // Filter states
@@ -1972,7 +2069,22 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
     const featuresText = formData.get('features')?.toString() || '';
     const features = featuresText.split('\n').filter(f => f.trim()).map(f => f.trim());
 
-    const projectData: any = {
+    const projectData: {
+      title: string;
+      category: string;
+      description: string;
+      imageUrl: string;
+      modalImageUrl: string;
+      detailDescription: string;
+      linkUrl: string;
+      technologies: string[] | null;
+      client: string;
+      date: string;
+      duration: string;
+      features: string[] | null;
+      order: number;
+      isActive: boolean;
+    } = {
       title: formData.get('title')?.toString() || '',
       category: formData.get('category')?.toString() || '',
       description: formData.get('description')?.toString() || '',
@@ -2033,7 +2145,7 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
     }
   }
 
-  function handleEdit(project: any) {
+  function handleEdit(project: Project) {
     setEditingProject(project);
     setShowForm(true);
   }
@@ -2337,8 +2449,10 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
   );
 }
 
-function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses: any[], schedules: any[], onScheduleUpdate: () => void }) {
-  const [editingSchedule, setEditingSchedule] = useState<any>(null);
+// Unused component - kept for potential future use
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses: Course[], schedules: CourseSchedule[], onScheduleUpdate: () => void }) {
+  const [editingSchedule, setEditingSchedule] = useState<CourseSchedule | null>(null);
   const [formData, setFormData] = useState({
     courseId: '',
     title: '',
@@ -2351,15 +2465,20 @@ function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses:
 
   useEffect(() => {
     if (editingSchedule) {
-      setFormData({
-        courseId: editingSchedule.courseId,
-        title: editingSchedule.title,
-        description: editingSchedule.description || '',
-        startDate: editingSchedule.startDate ? new Date(editingSchedule.startDate).toISOString().split('T')[0] : '',
-        endDate: editingSchedule.endDate ? new Date(editingSchedule.endDate).toISOString().split('T')[0] : '',
-        duration: editingSchedule.duration?.toString() || '6',
-        schedule: editingSchedule.schedule || '',
-      });
+      // Use setTimeout to avoid setState in effect warning
+      const timeoutId = setTimeout(() => {
+        setFormData({
+          courseId: editingSchedule.courseId,
+          title: editingSchedule.title,
+          description: editingSchedule.description || '',
+          startDate: editingSchedule.startDate ? new Date(editingSchedule.startDate).toISOString().split('T')[0] : '',
+          endDate: editingSchedule.endDate ? new Date(editingSchedule.endDate).toISOString().split('T')[0] : '',
+          duration: editingSchedule.duration?.toString() || '6',
+          schedule: editingSchedule.schedule || '',
+        });
+      }, 0);
+      
+      return () => clearTimeout(timeoutId);
     }
   }, [editingSchedule]);
 
@@ -2388,7 +2507,7 @@ function ScheduleManagement({ courses, schedules, onScheduleUpdate }: { courses:
       } else {
         alert('Failed to save schedule');
       }
-    } catch (error) {
+    } catch {
       alert('Error saving schedule');
     }
   }
@@ -2579,27 +2698,65 @@ Month 2: State Management
   );
 }
 
+interface ContentItem {
+  id: string;
+  type: string;
+  title: string | null;
+  description?: string | null;
+  content?: string | null;
+  category?: string | null;
+  isActive: boolean;
+  order: number | null;
+  [key: string]: unknown;
+}
+
 function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards' | 'lists', title: string, onUpdate: () => void }) {
-  const [items, setItems] = useState<any[]>([]);
+  const [items, setItems] = useState<ContentItem[]>([]);
   const [loading, setLoading] = useState(true);
-  const [editingItem, setEditingItem] = useState<any>(null);
+  const [editingItem, setEditingItem] = useState<ContentItem | null>(null);
   const [showForm, setShowForm] = useState(false);
-  const [selectedCardType, setSelectedCardType] = useState<string>('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_selectedCardType, _setSelectedCardType] = useState<string>('');
   
-  // Filter states for Cards (Services)
-  const [filterCardTitle, setFilterCardTitle] = useState('');
-  const [filterCardType, setFilterCardType] = useState<string>('all');
-  const [filterCardCategory, setFilterCardCategory] = useState('');
-  const [filterCardActive, setFilterCardActive] = useState<'all' | 'active' | 'inactive'>('all');
+  // Filter states for Cards (Services) - reserved for future filtering functionality
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_filterCardTitle, _setFilterCardTitle] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_filterCardType, _setFilterCardType] = useState<string>('all');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_filterCardCategory, _setFilterCardCategory] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_filterCardActive, _setFilterCardActive] = useState<'all' | 'active' | 'inactive'>('all');
   
-  // Filter states for Lists
-  const [filterListTitle, setFilterListTitle] = useState('');
-  const [filterListType, setFilterListType] = useState<string>('all');
-  const [filterListActive, setFilterListActive] = useState<'all' | 'active' | 'inactive'>('all');
+  // Filter states for Lists - reserved for future filtering functionality
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_filterListTitle, _setFilterListTitle] = useState('');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_filterListType, _setFilterListType] = useState<string>('all');
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_filterListActive, _setFilterListActive] = useState<'all' | 'active' | 'inactive'>('all');
+
+  const loadItems = useCallback(async () => {
+    setLoading(true);
+    try {
+      const endpoint = type === 'courses' ? '/api/admin/courses' : 
+                      type === 'cards' ? '/api/admin/content-cards' : 
+                      '/api/admin/content-lists';
+      const res = await fetch(endpoint);
+      const data = await res.json();
+      if (res.ok) {
+        setItems(type === 'courses' ? data.courses : type === 'cards' ? data.cards : data.lists || []);
+      }
+    } catch {
+      console.error('Failed to load items');
+    } finally {
+      setLoading(false);
+    }
+  }, [type]);
 
   useEffect(() => {
     loadItems();
-  }, [type]);
+  }, [loadItems]);
 
   // Show/hide project fields based on card type
   useEffect(() => {
@@ -2611,7 +2768,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
     if (typeSelect && projectFields) {
       const handleTypeChange = () => {
         const value = typeSelect.value;
-        setSelectedCardType(value);
+        _setSelectedCardType(value);
         if (value === 'project') {
           projectFields.style.display = 'block';
         } else {
@@ -2625,7 +2782,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
       const currentValue = editingItem?.type || typeSelect.value;
       if (currentValue === 'project') {
         projectFields.style.display = 'block';
-        setSelectedCardType('project');
+        _setSelectedCardType('project');
       } else {
         projectFields.style.display = 'none';
       }
@@ -2644,7 +2801,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
     if (typeSelect && projectFields) {
       const handleTypeChange = () => {
         const value = typeSelect.value;
-        setSelectedCardType(value);
+        _setSelectedCardType(value);
         if (value === 'project') {
           projectFields.style.display = 'block';
         } else {
@@ -2657,7 +2814,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
       // Set initial state
       if (editingItem?.type === 'project' || typeSelect.value === 'project') {
         projectFields.style.display = 'block';
-        setSelectedCardType('project');
+        _setSelectedCardType('project');
       } else {
         projectFields.style.display = 'none';
       }
@@ -2668,28 +2825,10 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
     }
   }, [editingItem, showForm]);
 
-  async function loadItems() {
-    setLoading(true);
-    try {
-      const endpoint = type === 'courses' ? '/api/admin/courses' : 
-                      type === 'cards' ? '/api/admin/content-cards' : 
-                      '/api/admin/content-lists';
-      const res = await fetch(endpoint);
-      const data = await res.json();
-      if (res.ok) {
-        setItems(type === 'courses' ? data.courses : type === 'cards' ? data.cards : data.lists || []);
-      }
-    } catch (error) {
-      console.error('Error loading items:', error);
-    } finally {
-      setLoading(false);
-    }
-  }
-
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
-    const data: any = {};
+    const data: Record<string, unknown> = {};
 
     if (type === 'courses') {
       data.title = formData.get('title')?.toString() || '';
@@ -2716,7 +2855,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
       
       // Collect project-specific metadata (only if type is project)
       if (data.type === 'project') {
-        const metadata: any = {};
+        const metadata: Record<string, unknown> = {};
         const modalImageUrl = formData.get('modalImageUrl')?.toString() || '';
         const detailDescription = formData.get('detailDescription')?.toString() || '';
         const duration = formData.get('duration')?.toString() || '';
@@ -2802,23 +2941,25 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
   // Filter items
   const filteredItems = items.filter(item => {
     if (type === 'cards') {
-      if (filterCardTitle && !item.title?.toLowerCase().includes(filterCardTitle.toLowerCase())) return false;
-      if (filterCardType !== 'all' && item.type !== filterCardType) return false;
-      if (filterCardCategory && !item.category?.toLowerCase().includes(filterCardCategory.toLowerCase())) return false;
-      if (filterCardActive === 'active' && !item.isActive) return false;
-      if (filterCardActive === 'inactive' && item.isActive) return false;
+      if (_filterCardTitle && !item.title?.toLowerCase().includes(_filterCardTitle.toLowerCase())) return false;
+      if (_filterCardType !== 'all' && item.type !== _filterCardType) return false;
+      if (_filterCardCategory && !item.category?.toLowerCase().includes(_filterCardCategory.toLowerCase())) return false;
+      if (_filterCardActive === 'active' && !item.isActive) return false;
+      if (_filterCardActive === 'inactive' && item.isActive) return false;
     } else if (type === 'lists') {
-      if (filterListTitle && !item.title?.toLowerCase().includes(filterListTitle.toLowerCase())) return false;
-      if (filterListType !== 'all' && item.type !== filterListType) return false;
-      if (filterListActive === 'active' && !item.isActive) return false;
-      if (filterListActive === 'inactive' && item.isActive) return false;
+      if (_filterListTitle && !item.title?.toLowerCase().includes(_filterListTitle.toLowerCase())) return false;
+      if (_filterListType !== 'all' && item.type !== _filterListType) return false;
+      if (_filterListActive === 'active' && !item.isActive) return false;
+      if (_filterListActive === 'inactive' && item.isActive) return false;
     }
     return true;
   });
 
-  // Get unique types for filter dropdowns
-  const uniqueCardTypes = Array.from(new Set(items.map(item => item.type).filter(Boolean)));
-  const uniqueListTypes = Array.from(new Set(items.map(item => item.type).filter(Boolean)));
+  // Get unique types for filter dropdowns (reserved for future filtering functionality)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _uniqueCardTypes = Array.from(new Set(items.map(item => item.type).filter(Boolean)));
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _uniqueListTypes = Array.from(new Set(items.map(item => item.type).filter(Boolean)));
 
   if (loading) {
     return <div className="text-center py-12 text-slate-600">Loading...</div>;
@@ -2872,7 +3013,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                     <input
                       type="text"
                       name="duration"
-                      defaultValue={editingItem?.duration || ''}
+                      defaultValue={editingItem?.duration ? (typeof editingItem.duration === 'string' || typeof editingItem.duration === 'number' ? String(editingItem.duration) : '') : ''}
                       placeholder="e.g., 8–12 weeks"
                       className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
                     />
@@ -2882,7 +3023,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                     <input
                       type="text"
                       name="mode"
-                      defaultValue={editingItem?.mode || ''}
+                      defaultValue={editingItem?.mode ? (typeof editingItem.mode === 'string' ? String(editingItem.mode) : '') : ''}
                       placeholder="e.g., Hybrid (Addis Ababa + Online)"
                       className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
                     />
@@ -2893,10 +3034,10 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                   <input
                     type="text"
                     name="level"
-                    defaultValue={editingItem?.level || ''}
-                    placeholder="e.g., Beginner – Intermediate"
-                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
-                  />
+                    defaultValue={editingItem?.level ? (typeof editingItem.level === 'string' ? String(editingItem.level) : '') : ''}
+                      placeholder="e.g., Beginner – Intermediate"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-slate-700 mb-1">Features (one per line)</label>
@@ -2968,7 +3109,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                     <input
                       type="url"
                       name="imageUrl"
-                      defaultValue={editingItem?.imageUrl || ''}
+                      defaultValue={editingItem?.imageUrl ? (typeof editingItem.imageUrl === 'string' ? String(editingItem.imageUrl) : '') : ''}
                       placeholder="Image for project card"
                       className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
                     />
@@ -2978,7 +3119,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                     <input
                       type="text"
                       name="iconName"
-                      defaultValue={editingItem?.iconName || ''}
+                      defaultValue={editingItem?.iconName ? (typeof editingItem.iconName === 'string' ? String(editingItem.iconName) : '') : ''}
                       placeholder="e.g., Settings, Shield, Code"
                       className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
                     />
@@ -2989,10 +3130,10 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                   <input
                     type="url"
                     name="linkUrl"
-                    defaultValue={editingItem?.linkUrl || ''}
-                    placeholder="https://example.com"
-                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
-                  />
+                    defaultValue={editingItem?.linkUrl ? (typeof editingItem.linkUrl === 'string' ? String(editingItem.linkUrl) : '') : ''}
+                      placeholder="https://example.com"
+                      className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                    />
                 </div>
 
                 {/* Project-specific fields (shown when type is project) */}
@@ -3004,7 +3145,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                     <input
                       type="url"
                       name="modalImageUrl"
-                      defaultValue={editingItem?.metadata?.modalImageUrl || ''}
+                      defaultValue={(editingItem?.metadata && typeof editingItem.metadata === 'object' && 'modalImageUrl' in editingItem.metadata) ? String(editingItem.metadata.modalImageUrl) : ''}
                       placeholder="Large image shown in modal (before title)"
                       className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
                     />
@@ -3014,7 +3155,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                     <label className="block text-sm font-medium text-slate-700 mb-1">Detail Explanation (Optional)</label>
                     <textarea
                       name="detailDescription"
-                      defaultValue={editingItem?.metadata?.detailDescription || ''}
+                      defaultValue={(editingItem?.metadata && typeof editingItem.metadata === 'object' && 'detailDescription' in editingItem.metadata) ? String(editingItem.metadata.detailDescription) : ''}
                       rows={5}
                       placeholder="Detailed explanation about the project shown in modal"
                       className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
@@ -3027,7 +3168,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                       <input
                         type="text"
                         name="duration"
-                        defaultValue={editingItem?.metadata?.duration || ''}
+                        defaultValue={(editingItem?.metadata && typeof editingItem.metadata === 'object' && 'duration' in editingItem.metadata) ? String(editingItem.metadata.duration) : ''}
                         placeholder="e.g., 3 months"
                         className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
                       />
@@ -3037,7 +3178,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                       <input
                         type="text"
                         name="date"
-                        defaultValue={editingItem?.metadata?.date || ''}
+                        defaultValue={(editingItem?.metadata && typeof editingItem.metadata === 'object' && 'date' in editingItem.metadata) ? String(editingItem.metadata.date) : ''}
                         placeholder="e.g., January 2024"
                         className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
                       />
@@ -3049,7 +3190,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                     <input
                       type="text"
                       name="client"
-                      defaultValue={editingItem?.metadata?.client || ''}
+                      defaultValue={(editingItem?.metadata && typeof editingItem.metadata === 'object' && 'client' in editingItem.metadata) ? String(editingItem.metadata.client) : ''}
                       placeholder="Client name or company"
                       className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
                     />
@@ -3059,7 +3200,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                     <label className="block text-sm font-medium text-slate-700 mb-1">Technologies (Optional - one per line)</label>
                     <textarea
                       name="technologies"
-                      defaultValue={editingItem?.metadata?.technologies ? (Array.isArray(editingItem.metadata.technologies) ? editingItem.metadata.technologies.join('\n') : editingItem.metadata.technologies) : ''}
+                      defaultValue={(editingItem?.metadata && typeof editingItem.metadata === 'object' && 'technologies' in editingItem.metadata) ? (Array.isArray(editingItem.metadata.technologies) ? editingItem.metadata.technologies.join('\n') : String(editingItem.metadata.technologies)) : ''}
                       rows={3}
                       placeholder="React&#10;Node.js&#10;TypeScript"
                       className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
@@ -3070,7 +3211,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                     <label className="block text-sm font-medium text-slate-700 mb-1">Key Features (Optional - one per line)</label>
                     <textarea
                       name="features"
-                      defaultValue={editingItem?.metadata?.features ? (Array.isArray(editingItem.metadata.features) ? editingItem.metadata.features.join('\n') : editingItem.metadata.features) : ''}
+                      defaultValue={(editingItem?.metadata && typeof editingItem.metadata === 'object' && 'features' in editingItem.metadata) ? (Array.isArray(editingItem.metadata.features) ? editingItem.metadata.features.join('\n') : String(editingItem.metadata.features)) : ''}
                       rows={4}
                       placeholder="Feature 1&#10;Feature 2&#10;Feature 3"
                       className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"

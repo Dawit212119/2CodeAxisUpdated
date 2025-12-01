@@ -1,6 +1,7 @@
 'use client';
 
 import { X, ExternalLink, Calendar, Tag } from 'lucide-react';
+import Image from 'next/image';
 import { useEffect } from 'react';
 
 interface Project {
@@ -10,7 +11,7 @@ interface Project {
   description: string | null;
   imageUrl: string | null;
   linkUrl: string | null;
-  metadata?: any;
+  metadata?: Record<string, unknown> | null;
 }
 
 interface ProjectModalProps {
@@ -66,10 +67,16 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
         {/* Modal Image - shown before title */}
         {(project.metadata?.modalImageUrl || project.imageUrl) && (
           <div className="relative h-64 md:h-80 bg-gradient-to-br from-slate-700 to-slate-900 overflow-hidden">
-            <img
-              src={project.metadata?.modalImageUrl || project.imageUrl || ''}
+            <Image
+              src={(() => {
+                const modalImg = project.metadata?.modalImageUrl;
+                if (typeof modalImg === 'string' && modalImg) return modalImg;
+                return project.imageUrl || '';
+              })()}
               alt={project.title}
-              className="w-full h-full object-cover"
+              fill
+              className="object-cover"
+              unoptimized
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
           </div>
@@ -94,20 +101,20 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
             </h2>
 
             {/* Description - Use detail description if available, otherwise use regular description */}
-            {(project.metadata?.detailDescription || project.description) && (
+            {(project.metadata?.detailDescription || project.description) ? (
               <div className="mb-6">
                 <p className="text-slate-600 text-lg leading-relaxed whitespace-pre-line">
-                  {project.metadata?.detailDescription || project.description}
+                  {(typeof project.metadata?.detailDescription === 'string' ? project.metadata.detailDescription : project.description) || ''}
                 </p>
               </div>
-            )}
+            ) : null}
 
             {/* Additional Metadata */}
-            {project.metadata && (
+            {project.metadata ? (
               <div className="mb-6 p-4 bg-slate-50 rounded-lg">
                 <h3 className="text-lg font-semibold text-slate-900 mb-3">Project Details</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {project.metadata.technologies && (
+                  {(project.metadata.technologies !== null && project.metadata.technologies !== undefined) ? (
                     <div>
                       <h4 className="text-sm font-semibold text-slate-700 mb-2">Technologies</h4>
                       <div className="flex flex-wrap gap-2">
@@ -121,38 +128,38 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                             </span>
                           ))
                         ) : (
-                          <span className="text-slate-600">{project.metadata.technologies}</span>
+                          <span className="text-slate-600">{String(project.metadata.technologies)}</span>
                         )}
                       </div>
                     </div>
-                  )}
-                  {project.metadata.client && (
+                  ) : null}
+                  {(project.metadata.client !== null && project.metadata.client !== undefined) ? (
                     <div>
                       <h4 className="text-sm font-semibold text-slate-700 mb-2">Client</h4>
-                      <p className="text-slate-600">{project.metadata.client}</p>
+                      <p className="text-slate-600">{String(project.metadata.client)}</p>
                     </div>
-                  )}
-                  {project.metadata.date && (
+                  ) : null}
+                  {(project.metadata.date !== null && project.metadata.date !== undefined) ? (
                     <div>
                       <h4 className="text-sm font-semibold text-slate-700 mb-2">Date</h4>
                       <div className="flex items-center gap-2 text-slate-600">
                         <Calendar className="w-4 h-4" />
-                        <span>{project.metadata.date}</span>
+                        <span>{String(project.metadata.date)}</span>
                       </div>
                     </div>
-                  )}
-                  {project.metadata.duration && (
+                  ) : null}
+                  {(project.metadata.duration !== null && project.metadata.duration !== undefined) ? (
                     <div>
                       <h4 className="text-sm font-semibold text-slate-700 mb-2">Duration</h4>
-                      <p className="text-slate-600">{project.metadata.duration}</p>
+                      <p className="text-slate-600">{String(project.metadata.duration)}</p>
                     </div>
-                  )}
+                  ) : null}
                 </div>
               </div>
-            )}
+            ) : null}
 
             {/* Features/Highlights */}
-            {project.metadata?.features && (
+            {project.metadata?.features ? (
               <div className="mb-6">
                 <h3 className="text-lg font-semibold text-slate-900 mb-3">Key Features</h3>
                 <ul className="space-y-2">
@@ -164,11 +171,11 @@ export default function ProjectModal({ project, isOpen, onClose }: ProjectModalP
                       </li>
                     ))
                   ) : (
-                    <li className="text-slate-600">{project.metadata.features}</li>
+                    <li className="text-slate-600">{String(project.metadata.features)}</li>
                   )}
                 </ul>
               </div>
-            )}
+            ) : null}
           </div>
         </div>
 

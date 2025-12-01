@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 // Map of all services keyed by their unique IDs (these should match the IDs you
 // pass in `?title=` from the services list, e.g. 677af7b15d4b2867d025ed7f).
@@ -128,9 +129,11 @@ export default async function ServiceDetailsPage({ searchParams }: ServiceDetail
           {/* Right: Current service details */}
           <div className="bg-white rounded-2xl shadow-md p-8 w-full lg:flex-1">
             <div className="mb-6">
-              <img
+              <Image
                 src={service.image}
                 alt={`${service.title} illustration`}
+                width={800}
+                height={288}
                 className="w-full h-56 md:h-72 object-cover rounded-xl"
               />
             </div>

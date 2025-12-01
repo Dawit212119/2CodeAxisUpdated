@@ -3,6 +3,7 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 type FAQ = { q: string; a: string };
 
@@ -58,10 +59,12 @@ export default function FaqSection() {
           {/* Left: Illustration */}
           <div className="relative order-2 lg:order-1 h-full flex items-center">
             <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl min-h-[420px]">
-              <img
+              <Image
                 src="https://www.genshifter.com/assets/img/faq/faq3.jpg"
                 alt="FAQs Illustration"
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                className="object-cover"
               />
               {/* Diagonal wedge to match reference */}
               <div className="absolute inset-y-0 right-0 w-1/3" style={{ clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 70%)", background: "linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0))" }} />
@@ -72,7 +75,7 @@ export default function FaqSection() {
           <div className="relative order-1 lg:order-2 lg:min-h-[460px]">
             <p className="uppercase tracking-wide font-bold text-[#016B61]">FREQUENTLY ASKED QUESTIONS</p>
             <h2 className="mt-2 text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight text-black">
-              Got Questions? We've Got Answers
+              Got Questions? We&apos;ve Got Answers
             </h2>
 
             <div className="mt-8 space-y-4">

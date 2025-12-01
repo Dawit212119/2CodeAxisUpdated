@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -53,7 +54,7 @@ export default function PartnersSection() {
               s.params.navigation.prevEl = prevRef.current;
               s.params.navigation.nextEl = nextRef.current;
             }}
-            navigation={{ prevEl: prevRef.current, nextEl: nextRef.current }}
+            navigation={false}
             breakpoints={{
               0: { slidesPerView: 3, spaceBetween: 20, centeredSlides: true },
               768: { slidesPerView: 3, spaceBetween: 28, centeredSlides: true },
@@ -63,7 +64,7 @@ export default function PartnersSection() {
             {partners.map((p) => (
               <SwiperSlide key={p.name}>
                 <div className="h-24 flex items-center justify-center  rounded-xl ring-1 ring-white/10">
-                  <img src={p.logo} alt={p.name} className="partners-logo max-h-10 max-w-[160px]" />
+                  <Image src={p.logo} alt={p.name} width={160} height={40} className="partners-logo max-h-10 max-w-[160px]" unoptimized />
                 </div>
               </SwiperSlide>
             ))}

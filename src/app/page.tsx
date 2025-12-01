@@ -1,5 +1,6 @@
 
 import Link from 'next/link';
+import Image from 'next/image';
 import AboutSectionServer from '@/components/AboutSectionServer';
 import ServicesSectionServer from '@/components/ServicesSectionServer';
 import AchievementSection from '@/components/AchievementSection';
@@ -52,9 +53,11 @@ export default function Home() {
           {/* Right Side - Hero Image */}
           <div className="hidden md:block relative h-96 lg:h-full flex items-center justify-center">
             <div className="relative w-full h-full flex items-center justify-center">
-              <img
+              <Image
                 src="/images/hero/cybernetic-hero.png"
                 alt="CodeAxis Hero - Cybernetic Developer"
+                width={800}
+                height={600}
                 className="w-full h-full object-contain"
               />
             </div>

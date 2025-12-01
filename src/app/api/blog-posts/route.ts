@@ -16,10 +16,11 @@ export async function GET() {
     response.headers.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=120');
     
     return response;
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error("Error fetching blog posts:", error);
     return NextResponse.json(
-      { error: "Failed to fetch blog posts", details: error.message },
+      { error: "Failed to fetch blog posts", details: errorMessage },
       { status: 500 }
     );
   }

@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Revalidate the cache tag
-    revalidateTag(tag);
+    revalidateTag(tag, 'default');
 
     return NextResponse.json({ 
       success: true, 
@@ -39,3 +39,4 @@ export async function POST(request: NextRequest) {
     );
   }
 }
+

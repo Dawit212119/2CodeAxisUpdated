@@ -1,13 +1,13 @@
-import Link from 'next/link';
+import Link from "next/link";
 import { Mail, Phone, Github, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Github, href: '#', label: "GitHub" },
+    { icon: Twitter, href: '#', label: "Twitter" },
+    { icon: Linkedin, href: "#", label: 'LinkedIn' },
     { icon: Instagram, href: '#', label: 'Instagram' },
   ];
 
@@ -115,7 +115,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <Link href="/faqs" className="hover:text-[#9ECFD4] transition-colors cursor-pointer">
-                    Faq's
+                    Faq&apos;s
                   </Link>
                 </li>
                 <li>
