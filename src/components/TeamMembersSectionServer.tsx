@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import TeamMembersSectionClient from './TeamMembersSectionClient';
 import TeamMembersSectionSkeleton from './TeamMembersSectionSkeleton';
+import { getBaseUrl } from '@/lib/get-base-url';
 
 type Member = {
   id: string;
@@ -12,7 +13,9 @@ type Member = {
 };
 
 async function fetchTeamMembers(): Promise<Member[]> {
-  const res = await fetch('/api/team-members?owner=true', {
+  const baseUrl = getBaseUrl();
+  const url = baseUrl ? `${baseUrl}/api/team-members?owner=true` : '/api/team-members?owner=true';
+  const res = await fetch(url, {
     next: { 
       revalidate: 60,
       tags: ['team-members']

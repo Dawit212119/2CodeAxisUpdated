@@ -2,6 +2,9 @@ import { Suspense } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Linkedin, Mail, Share2 } from 'lucide-react';
+import { getBaseUrl } from '@/lib/get-base-url';
+
+export const dynamic = 'force-dynamic';
 
 type Member = {
   id: string;
@@ -13,7 +16,9 @@ type Member = {
 };
 
 async function fetchTeamMembers(): Promise<Member[]> {
-  const res = await fetch('/api/team-members', {
+  const baseUrl = getBaseUrl();
+  const url = baseUrl ? `${baseUrl}/api/team-members` : '/api/team-members';
+  const res = await fetch(url, {
     next: { 
       revalidate: 60,
       tags: ['team-members']

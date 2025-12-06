@@ -1,9 +1,12 @@
 import { Suspense } from 'react';
 import AboutSectionClient from './AboutSectionClient';
 import AboutSectionSkeleton from './AboutSectionSkeleton';
+import { getBaseUrl } from '@/lib/get-base-url';
 
 async function fetchServices(): Promise<string[]> {
-  const res = await fetch('/api/content-cards?type=service', {
+  const baseUrl = getBaseUrl();
+  const url = baseUrl ? `${baseUrl}/api/content-cards?type=service` : '/api/content-cards?type=service';
+  const res = await fetch(url, {
     next: { 
       revalidate: 60,
       tags: ['services']

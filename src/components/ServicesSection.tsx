@@ -9,6 +9,7 @@ import React from 'react';
 import { Navigation, Autoplay, Mousewheel } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
 import ServicesSwiperSkeleton from './ServicesSwiperSkeleton';
+import { getBaseUrl } from '@/lib/get-base-url';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
@@ -32,7 +33,9 @@ interface Service {
 
 // Server component for fetching data
 async function fetchServices(): Promise<Service[]> {
-  const res = await fetch('/api/content-cards?type=service-section', {
+  const baseUrl = getBaseUrl();
+  const url = baseUrl ? `${baseUrl}/api/content-cards?type=service-section` : '/api/content-cards?type=service-section';
+  const res = await fetch(url, {
     next: { 
       revalidate: 60,
       tags: ['service-section']

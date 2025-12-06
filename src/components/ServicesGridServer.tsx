@@ -1,6 +1,8 @@
 import { Suspense } from 'react';
 import ServicesGridClient from './ServicesGridClient';
 import ServicesGridSkeleton from './ServicesGridSkeleton';
+import { getBaseUrl } from '@/lib/get-base-url';
+
 interface ServiceCard {
     id: string;
     title: string;
@@ -13,7 +15,9 @@ interface ServiceCard {
   }
 
 async function fetchServices(): Promise<ServiceCard[]> {
-  const res = await fetch('/api/content-cards?type=service', {
+  const baseUrl = getBaseUrl();
+  const url = baseUrl ? `${baseUrl}/api/content-cards?type=service` : '/api/content-cards?type=service';
+  const res = await fetch(url, {
     next: { 
       revalidate: 60,
       tags: ['services']

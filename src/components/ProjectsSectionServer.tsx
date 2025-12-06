@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import ProjectsSectionClient from '@/components/ProjectsSectionClient';
 import ProjectsSwiperSkeleton from '@/components/ProjectsSwiperSkeleton';
+import { getBaseUrl } from '@/lib/get-base-url';
 
 interface Project {
   id: string;
@@ -19,7 +20,9 @@ interface Project {
 }
 
 async function fetchProjects(): Promise<Project[]> {
-  const res = await fetch('/api/projects', {
+  const baseUrl = getBaseUrl();
+  const url = baseUrl ? `${baseUrl}/api/projects` : '/api/projects';
+  const res = await fetch(url, {
     next: { 
       revalidate: 60,
       tags: ['projects']

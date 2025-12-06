@@ -2,6 +2,9 @@ import { Suspense } from 'react';
 import Link from "next/link";
 import CourseRegistrationForm, { type Course } from "@/components/CourseRegistrationForm";
 import CoursesListClient from "@/components/CoursesListClient";
+import { getBaseUrl } from '@/lib/get-base-url';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: "Learn with CodeAxis",
@@ -23,7 +26,9 @@ interface CourseData {
 
 async function fetchCourses(): Promise<CourseData[]> {
   try {
-    const res = await fetch('/api/courses', {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/courses` : '/api/courses';
+    const res = await fetch(url, {
       cache: 'no-store', // Ensure fresh data
       headers: {
         'Content-Type': 'application/json',

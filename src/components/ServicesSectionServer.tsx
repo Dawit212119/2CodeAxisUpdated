@@ -3,6 +3,7 @@ import ServicesSectionClient from './ServicesSectionClient';
 import ServicesSwiperSkeleton from './ServicesSwiperSkeleton';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getBaseUrl } from '@/lib/get-base-url';
 
 interface ServiceCard {
   id: string;
@@ -14,7 +15,9 @@ interface ServiceCard {
 }
 
 async function fetchServices(): Promise<ServiceCard[]> {
-  const res = await fetch('/api/content-cards?type=service-section', {
+  const baseUrl = getBaseUrl();
+  const url = baseUrl ? `${baseUrl}/api/content-cards?type=service-section` : '/api/content-cards?type=service-section';
+  const res = await fetch(url, {
     next: { 
       revalidate: 60,
       tags: ['service-section']

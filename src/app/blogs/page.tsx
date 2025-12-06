@@ -2,6 +2,9 @@ import { Suspense } from 'react';
 import Link from "next/link";
 import BlogPostsClient from '@/components/BlogPostsClient';
 import BlogPostsSkeleton from '@/components/BlogPostsSkeleton';
+import { getBaseUrl } from '@/lib/get-base-url';
+
+export const dynamic = 'force-dynamic';
 
 type BlogPost = {
   id: string;
@@ -13,7 +16,9 @@ type BlogPost = {
 };
 
 async function fetchBlogPosts(): Promise<BlogPost[]> {
-  const res = await fetch('/api/blog-posts', {
+  const baseUrl = getBaseUrl();
+  const url = baseUrl ? `${baseUrl}/api/blog-posts` : '/api/blog-posts';
+  const res = await fetch(url, {
     next: {
       revalidate: 60,
       tags: ['blog-posts']
