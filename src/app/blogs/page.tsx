@@ -13,18 +13,17 @@ type BlogPost = {
 };
 
 async function fetchBlogPosts(): Promise<BlogPost[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/blog-posts`, {
-    next: { 
+  const res = await fetch('/api/blog-posts', {
+    next: {
       revalidate: 60,
       tags: ['blog-posts']
     },
   });
-  
+
   if (!res.ok) {
     return [];
   }
-  
+
   const data = await res.json();
   return data.posts || [];
 }

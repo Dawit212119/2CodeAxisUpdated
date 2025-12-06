@@ -23,11 +23,7 @@ interface CourseData {
 
 async function fetchCourses(): Promise<CourseData[]> {
   try {
-    // For server-side, try to use internal API or fetch from localhost
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                    'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/courses`, {
+    const res = await fetch('/api/courses', {
       cache: 'no-store', // Ensure fresh data
       headers: {
         'Content-Type': 'application/json',

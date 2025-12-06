@@ -14,3 +14,4 @@ Please add the following logo images to this folder:
 
 All images should be in PNG or SVG format and optimized for web use.
 
+
