@@ -24,11 +24,7 @@ async function fetchProjects(): Promise<Project[]> {
     const baseUrl = getBaseUrl();
     const url = baseUrl ? `${baseUrl}/api/projects` : '/api/projects';
     const res = await fetch(url, {
-      next: { 
-        revalidate: 60,
-        tags: ['projects']
-      },
-      cache: 'no-store', // Force fresh data on each request
+      cache: 'no-store', // Force fresh data on each request (SSR)
     });
     
     if (!res.ok) {

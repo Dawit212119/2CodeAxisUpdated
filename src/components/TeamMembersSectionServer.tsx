@@ -17,11 +17,7 @@ async function fetchTeamMembers(): Promise<Member[]> {
     const baseUrl = getBaseUrl();
     const url = baseUrl ? `${baseUrl}/api/team-members?owner=true` : '/api/team-members?owner=true';
     const res = await fetch(url, {
-      next: { 
-        revalidate: 60,
-        tags: ['team-members']
-      },
-      cache: 'no-store', // Force fresh data on each request
+      cache: 'no-store', // Force fresh data on each request (SSR)
     });
     
     if (!res.ok) {

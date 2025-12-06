@@ -8,11 +8,7 @@ async function fetchServices(): Promise<string[]> {
     const baseUrl = getBaseUrl();
     const url = baseUrl ? `${baseUrl}/api/content-cards?type=service` : '/api/content-cards?type=service';
     const res = await fetch(url, {
-      next: { 
-        revalidate: 60,
-        tags: ['services']
-      },
-      cache: 'no-store', // Force fresh data on each request
+      cache: 'no-store', // Force fresh data on each request (SSR)
     });
     
     if (!res.ok) {

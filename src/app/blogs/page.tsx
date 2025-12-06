@@ -20,11 +20,7 @@ async function fetchBlogPosts(): Promise<BlogPost[]> {
     const baseUrl = getBaseUrl();
     const url = baseUrl ? `${baseUrl}/api/blog-posts` : '/api/blog-posts';
     const res = await fetch(url, {
-      next: {
-        revalidate: 60,
-        tags: ['blog-posts']
-      },
-      cache: 'no-store', // Force fresh data on each request
+      cache: 'no-store', // Force fresh data on each request (SSR)
     });
 
     if (!res.ok) {
