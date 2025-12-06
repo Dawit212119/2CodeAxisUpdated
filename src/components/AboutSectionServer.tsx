@@ -3,8 +3,7 @@ import AboutSectionClient from './AboutSectionClient';
 import AboutSectionSkeleton from './AboutSectionSkeleton';
 
 async function fetchServices(): Promise<string[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/content-cards?type=service`, {
+  const res = await fetch('/api/content-cards?type=service', {
     next: { 
       revalidate: 60,
       tags: ['services']

@@ -19,8 +19,7 @@ interface Project {
 }
 
 async function fetchProjects(): Promise<Project[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/projects`, {
+  const res = await fetch('/api/projects', {
     next: { 
       revalidate: 60,
       tags: ['projects']
