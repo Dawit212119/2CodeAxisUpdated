@@ -16,21 +16,31 @@ type BlogPost = {
 };
 
 async function fetchBlogPosts(): Promise<BlogPost[]> {
-  const baseUrl = getBaseUrl();
-  const url = baseUrl ? `${baseUrl}/api/blog-posts` : '/api/blog-posts';
-  const res = await fetch(url, {
-    next: {
-      revalidate: 60,
-      tags: ['blog-posts']
-    },
-  });
+  try {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/blog-posts` : '/api/blog-posts';
+    const res = await fetch(url, {
+      next: {
+        revalidate: 60,
+        tags: ['blog-posts']
+      },
+      cache: 'no-store', // Force fresh data on each request
+    });
 
-  if (!res.ok) {
+    if (!res.ok) {
+      console.error(`Failed to fetch blog posts: ${res.status} ${res.statusText}`);
+      return [];
+    }
+
+    const data = await res.json();
+    if (data.posts && Array.isArray(data.posts)) {
+      return data.posts;
+    }
+    return [];
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
     return [];
   }
-
-  const data = await res.json();
-  return data.posts || [];
 }
 
 async function BlogPostsData() {

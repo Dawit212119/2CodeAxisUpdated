@@ -13,21 +13,31 @@ type Member = {
 };
 
 async function fetchTeamMembers(): Promise<Member[]> {
-  const baseUrl = getBaseUrl();
-  const url = baseUrl ? `${baseUrl}/api/team-members?owner=true` : '/api/team-members?owner=true';
-  const res = await fetch(url, {
-    next: { 
-      revalidate: 60,
-      tags: ['team-members']
-    },
-  });
-  
-  if (!res.ok) {
+  try {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/team-members?owner=true` : '/api/team-members?owner=true';
+    const res = await fetch(url, {
+      next: { 
+        revalidate: 60,
+        tags: ['team-members']
+      },
+      cache: 'no-store', // Force fresh data on each request
+    });
+    
+    if (!res.ok) {
+      console.error(`Failed to fetch team members: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    
+    const data = await res.json();
+    if (data.members && Array.isArray(data.members)) {
+      return data.members;
+    }
+    return [];
+  } catch (error) {
+    console.error('Error fetching team members:', error);
     return [];
   }
-  
-  const data = await res.json();
-  return data.members || [];
 }
 
 async function TeamMembersData() {

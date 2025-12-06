@@ -35,10 +35,14 @@ async function fetchCourses(): Promise<CourseData[]> {
       },
     });
     if (!res.ok) {
-      throw new Error('Failed to fetch courses');
+      console.error(`Failed to fetch courses: ${res.status} ${res.statusText}`);
+      return [];
     }
     const data = await res.json();
-    return data.courses || [];
+    if (data.courses && Array.isArray(data.courses)) {
+      return data.courses;
+    }
+    return [];
   } catch (error) {
     console.error("Error fetching courses:", error);
     return [];

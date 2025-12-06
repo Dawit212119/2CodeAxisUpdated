@@ -20,21 +20,24 @@ interface Project {
 }
 
 async function fetchProjects(): Promise<Project[]> {
-  const baseUrl = getBaseUrl();
-  const url = baseUrl ? `${baseUrl}/api/projects` : '/api/projects';
-  const res = await fetch(url, {
-    next: { 
-      revalidate: 60,
-      tags: ['projects']
-    },
-  });
-  
-  if (!res.ok) {
-    return [];
-  }
-  
-  const data = await res.json();
-  if (data.projects) {
+  try {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/projects` : '/api/projects';
+    const res = await fetch(url, {
+      next: { 
+        revalidate: 60,
+        tags: ['projects']
+      },
+      cache: 'no-store', // Force fresh data on each request
+    });
+    
+    if (!res.ok) {
+      console.error(`Failed to fetch projects: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    
+    const data = await res.json();
+    if (data.projects && Array.isArray(data.projects)) {
     // Map to Project interface format
     return (data.projects as Array<{
       id: string;
@@ -67,8 +70,12 @@ async function fetchProjects(): Promise<Project[]> {
         features: project.features,
       },
     }));
+    }
+    return [];
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    return [];
   }
-  return [];
 }
 
 async function ProjectsData() {

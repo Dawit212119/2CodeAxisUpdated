@@ -15,27 +15,34 @@ interface ServiceCard {
   }
 
 async function fetchServices(): Promise<ServiceCard[]> {
-  const baseUrl = getBaseUrl();
-  const url = baseUrl ? `${baseUrl}/api/content-cards?type=service` : '/api/content-cards?type=service';
-  const res = await fetch(url, {
-    next: { 
-      revalidate: 60,
-      tags: ['services']
-    },
-  });
-  
-  if (!res.ok) {
+  try {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/content-cards?type=service` : '/api/content-cards?type=service';
+    const res = await fetch(url, {
+      next: { 
+        revalidate: 60,
+        tags: ['services']
+      },
+      cache: 'no-store', // Force fresh data on each request
+    });
+    
+    if (!res.ok) {
+      console.error(`Failed to fetch services: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    
+    const data = await res.json();
+    if (data.cards && Array.isArray(data.cards)) {
+      // Filter by category "Software Solutions" or no category
+      return (data.cards as ServiceCard[])
+        .filter((card) => !card.category || card.category === 'Software Solutions')
+        .sort((a, b) => (a.order || 0) - (b.order || 0));
+    }
+    return [];
+  } catch (error) {
+    console.error('Error fetching services:', error);
     return [];
   }
-  
-  const data = await res.json();
-  if (data.cards) {
-    // Filter by category "Software Solutions" or no category
-    return (data.cards as ServiceCard[])
-      .filter((card) => !card.category || card.category === 'Software Solutions')
-      .sort((a, b) => (a.order || 0) - (b.order || 0));
-  }
-  return [];
 }
 
 async function ServicesData() {

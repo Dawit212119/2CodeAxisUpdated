@@ -4,16 +4,44 @@ import AboutSectionSkeleton from './AboutSectionSkeleton';
 import { getBaseUrl } from '@/lib/get-base-url';
 
 async function fetchServices(): Promise<string[]> {
-  const baseUrl = getBaseUrl();
-  const url = baseUrl ? `${baseUrl}/api/content-cards?type=service` : '/api/content-cards?type=service';
-  const res = await fetch(url, {
-    next: { 
-      revalidate: 60,
-      tags: ['services']
-    },
-  });
-  
-  if (!res.ok) {
+  try {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/content-cards?type=service` : '/api/content-cards?type=service';
+    const res = await fetch(url, {
+      next: { 
+        revalidate: 60,
+        tags: ['services']
+      },
+      cache: 'no-store', // Force fresh data on each request
+    });
+    
+    if (!res.ok) {
+      console.error(`Failed to fetch services: ${res.status} ${res.statusText}`);
+      return [
+        'Managed Services',
+        'Cybersecurity Services',
+        'Software Development',
+        'Training And Development',
+        'Infrastructure Services',
+        'System Integration',
+      ];
+    }
+    
+    const data = await res.json();
+    if (data.cards && Array.isArray(data.cards)) {
+      return data.cards.map((card: { title: string }) => card.title);
+    }
+    
+    return [
+      'Managed Services',
+      'Cybersecurity Services',
+      'Software Development',
+      'Training And Development',
+      'Infrastructure Services',
+      'System Integration',
+    ];
+  } catch (error) {
+    console.error('Error fetching services:', error);
     return [
       'Managed Services',
       'Cybersecurity Services',
@@ -23,20 +51,6 @@ async function fetchServices(): Promise<string[]> {
       'System Integration',
     ];
   }
-  
-  const data = await res.json();
-  if (data.cards) {
-    return data.cards.map((card: { title: string }) => card.title);
-  }
-  
-  return [
-    'Managed Services',
-    'Cybersecurity Services',
-    'Software Development',
-    'Training And Development',
-    'Infrastructure Services',
-    'System Integration',
-  ];
 }
 
 async function AboutData() {
