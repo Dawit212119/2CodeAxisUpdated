@@ -21,7 +21,13 @@ export async function POST(request: Request) {
     // In a real application, you would use an email service like SendGrid, Resend, or Nodemailer
     // For now, we'll just log it. You can integrate with your preferred email service.
     const adminEmail = admin.email;
-    const adminDashboardUrl = `${process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000'}/admin`;
+    // Construct URL from request headers or use environment variables
+    const origin = request.headers.get('origin') || 
+                   request.headers.get('host') ? `https://${request.headers.get('host')}` : 
+                   process.env.NEXT_PUBLIC_BASE_URL || 
+                   process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
+                   'http://localhost:3000';
+    const adminDashboardUrl = `${origin}/admin`;
     
     console.log(`
       ============================================

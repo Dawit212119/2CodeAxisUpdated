@@ -14,8 +14,7 @@ interface ServiceCard {
 }
 
 async function fetchServices(): Promise<ServiceCard[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/content-cards?type=service-section`, {
+  const res = await fetch('/api/content-cards?type=service-section', {
     next: { 
       revalidate: 60,
       tags: ['service-section']
