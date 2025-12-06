@@ -104,3 +104,4 @@ export default function CoursesListClient({ courses }: { courses: CourseData[] }
   );
 }
 
+
