@@ -2077,37 +2077,46 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
     const featuresText = formData.get('features')?.toString() || '';
     const features = featuresText.split('\n').filter(f => f.trim()).map(f => f.trim());
 
-    const projectData: {
-      title: string;
-      category: string;
-      description: string;
-      imageUrl: string;
-      modalImageUrl: string;
-      detailDescription: string;
-      linkUrl: string;
-      technologies: string[] | null;
-      client: string;
-      date: string;
-      duration: string;
-      features: string[] | null;
-      order: number;
-      isActive: boolean;
-    } = {
-      title: formData.get('title')?.toString() || '',
-      category: formData.get('category')?.toString() || '',
-      description: formData.get('description')?.toString() || '',
-      imageUrl: formData.get('imageUrl')?.toString() || '',
-      modalImageUrl: formData.get('modalImageUrl')?.toString() || '',
-      detailDescription: formData.get('detailDescription')?.toString() || '',
-      linkUrl: formData.get('linkUrl')?.toString() || '',
-      technologies: technologies.length > 0 ? technologies : null,
-      client: formData.get('client')?.toString() || '',
-      date: formData.get('date')?.toString() || '',
-      duration: formData.get('duration')?.toString() || '',
-      features: features.length > 0 ? features : null,
-      order: parseInt(formData.get('order')?.toString() || '0'),
-      isActive: formData.get('isActive') === 'on',
-    };
+    // Create FormData for API request (supports both files and JSON data)
+    const submitData = new FormData();
+    
+    // Add text fields
+    submitData.append('title', formData.get('title')?.toString() || '');
+    submitData.append('category', formData.get('category')?.toString() || '');
+    submitData.append('description', formData.get('description')?.toString() || '');
+    submitData.append('detailDescription', formData.get('detailDescription')?.toString() || '');
+    submitData.append('linkUrl', formData.get('linkUrl')?.toString() || '');
+    submitData.append('client', formData.get('client')?.toString() || '');
+    submitData.append('date', formData.get('date')?.toString() || '');
+    submitData.append('duration', formData.get('duration')?.toString() || '');
+    submitData.append('order', formData.get('order')?.toString() || '0');
+    submitData.append('isActive', formData.get('isActive') === 'on' ? 'true' : 'false');
+    
+    // Add technologies and features as JSON strings
+    if (technologies.length > 0) {
+      submitData.append('technologies', JSON.stringify(technologies));
+    }
+    if (features.length > 0) {
+      submitData.append('features', JSON.stringify(features));
+    }
+    
+    // Handle imageUrl - either file or URL
+    const imageUrlFile = formData.get('imageUrlFile') as File | null;
+    const imageUrlText = formData.get('imageUrl')?.toString() || '';
+    if (imageUrlFile && imageUrlFile.size > 0) {
+      submitData.append('imageUrlFile', imageUrlFile);
+    } else if (imageUrlText) {
+      submitData.append('imageUrl', imageUrlText);
+    }
+    
+    // Handle modalImageUrl - either file or URL
+    const modalImageUrlFile = formData.get('modalImageUrlFile') as File | null;
+    const modalImageUrlText = formData.get('modalImageUrl')?.toString() || '';
+    if (modalImageUrlFile && modalImageUrlFile.size > 0) {
+      submitData.append('modalImageUrlFile', modalImageUrlFile);
+    } else if (modalImageUrlText) {
+      submitData.append('modalImageUrl', modalImageUrlText);
+    }
 
     try {
       const endpoint = '/api/admin/projects';
@@ -2116,8 +2125,7 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
 
       const res = await fetch(url, {
         method,
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(projectData),
+        body: submitData, // Send FormData directly (don't set Content-Type header, browser will set it with boundary)
       });
 
       if (!res.ok) {
@@ -2262,24 +2270,54 @@ function ProjectManagement({ onUpdate }: { onUpdate: () => void }) {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Image URL (for card)</label>
-              <input
-                type="url"
-                name="imageUrl"
-                defaultValue={editingProject?.imageUrl || ''}
-                placeholder="https://example.com/image.jpg"
-                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
-              />
+              <label className="block text-sm font-medium text-slate-700 mb-1">Image (for card)</label>
+              <div className="space-y-2">
+                <div>
+                  <label className="block text-xs text-slate-600 mb-1">Option 1: Enter URL</label>
+                  <input
+                    type="url"
+                    name="imageUrl"
+                    defaultValue={editingProject?.imageUrl || ''}
+                    placeholder="https://example.com/image.jpg"
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+                <div className="text-center text-xs text-slate-500">OR</div>
+                <div>
+                  <label className="block text-xs text-slate-600 mb-1">Option 2: Upload File</label>
+                  <input
+                    type="file"
+                    name="imageUrlFile"
+                    accept="image/*"
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+              </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Modal Image URL</label>
-              <input
-                type="url"
-                name="modalImageUrl"
-                defaultValue={editingProject?.modalImageUrl || ''}
-                placeholder="Large image shown in modal (before title)"
-                className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
-              />
+              <label className="block text-sm font-medium text-slate-700 mb-1">Modal Image</label>
+              <div className="space-y-2">
+                <div>
+                  <label className="block text-xs text-slate-600 mb-1">Option 1: Enter URL</label>
+                  <input
+                    type="url"
+                    name="modalImageUrl"
+                    defaultValue={editingProject?.modalImageUrl || ''}
+                    placeholder="Large image shown in modal (before title)"
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+                <div className="text-center text-xs text-slate-500">OR</div>
+                <div>
+                  <label className="block text-xs text-slate-600 mb-1">Option 2: Upload File</label>
+                  <input
+                    type="file"
+                    name="modalImageUrlFile"
+                    accept="image/*"
+                    className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
+                  />
+                </div>
+              </div>
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Detail Explanation</label>
