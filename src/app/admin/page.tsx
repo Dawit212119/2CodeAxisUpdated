@@ -62,7 +62,7 @@ interface CourseSchedule {
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const [loading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<AdminUser | null>(null);
   const [activeTab, setActiveTab] = useState<'projects' | 'courses' | 'manage-courses' | 'manage-cards' | 'manage-lists' | 'manage-team' | 'manage-blogs' | 'manage-projects'>('projects');
   const [schedules, setSchedules] = useState<CourseSchedule[]>([]);
@@ -107,12 +107,20 @@ export default function AdminDashboard() {
       const res = await fetch('/api/auth/session');
       const data = await res.json();
       if (res.ok && data.user) {
+        // Check if user is admin
+        if (data.user.role !== 'admin') {
+          router.push('/dashboard');
+          return;
+        }
         setUser(data.user);
         await loadData();
+        setLoading(false);
       } else {
         router.push('/login');
       }
-    } catch {
+    } catch (error) {
+      console.error('Error checking session:', error);
+      setLoading(false);
       router.push('/login');
     }
   }, [router, loadData]);
