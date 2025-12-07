@@ -86,7 +86,7 @@ export default function TestimonialSection() {
 
   return (
     <section className="testimonial-section section-padding fix" style={{ paddingTop: '-400px' }}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16">
           <div className="flex items-end justify-between mb-4">

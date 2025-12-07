@@ -82,7 +82,7 @@ async function ProjectsData() {
 export default function ProjectsSectionServer() {
   return (
     <section className="py-[120px] overflow-hidden bg-white mt-20 max-[1199px]:py-[100px] max-[991px]:py-20">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header - Static content shows immediately */}
         <div className="mb-16">
           <div className="flex items-end justify-between mb-4">

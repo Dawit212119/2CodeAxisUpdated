@@ -118,7 +118,7 @@ export default function AchievementSection() {
       className="achievement-section bg-[#016B61] text-white py-20 lg:py-24 relative mx-auto sm:mx-6 lg:mx-8"
     >
       <div className="w-full">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="mb-16">
             <p className="text-[#9ECFD4] font-bold text-sm tracking-wide mb-4">PROVEN TRACK RECORD</p>
@@ -130,7 +130,7 @@ export default function AchievementSection() {
 
         {/* Stats Grid - Full Width */}
         <div className="w-full">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
           {counters.map((counter) => (
             <div key={counter.id} className="flex flex-col items-center text-center">

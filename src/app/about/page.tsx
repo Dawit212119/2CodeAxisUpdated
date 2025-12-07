@@ -10,16 +10,24 @@ export default function AboutPage() {
     <div className="min-h-screen">
       {/* Breadcrumb/Hero */}
       <section className="breadcrumb-wrapper py-24 md:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-sm font-semibold tracking-widest text-[#016B61] uppercase">About Us</p>
-            <h1 className="mt-3 text-4xl md:text-5xl font-extrabold">Driving Digital Transformation</h1>
+            <p className="text-sm font-semibold tracking-widest text-[#016B61] uppercase">
+              About Us
+            </p>
+            <h1 className="mt-3 text-4xl md:text-5xl font-extrabold">
+              Driving Digital Transformation
+            </h1>
             <nav className="mt-4 text-sm opacity-90">
               <ol className="inline-flex items-center gap-2">
                 <li>
-                  <Link href="/" className="hover:underline">Home</Link>
+                  <Link href="/" className="hover:underline">
+                    Home
+                  </Link>
                 </li>
-                <li aria-hidden className="opacity-60">/</li>
+                <li aria-hidden className="opacity-60">
+                  /
+                </li>
                 <li className="opacity-90">About</li>
               </ol>
             </nav>
@@ -30,9 +38,12 @@ export default function AboutPage() {
       {/* About details on image background */}
       <section
         className="section-padding fix bg-cover"
-        style={{ backgroundImage: "url(https://www.genshifter.com/assets/img/service/service-bg-2.jpg)" }}
+        style={{
+          backgroundImage:
+            "url(https://www.genshifter.com/assets/img/service/service-bg-2.jpg)",
+        }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
           {/* Left images */}
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-2xl">
@@ -64,7 +75,9 @@ export default function AboutPage() {
 
           {/* Right content */}
           <div>
-            <span className="inline-block text-[#016B61] font-bold uppercase tracking-wider mb-3">About CodeAxis</span>
+            <span className="inline-block text-[#016B61] font-bold uppercase tracking-wider mb-3">
+              About CodeAxis
+            </span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
               We Empower Clients With
               <br />
@@ -75,29 +88,59 @@ export default function AboutPage() {
               Challenges.
             </h2>
             <p className="mt-6 text-slate-700 leading-relaxed">
-              CodeAxis Technologies is a leading IT company dedicated to providing innovative software solutions
-              and services to clients around the world. Since our inception, we have been committed to delivering
-              high-quality, customized systems that meet the unique needs of our clients across industries.
+              CodeAxis Technologies is a leading IT company dedicated to
+              providing innovative software solutions and services to clients
+              around the world. Since our inception, we have been committed to
+              delivering high-quality, customized systems that meet the unique
+              needs of our clients across industries.
             </p>
 
             {/* Features */}
             <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6">
               <div className="flex items-start gap-4">
                 <div className="h-14 w-14 rounded-full bg-white shadow grid place-items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#016B61" strokeWidth="2" className="h-6 w-6"><path d="M3 3v18h18"/><path d="M7 13l3 3 7-7"/></svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#016B61"
+                    strokeWidth="2"
+                    className="h-6 w-6"
+                  >
+                    <path d="M3 3v18h18" />
+                    <path d="M7 13l3 3 7-7" />
+                  </svg>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900">Problem Solving</h3>
-                  <p className="text-slate-600 text-sm">We analyze challenges and develop effective solutions.</p>
+                  <h3 className="font-semibold text-slate-900">
+                    Problem Solving
+                  </h3>
+                  <p className="text-slate-600 text-sm">
+                    We analyze challenges and develop effective solutions.
+                  </p>
                 </div>
               </div>
               <div className="flex items-start gap-4">
                 <div className="h-14 w-14 rounded-full bg-white shadow grid place-items-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#016B61" strokeWidth="2" className="h-6 w-6"><circle cx="12" cy="12" r="10"/><path d="M8 12l2 2 4-4"/></svg>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#016B61"
+                    strokeWidth="2"
+                    className="h-6 w-6"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <path d="M8 12l2 2 4-4" />
+                  </svg>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-slate-900">Mission & Vision</h3>
-                  <p className="text-slate-600 text-sm">To innovate and lead in technology solutions.</p>
+                  <h3 className="font-semibold text-slate-900">
+                    Mission & Vision
+                  </h3>
+                  <p className="text-slate-600 text-sm">
+                    To innovate and lead in technology solutions.
+                  </p>
                 </div>
               </div>
             </div>
@@ -110,8 +153,12 @@ export default function AboutPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-3">Why Choose Us</h2>
-            <p className="text-lg text-slate-800 font-semibold">Our Unique Advantages</p>
+            <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-3">
+              Why Choose Us
+            </h2>
+            <p className="text-lg text-slate-800 font-semibold">
+              Our Unique Advantages
+            </p>
             <div className="mt-6 flex justify-center">
               <div className="w-3 h-3 rounded-full bg-slate-400"></div>
             </div>
@@ -122,28 +169,39 @@ export default function AboutPage() {
             {/* Left column */}
             <div className="space-y-10">
               <div>
-                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Experience</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">
+                  Experience
+                </h3>
                 <p className="text-slate-700 leading-7">
-                  Our team boasts extensive industry experience, bringing deep technical expertise and a successful
-                  track record in delivering complex projects across various sectors. We understand the unique
-                  challenges businesses face and leverage our experience to provide solutions that work.
+                  Our team boasts extensive industry experience, bringing deep
+                  technical expertise and a successful track record in
+                  delivering complex projects across various sectors. We
+                  understand the unique challenges businesses face and leverage
+                  our experience to provide solutions that work.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Products</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">
+                  Products
+                </h3>
                 <p className="text-slate-700 leading-7">
-                  We offer a robust portfolio of innovative, scalable, and customizable software solutions. Whether you
-                  need a tailored application or an integrated system, our products are designed to enhance your
-                  business operations and drive growth.
+                  We offer a robust portfolio of innovative, scalable, and
+                  customizable software solutions. Whether you need a tailored
+                  application or an integrated system, our products are designed
+                  to enhance your business operations and drive growth.
                 </p>
               </div>
 
               <div className="lg:hidden">
-                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Pricing</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">
+                  Pricing
+                </h3>
                 <p className="text-slate-700 leading-7">
-                  Our pricing models are designed to offer maximum value. We combine high-quality service with
-                  cost-effective solutions, ensuring that you receive exceptional outcomes within your budget.
+                  Our pricing models are designed to offer maximum value. We
+                  combine high-quality service with cost-effective solutions,
+                  ensuring that you receive exceptional outcomes within your
+                  budget.
                 </p>
               </div>
             </div>
@@ -162,37 +220,52 @@ export default function AboutPage() {
             {/* Right column */}
             <div className="space-y-10">
               <div>
-                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Approach</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">
+                  Approach
+                </h3>
                 <p className="text-slate-700 leading-7">
-                  We believe in a client-first approach, partnering with you to fully understand your business objectives
-                  and challenges. Our collaborative process ensures that the solutions we deliver are perfectly aligned
-                  with your strategic goals.
+                  We believe in a client-first approach, partnering with you to
+                  fully understand your business objectives and challenges. Our
+                  collaborative process ensures that the solutions we deliver
+                  are perfectly aligned with your strategic goals.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Delivery</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">
+                  Delivery
+                </h3>
                 <p className="text-slate-700 leading-7">
-                  We are committed to delivering projects on time, without compromising on quality. Our streamlined
-                  processes and meticulous project management ensure that you receive your solutions when you need them,
-                  fully operational and ready to perform.
+                  We are committed to delivering projects on time, without
+                  compromising on quality. Our streamlined processes and
+                  meticulous project management ensure that you receive your
+                  solutions when you need them, fully operational and ready to
+                  perform.
                 </p>
               </div>
 
               <div className="hidden lg:block">
-                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Pricing</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">
+                  Pricing
+                </h3>
                 <p className="text-slate-700 leading-7">
-                  Our pricing models are designed to offer maximum value. We combine high-quality service with
-                  cost-effective solutions, ensuring that you receive exceptional outcomes within your budget.
+                  Our pricing models are designed to offer maximum value. We
+                  combine high-quality service with cost-effective solutions,
+                  ensuring that you receive exceptional outcomes within your
+                  budget.
                 </p>
               </div>
 
               <div>
-                <h3 className="text-2xl font-bold text-[#016B61] mb-3">Support</h3>
+                <h3 className="text-2xl font-bold text-[#016B61] mb-3">
+                  Support
+                </h3>
                 <p className="text-slate-700 leading-7">
-                  Our commitment to you doesn&apos;t end with delivery. We provide continuous, reliable support to keep your
-                  systems running smoothly. Our dedicated support team is always ready to assist, ensuring that you have
-                  the help you need when you need it.
+                  Our commitment to you doesn&apos;t end with delivery. We
+                  provide continuous, reliable support to keep your systems
+                  running smoothly. Our dedicated support team is always ready
+                  to assist, ensuring that you have the help you need when you
+                  need it.
                 </p>
               </div>
             </div>
@@ -203,9 +276,12 @@ export default function AboutPage() {
       {/* Who We Are / Our Mission / Our Vision */}
       <section
         className="section-padding py-20 bg-cover"
-        style={{ backgroundImage: "url(https://www.genshifter.com/assets/img/service/service-bg-2.jpg)" }}
+        style={{
+          backgroundImage:
+            "url(https://www.genshifter.com/assets/img/service/service-bg-2.jpg)",
+        }}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 items-center">
           {/* Left column - stacked images */}
           <div className="grid gap-6 grid-rows-1 sm:grid-rows-[2fr,1fr]">
             <div className="rounded-2xl overflow-hidden shadow-2xl">
@@ -245,36 +321,50 @@ export default function AboutPage() {
           {/* Right column - content */}
           <div className="space-y-8 bg-white/80 rounded-2xl p-8 shadow-xl">
             <div>
-              <h2 className="text-3xl font-extrabold text-[#016B61] mb-4">Who We Are</h2>
+              <h2 className="text-3xl font-extrabold text-[#016B61] mb-4">
+                Who We Are
+              </h2>
               <p className="text-slate-700 leading-relaxed">
-                CodeAxis Technologies is a U.S.-based IT company headquartered in Seattle, Washington, with a growing
-                branch in Addis Ababa, Ethiopia. As a product- and service-based company, we specialize in driving digital
-                transformation for both public and private sector clients. Our clients range from startups and small
-                businesses to global enterprises. Since our inception, we have been committed to delivering high-quality,
-                customized software solutions that meet the unique needs of our clients across various industries.
+                CodeAxis Technologies is a U.S.-based IT company headquartered
+                in Seattle, Washington, with a growing branch in Addis Ababa,
+                Ethiopia. As a product- and service-based company, we specialize
+                in driving digital transformation for both public and private
+                sector clients. Our clients range from startups and small
+                businesses to global enterprises. Since our inception, we have
+                been committed to delivering high-quality, customized software
+                solutions that meet the unique needs of our clients across
+                various industries.
               </p>
               <p className="mt-4 text-slate-700 leading-relaxed">
-                Our team of highly skilled professionals is passionate about technology and innovation. We specialize in a
-                wide range of IT services, including software development, system integration, IT consulting, and project
-                management. Our goal is to help businesses leverage technology to improve efficiency, drive growth, and
-                achieve their objectives.
+                Our team of highly skilled professionals is passionate about
+                technology and innovation. We specialize in a wide range of IT
+                services, including software development, system integration, IT
+                consulting, and project management. Our goal is to help
+                businesses leverage technology to improve efficiency, drive
+                growth, and achieve their objectives.
               </p>
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-[#016B61] mb-2">Our Mission</h3>
+              <h3 className="text-2xl font-bold text-[#016B61] mb-2">
+                Our Mission
+              </h3>
               <p className="text-slate-700 leading-relaxed">
-                To empower businesses through innovative and reliable software solutions that drive growth and efficiency.
-                We are dedicated to delivering exceptional value by leveraging the latest technologies and fostering a
-                culture of continuous improvement.
+                To empower businesses through innovative and reliable software
+                solutions that drive growth and efficiency. We are dedicated to
+                delivering exceptional value by leveraging the latest
+                technologies and fostering a culture of continuous improvement.
               </p>
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-[#016B61] mb-2">Our Vision</h3>
+              <h3 className="text-2xl font-bold text-[#016B61] mb-2">
+                Our Vision
+              </h3>
               <p className="text-slate-700 leading-relaxed">
-                To be the leading software solutions provider in Ethiopia and a trusted partner for businesses worldwide,
-                helping them set the benchmark for excellence and innovation in their industries.
+                To be the leading software solutions provider in Ethiopia and a
+                trusted partner for businesses worldwide, helping them set the
+                benchmark for excellence and innovation in their industries.
               </p>
             </div>
           </div>
@@ -282,14 +372,19 @@ export default function AboutPage() {
 
         {/* Our Goals - full width below content, stacked in column */}
         <div className="mt-12 bg-white/85 rounded-2xl p-8 shadow-xl">
-          <h3 className="text-2xl md:text-3xl font-extrabold text-[#016B61] text-center mb-8">Our Goals</h3>
+          <h3 className="text-2xl md:text-3xl font-extrabold text-[#016B61] text-center mb-8">
+            Our Goals
+          </h3>
           <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {/* Goal card */}
             <div className="bg-white rounded-2xl shadow-md px-6 py-6 flex flex-col gap-2">
               <div className="text-3xl mb-1">🎯</div>
-              <h4 className="text-lg font-bold text-slate-900">Client Satisfaction</h4>
+              <h4 className="text-lg font-bold text-slate-900">
+                Client Satisfaction
+              </h4>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Consistently exceed client expectations by delivering high-quality, customized software solutions.
+                Consistently exceed client expectations by delivering
+                high-quality, customized software solutions.
               </p>
             </div>
 
@@ -297,40 +392,53 @@ export default function AboutPage() {
               <div className="text-3xl mb-1">🎯</div>
               <h4 className="text-lg font-bold text-slate-900">Innovation</h4>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Continuously explore and adopt cutting-edge technologies and methodologies.
+                Continuously explore and adopt cutting-edge technologies and
+                methodologies.
               </p>
             </div>
 
             <div className="bg-white rounded-2xl shadow-md px-6 py-6 flex flex-col gap-2">
               <div className="text-3xl mb-1">🎯</div>
-              <h4 className="text-lg font-bold text-slate-900">Growth And Expansion</h4>
+              <h4 className="text-lg font-bold text-slate-900">
+                Growth And Expansion
+              </h4>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Expand our reach and impact by entering new markets, both nationally and internationally.
+                Expand our reach and impact by entering new markets, both
+                nationally and internationally.
               </p>
             </div>
 
             <div className="bg-white rounded-2xl shadow-md px-6 py-6 flex flex-col gap-2">
               <div className="text-3xl mb-1">🎯</div>
-              <h4 className="text-lg font-bold text-slate-900">Employee Development</h4>
+              <h4 className="text-lg font-bold text-slate-900">
+                Employee Development
+              </h4>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Invest in the growth and development of our team, fostering a culture of learning and collaboration.
+                Invest in the growth and development of our team, fostering a
+                culture of learning and collaboration.
               </p>
             </div>
 
             <div className="bg-white rounded-2xl shadow-md px-6 py-6 flex flex-col gap-2">
               <div className="text-3xl mb-1">🎯</div>
-              <h4 className="text-lg font-bold text-slate-900">Operational Excellence</h4>
+              <h4 className="text-lg font-bold text-slate-900">
+                Operational Excellence
+              </h4>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Maintain the highest standards of operational efficiency and effectiveness.
+                Maintain the highest standards of operational efficiency and
+                effectiveness.
               </p>
             </div>
 
             <div className="bg-white rounded-2xl shadow-md px-6 py-6 flex flex-col gap-2">
               <div className="text-3xl mb-1">🎯</div>
-              <h4 className="text-lg font-bold text-slate-900">Strategic Partnerships</h4>
+              <h4 className="text-lg font-bold text-slate-900">
+                Strategic Partnerships
+              </h4>
               <p className="text-slate-600 text-sm leading-relaxed">
-                Forge strong alliances with technology leaders and industry experts to enhance our capabilities and offer
-                cutting-edge solutions to our clients.
+                Forge strong alliances with technology leaders and industry
+                experts to enhance our capabilities and offer cutting-edge
+                solutions to our clients.
               </p>
             </div>
           </div>

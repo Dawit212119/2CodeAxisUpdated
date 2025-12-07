@@ -6,7 +6,7 @@ import { Code, GraduationCap } from 'lucide-react';
 export default function ProjectCtaSection() {
   return (
     <section className="section-padding py-20 lg:py-32 bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <p className="text-[#016B61] font-bold text-sm tracking-wide mb-4">LEARN WITH US</p>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-6">

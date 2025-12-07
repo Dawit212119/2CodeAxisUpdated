@@ -1,10 +1,23 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
-import Link from 'next/link';
-import { Mail, Phone, Menu, X, Facebook, Instagram, Twitter, Send, Linkedin, Youtube, User, LogOut } from 'lucide-react';
-import { authClient } from '@/lib/better-auth-client';
+import { useState, useEffect } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import Link from "next/link";
+import {
+  Mail,
+  Phone,
+  Menu,
+  X,
+  Facebook,
+  Instagram,
+  Twitter,
+  Send,
+  Linkedin,
+  Youtube,
+  User,
+  LogOut,
+} from "lucide-react";
+import { authClient } from "@/lib/better-auth-client";
 
 export default function Header() {
   const router = useRouter();
@@ -13,29 +26,29 @@ export default function Header() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_isProfileOpen, _setIsProfileOpen] = useState(false);
   const [isMoreDropdownOpen, setIsMoreDropdownOpen] = useState(false);
-  
+
   interface User {
     id: string;
     email: string;
     name: string;
     role: string;
   }
-  
+
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     checkSession();
-    
+
     // Re-check session when window gains focus (user might have logged in in another tab)
     const handleFocus = () => {
       checkSession();
     };
-    
-    window.addEventListener('focus', handleFocus);
-    
+
+    window.addEventListener("focus", handleFocus);
+
     return () => {
-      window.removeEventListener('focus', handleFocus);
+      window.removeEventListener("focus", handleFocus);
     };
   }, []);
 
@@ -46,7 +59,7 @@ export default function Header() {
 
   async function checkSession() {
     try {
-      const res = await fetch('/api/auth/session');
+      const res = await fetch("/api/auth/session");
       const data = await res.json();
       if (data.user) {
         setUser(data.user);
@@ -54,7 +67,7 @@ export default function Header() {
         setUser(null);
       }
     } catch (error) {
-      console.error('Error checking session', error);
+      console.error("Error checking session", error);
       setUser(null);
     } finally {
       setLoading(false);
@@ -65,46 +78,46 @@ export default function Header() {
     try {
       // Use better-auth client to sign out
       await authClient.signOut();
-      
+
       // Clear local state
       setUser(null);
       setIsMenuOpen(false);
-      
+
       // Redirect to home page
-      router.push('/');
+      router.push("/");
       router.refresh();
     } catch (error) {
-      console.error('Error logging out', error);
+      console.error("Error logging out", error);
       // Even if there's an error, clear state and redirect
       setUser(null);
-      router.push('/');
+      router.push("/");
       router.refresh();
     }
   }
 
   function getDashboardLink() {
-    if (user?.role === 'admin') {
-      return '/admin';
+    if (user?.role === "admin") {
+      return "/admin";
     }
-    return '/dashboard';
+    return "/dashboard";
   }
 
   const socialLinks = [
-    { icon: Facebook, href: '#', label: 'Facebook' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Youtube, href: '#', label: 'YouTube' },
-    { icon: Twitter, href: '#', label: 'Twitter' },
-    { icon: Send, href: '#', label: 'Telegram' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
+    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Instagram, href: "#", label: "Instagram" },
+    { icon: Youtube, href: "#", label: "YouTube" },
+    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Send, href: "#", label: "Telegram" },
+    { icon: Linkedin, href: "#", label: "LinkedIn" },
   ];
 
   const navLinks = [
-    { label: 'Services', href: '/services' },
-    { label: 'Projects', href: '/projects' },
-    { label: 'Learn', href: '/learn' },
-    { label: 'Submit Project', href: '/submit-project' },
-    { label: 'About Us', href: '/about' },
-    { label: 'Contact Us', href: '/contact' },
+    { label: "Services", href: "/services" },
+    { label: "Projects", href: "/projects" },
+    { label: "Learn", href: "/learn" },
+    { label: "Submit Project", href: "/submit-project" },
+    { label: "About Us", href: "/about" },
+    { label: "Contact Us", href: "/contact" },
   ];
 
   const moreLinks = [
@@ -117,17 +130,23 @@ export default function Header() {
     <header className="w-full sticky top-0 z-[10000]">
       {/* Top Bar */}
       <div className="hidden md:block bg-[#016B61] text-white py-3 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="max-w-[1400px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 text-xs sm:text-sm">
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-[#9ECFD4]" />
-              <a href="mailto:dawitworkye794@gmail.com" className="hover:text-[#9ECFD4] transition-colors">
+              <a
+                href="mailto:dawitworkye794@gmail.com"
+                className="hover:text-[#9ECFD4] transition-colors"
+              >
                 dawitworkye794@gmail.com
               </a>
             </div>
             <div className="flex items-center gap-2">
               <Phone className="w-4 h-4 text-[#9ECFD4]" />
-              <a href="tel:+251920245372" className="hover:text-[#9ECFD4] transition-colors">
+              <a
+                href="tel:+251920245372"
+                className="hover:text-[#9ECFD4] transition-colors"
+              >
                 +251 920 245 372
               </a>
             </div>
@@ -157,7 +176,7 @@ export default function Header() {
 
       {/* Navigation Bar */}
       <nav className="relative bg-white shadow-md py-4 px-4 sm:px-6 lg:px-8 z-[999]">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
+        <div className="max-w-[1400px] mx-auto flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 font-bold text-xl">
             <div className="w-10 h-10 bg-slate-900 rounded-full flex items-center justify-center text-white">
@@ -181,7 +200,7 @@ export default function Header() {
             ))}
 
             {/* More dropdown (hover) */}
-            <div 
+            <div
               className="relative"
               onMouseLeave={() => setIsMoreDropdownOpen(false)}
             >
@@ -191,21 +210,27 @@ export default function Header() {
                 onMouseEnter={() => setIsMoreDropdownOpen(true)}
               >
                 <span>More</span>
-                <span className={`text-xs transition-transform ${isMoreDropdownOpen ? 'rotate-180' : ''}`}>▼</span>
+                <span
+                  className={`text-xs transition-transform ${
+                    isMoreDropdownOpen ? "rotate-180" : ""
+                  }`}
+                >
+                  ▼
+                </span>
               </button>
 
               {/* Invisible bridge to maintain hover when moving to dropdown */}
-              <div 
+              <div
                 className="absolute left-0 top-full w-full h-3"
                 onMouseEnter={() => setIsMoreDropdownOpen(true)}
               ></div>
 
               {/* Desktop More dropdown */}
-              <div 
+              <div
                 className={`absolute left-0 top-full pt-3 w-64 bg-white shadow-lg rounded-b-2xl border border-slate-100 transition-all z-[1000] ${
-                  isMoreDropdownOpen 
-                    ? 'opacity-100 translate-y-0 pointer-events-auto' 
-                    : 'opacity-0 translate-y-2 pointer-events-none'
+                  isMoreDropdownOpen
+                    ? "opacity-100 translate-y-0 pointer-events-auto"
+                    : "opacity-0 translate-y-2 pointer-events-none"
                 }`}
                 onMouseEnter={() => setIsMoreDropdownOpen(true)}
               >
@@ -265,7 +290,11 @@ export default function Header() {
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden text-slate-700 hover:text-[#016B61] transition-colors"
             >
-              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMenuOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -289,7 +318,9 @@ export default function Header() {
               <details className="group">
                 <summary className="list-none cursor-pointer text-slate-700 font-medium py-2 flex items-center justify-between">
                   <span>More</span>
-                  <span className="text-xs group-open:rotate-180 transition-transform">▼</span>
+                  <span className="text-xs group-open:rotate-180 transition-transform">
+                    ▼
+                  </span>
                 </summary>
                 <div className="mt-1 ml-3 flex flex-col border-l border-slate-200 pl-3">
                   {moreLinks.map((item) => (

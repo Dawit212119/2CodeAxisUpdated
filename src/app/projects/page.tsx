@@ -62,7 +62,7 @@ export default function ProjectsPage() {
 
       {/* Projects Grid */}
       <section className="py-16 md:py-20 bg-[#f3f7fb]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10 text-center max-w-2xl mx-auto">
             <p className="text-sm font-semibold tracking-widest text-[#016B61] uppercase">
               Our Work

@@ -37,7 +37,7 @@ export default function TeamMembersSection() {
   }, []);
   return (
     <section className="team-section-3 section-padding main-bg fix">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-14">
           <div className="flex items-center justify-center gap-2 mb-3">

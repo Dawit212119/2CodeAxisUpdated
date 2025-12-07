@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 export default function CtaSection() {
   return (
     <section className="cta-section section-padding fix">
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-blue">
+      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 bg-blue">
         {/* stepped navy band is handled by :before in globals.css */}
         {/* headline */}
         <div className="bg-blue flex flex-col items-center justify-center gap-6">

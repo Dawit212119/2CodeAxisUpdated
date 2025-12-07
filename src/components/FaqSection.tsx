@@ -54,7 +54,7 @@ export default function FaqSection() {
       <div className="absolute inset-0 -z-10 bg-gradient-to-br from-indigo-500 via-indigo-600 to-blue-500" />
       <div className="absolute inset-0 -z-10 opacity-20" style={{ backgroundImage: "radial-gradient(circle at 20% 20%, rgba(255,255,255,0.2) 0, transparent 50%), radial-gradient(circle at 80% 80%, rgba(255,255,255,0.2) 0, transparent 50%)" }} />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-10 items-stretch">
           {/* Left: Illustration */}
           <div className="relative order-2 lg:order-1 h-full flex items-center">

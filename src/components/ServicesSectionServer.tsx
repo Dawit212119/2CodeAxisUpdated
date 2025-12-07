@@ -58,7 +58,7 @@ async function ServicesData() {
 export default function ServicesSectionServer() {
   return (
     <section className="section-padding py-24 lg:py-32 bg-gradient-to-br from-slate-50 to-blue-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header - Static content shows immediately */}
         <div className="mb-16 flex items-end justify-between">
           <div>

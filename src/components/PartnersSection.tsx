@@ -65,7 +65,7 @@ export default function PartnersSection() {
 
   return (
     <section className="partners-section h-[1/2] text-center mb-20">
-      <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className=" max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-30">
           <span className="inline-block text-sm font-bold tracking-wide text-[#016B61]  uppercase">OUR PARTNERS</span>
           <h2 className="mt-2 text-3xl sm:text-4xl font-extrabold text-black">Local Technology Partners</h2>

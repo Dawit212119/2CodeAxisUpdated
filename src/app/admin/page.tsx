@@ -217,7 +217,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-[#f3f7fb]">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div>
               <h1 className="text-2xl font-extrabold text-[#016B61]">Admin Dashboard</h1>
@@ -242,7 +242,7 @@ export default function AdminDashboard() {
       </header>
 
       {/* Tabs */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-6">
         <div className="flex gap-4 border-b overflow-x-auto">
           <button
             onClick={() => setActiveTab('projects')}
@@ -328,7 +328,7 @@ export default function AdminDashboard() {
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {activeTab === 'projects' && (
           <div className="space-y-4">
             {/* Filters for Project Submissions */}

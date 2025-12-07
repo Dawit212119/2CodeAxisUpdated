@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import { Check, Handshake } from 'lucide-react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { Check, Handshake } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function AboutSection() {
   const [count, setCount] = useState(17);
@@ -19,31 +19,31 @@ export default function AboutSection() {
   useEffect(() => {
     async function fetchServices() {
       try {
-        const res = await fetch('/api/content-cards?type=service');
+        const res = await fetch("/api/content-cards?type=service");
         const data = await res.json();
         if (res.ok && data.cards) {
           setServices(data.cards.map((card: { title: string }) => card.title));
         } else {
           // Fallback to default services if API fails
           setServices([
-            'Managed Services',
-            'Cybersecurity Services',
-            'Software Development',
-            'Training And Development',
-            'Infrastructure Services',
-            'System Integration',
+            "Managed Services",
+            "Cybersecurity Services",
+            "Software Development",
+            "Training And Development",
+            "Infrastructure Services",
+            "System Integration",
           ]);
         }
       } catch (error) {
-        console.error('Error fetching services:', error);
+        console.error("Error fetching services:", error);
         // Fallback to default services
         setServices([
-          'Managed Services',
-          'Cybersecurity Services',
-          'Software Development',
-          'Training And Development',
-          'Infrastructure Services',
-          'System Integration',
+          "Managed Services",
+          "Cybersecurity Services",
+          "Software Development",
+          "Training And Development",
+          "Infrastructure Services",
+          "System Integration",
         ]);
       }
     }
@@ -52,7 +52,7 @@ export default function AboutSection() {
 
   return (
     <section className="section-padding py-24 lg:py-32 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Left - Photo Gallery */}
           <div className="relative h-full rounded-lg overflow-hidden shadow-lg flex items-stretch">
@@ -103,13 +103,22 @@ export default function AboutSection() {
           <div className="space-y-8">
             {/* Header */}
             <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">About Code Axis</h2>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                About Code Axis
+              </h2>
             </div>
 
             {/* Description */}
             <div className="space-y-4">
               <p className="text-slate-600 text-lg leading-relaxed">
-                Code Axis is a modern IT solutions and software outsourcing company specializing in custom development, cloud architecture, and dedicated engineering teams. We partner with businesses to build scalable products, optimize operations, and accelerate digital transformation. Our expertise spans software engineering, system integration, and tech consultation—delivering reliable solutions that drive measurable results.
+                Code Axis is a modern IT solutions and software outsourcing
+                company specializing in custom development, cloud architecture,
+                and dedicated engineering teams. We partner with businesses to
+                build scalable products, optimize operations, and accelerate
+                digital transformation. Our expertise spans software
+                engineering, system integration, and tech
+                consultation—delivering reliable solutions that drive measurable
+                results.
               </p>
             </div>
 
@@ -124,10 +133,15 @@ export default function AboutSection() {
               <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-6 gap-y-3">
                 {services.length > 0 ? (
                   services.map((service, index) => (
-                    <div key={index} className="flex items-center gap-4 sm:gap-6">
+                    <div
+                      key={index}
+                      className="flex items-center gap-4 sm:gap-6"
+                    >
                       <div className="flex items-center gap-3">
                         <Check className="w-5 h-5 text-slate-900 flex-shrink-0" />
-                        <span className="text-slate-700 font-medium text-sm sm:text-base">{service}</span>
+                        <span className="text-slate-700 font-medium text-sm sm:text-base">
+                          {service}
+                        </span>
                       </div>
                       {/* Vertical separator - show between items, not after last */}
                       {index < services.length - 1 && (
@@ -150,8 +164,12 @@ export default function AboutSection() {
               <div className="flex items-center justify-center sm:justify-start gap-4">
                 <Handshake className="w-12 h-12 text-[#70B2B2] flex-shrink-0" />
                 <div>
-                  <div className="text-4xl font-bold text-slate-900">{count}+</div>
-                  <div className="text-slate-600 font-medium">Satisfied Clients</div>
+                  <div className="text-4xl font-bold text-slate-900">
+                    {count}+
+                  </div>
+                  <div className="text-slate-600 font-medium">
+                    Satisfied Clients
+                  </div>
                 </div>
               </div>
             </div>
@@ -161,7 +179,7 @@ export default function AboutSection() {
               <button className="bg-[#016B61] hover:bg-[#70B2B2] text-white font-bold py-3 px-8 rounded transition-colors duration-200 w-full sm:w-auto cursor-pointer">
                 Learn More
               </button>
-              <Link 
+              <Link
                 href="/services"
                 className="bg-[#016B61] hover:bg-[#70B2B2] text-white font-bold py-3 px-8 rounded transition-colors duration-200 w-full sm:w-auto text-center cursor-pointer"
               >
