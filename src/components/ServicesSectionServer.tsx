@@ -3,6 +3,7 @@ import ServicesSectionClient from './ServicesSectionClient';
 import ServicesSwiperSkeleton from './ServicesSwiperSkeleton';
 import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { getBaseUrl } from '@/lib/get-base-url';
 
 interface ServiceCard {
   id: string;
@@ -14,23 +15,39 @@ interface ServiceCard {
 }
 
 async function fetchServices(): Promise<ServiceCard[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/content-cards?type=service-section`, {
-    next: { 
-      revalidate: 60,
-      tags: ['service-section']
-    },
-  });
-  
-  if (!res.ok) {
+  try {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/content-cards?type=service-section` : '/api/content-cards?type=service-section';
+    
+    console.log('[ServicesSectionServer] Fetching from URL:', url);
+    console.log('[ServicesSectionServer] Base URL:', baseUrl);
+    
+    const res = await fetch(url, {
+      cache: 'no-store', // Force fresh data on each request (SSR)
+    });
+    
+    console.log('[ServicesSectionServer] Response status:', res.status, res.statusText);
+    
+    if (!res.ok) {
+      console.error(`Failed to fetch services: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    
+    const data = await res.json();
+    console.log('[ServicesSectionServer] Received data:', JSON.stringify(data).substring(0, 200));
+    
+    if (data.cards && Array.isArray(data.cards)) {
+      const services = (data.cards as ServiceCard[]).sort((a, b) => (a.order || 0) - (b.order || 0));
+      console.log('[ServicesSectionServer] Returning services count:', services.length);
+      return services;
+    }
+    
+    console.log('[ServicesSectionServer] No cards found in response');
+    return [];
+  } catch (error) {
+    console.error('[ServicesSectionServer] Error fetching services:', error);
     return [];
   }
-  
-  const data = await res.json();
-  if (data.cards) {
-    return (data.cards as ServiceCard[]).sort((a, b) => (a.order || 0) - (b.order || 0));
-  }
-  return [];
 }
 
 async function ServicesData() {

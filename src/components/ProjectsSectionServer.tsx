@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import ProjectsSectionClient from '@/components/ProjectsSectionClient';
 import ProjectsSwiperSkeleton from '@/components/ProjectsSwiperSkeleton';
+import { getBaseUrl } from '@/lib/get-base-url';
 
 interface Project {
   id: string;
@@ -19,20 +20,20 @@ interface Project {
 }
 
 async function fetchProjects(): Promise<Project[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/projects`, {
-    next: { 
-      revalidate: 60,
-      tags: ['projects']
-    },
-  });
-  
-  if (!res.ok) {
-    return [];
-  }
-  
-  const data = await res.json();
-  if (data.projects) {
+  try {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/projects` : '/api/projects';
+    const res = await fetch(url, {
+      cache: 'no-store', // Force fresh data on each request (SSR)
+    });
+    
+    if (!res.ok) {
+      console.error(`Failed to fetch projects: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    
+    const data = await res.json();
+    if (data.projects && Array.isArray(data.projects)) {
     // Map to Project interface format
     return (data.projects as Array<{
       id: string;
@@ -65,8 +66,12 @@ async function fetchProjects(): Promise<Project[]> {
         features: project.features,
       },
     }));
+    }
+    return [];
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    return [];
   }
-  return [];
 }
 
 async function ProjectsData() {

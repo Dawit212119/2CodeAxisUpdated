@@ -12,6 +12,8 @@ import PartnersSection from '@/components/PartnersSection';
 import CtaSection from '@/components/CtaSection';
 import TestimonialSection from '@/components/TestimonialSection';
 
+export const dynamic = 'force-dynamic';
+
 export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-blue-100 relative overflow-hidden">

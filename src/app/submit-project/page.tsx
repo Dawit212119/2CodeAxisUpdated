@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import SubmitProjectForm from "@/components/SubmitProjectForm";
 import { getBetterAuthSession } from "@/lib/better-auth-server";
 
+export const dynamic = "force-dynamic";
+
 export const metadata = {
   title: "Submit Project • CodeAxis",
 };

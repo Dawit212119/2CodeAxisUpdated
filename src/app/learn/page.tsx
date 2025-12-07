@@ -2,6 +2,9 @@ import { Suspense } from 'react';
 import Link from "next/link";
 import CourseRegistrationForm, { type Course } from "@/components/CourseRegistrationForm";
 import CoursesListClient from "@/components/CoursesListClient";
+import { getBaseUrl } from '@/lib/get-base-url';
+
+export const dynamic = 'force-dynamic';
 
 export const metadata = {
   title: "Learn with CodeAxis",
@@ -23,21 +26,23 @@ interface CourseData {
 
 async function fetchCourses(): Promise<CourseData[]> {
   try {
-    // For server-side, try to use internal API or fetch from localhost
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 
-                    process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 
-                    'http://localhost:3000';
-    const res = await fetch(`${baseUrl}/api/courses`, {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/courses` : '/api/courses';
+    const res = await fetch(url, {
       cache: 'no-store', // Ensure fresh data
       headers: {
         'Content-Type': 'application/json',
       },
     });
     if (!res.ok) {
-      throw new Error('Failed to fetch courses');
+      console.error(`Failed to fetch courses: ${res.status} ${res.statusText}`);
+      return [];
     }
     const data = await res.json();
-    return data.courses || [];
+    if (data.courses && Array.isArray(data.courses)) {
+      return data.courses;
+    }
+    return [];
   } catch (error) {
     console.error("Error fetching courses:", error);
     return [];

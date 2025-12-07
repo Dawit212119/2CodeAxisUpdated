@@ -1,6 +1,7 @@
 import { Suspense } from 'react';
 import TeamMembersSectionClient from './TeamMembersSectionClient';
 import TeamMembersSectionSkeleton from './TeamMembersSectionSkeleton';
+import { getBaseUrl } from '@/lib/get-base-url';
 
 type Member = {
   id: string;
@@ -12,20 +13,27 @@ type Member = {
 };
 
 async function fetchTeamMembers(): Promise<Member[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/team-members?owner=true`, {
-    next: { 
-      revalidate: 60,
-      tags: ['team-members']
-    },
-  });
-  
-  if (!res.ok) {
+  try {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/team-members?owner=true` : '/api/team-members?owner=true';
+    const res = await fetch(url, {
+      cache: 'no-store', // Force fresh data on each request (SSR)
+    });
+    
+    if (!res.ok) {
+      console.error(`Failed to fetch team members: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    
+    const data = await res.json();
+    if (data.members && Array.isArray(data.members)) {
+      return data.members;
+    }
+    return [];
+  } catch (error) {
+    console.error('Error fetching team members:', error);
     return [];
   }
-  
-  const data = await res.json();
-  return data.members || [];
 }
 
 async function TeamMembersData() {
@@ -57,4 +65,5 @@ export default function TeamMembersSectionServer() {
     </section>
   );
 }
+
 

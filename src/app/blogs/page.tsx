@@ -2,6 +2,9 @@ import { Suspense } from 'react';
 import Link from "next/link";
 import BlogPostsClient from '@/components/BlogPostsClient';
 import BlogPostsSkeleton from '@/components/BlogPostsSkeleton';
+import { getBaseUrl } from '@/lib/get-base-url';
+
+export const dynamic = 'force-dynamic';
 
 type BlogPost = {
   id: string;
@@ -13,20 +16,27 @@ type BlogPost = {
 };
 
 async function fetchBlogPosts(): Promise<BlogPost[]> {
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const res = await fetch(`${baseUrl}/api/blog-posts`, {
-    next: { 
-      revalidate: 60,
-      tags: ['blog-posts']
-    },
-  });
-  
-  if (!res.ok) {
+  try {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/blog-posts` : '/api/blog-posts';
+    const res = await fetch(url, {
+      cache: 'no-store', // Force fresh data on each request (SSR)
+    });
+
+    if (!res.ok) {
+      console.error(`Failed to fetch blog posts: ${res.status} ${res.statusText}`);
+      return [];
+    }
+
+    const data = await res.json();
+    if (data.posts && Array.isArray(data.posts)) {
+      return data.posts;
+    }
+    return [];
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
     return [];
   }
-  
-  const data = await res.json();
-  return data.posts || [];
 }
 
 async function BlogPostsData() {

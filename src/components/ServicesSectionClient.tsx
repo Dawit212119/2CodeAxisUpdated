@@ -2,7 +2,7 @@
 
 import { useRef } from 'react';
 import Link from 'next/link';
-import { Settings, Shield, Code, Users, Network, Lock, ArrowRight } from 'lucide-react';
+import { Settings, Shield, Code, Users, Network, Lock, ArrowRight, BookOpen, GraduationCap } from 'lucide-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay, Mousewheel } from 'swiper/modules';
 import type { Swiper as SwiperType } from 'swiper';
@@ -17,6 +17,8 @@ const iconMap: { [key: string]: LucideIcon } = {
   Users,
   Network,
   Lock,
+  BookOpen,
+  GraduationCap,
 };
 
 interface Service {
