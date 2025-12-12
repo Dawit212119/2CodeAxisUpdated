@@ -5,7 +5,7 @@
 export function getBaseUrl(): string {
   // Priority 1: NEXT_PUBLIC_BASE_URL (explicitly set)
   if (process.env.NEXT_PUBLIC_BASE_URL) {
-    let baseUrl = process.env.NEXT_PUBLIC_BASE_URL.trim();
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL.trim();
     // Remove trailing slash
     return baseUrl.replace(/\/$/, '');
   }

@@ -36,3 +36,5 @@ After adding new Prisma models (Course, ContentCard, ContentList), the Prisma cl
 
 
 
+
+
