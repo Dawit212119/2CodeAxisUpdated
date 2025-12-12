@@ -1,5 +1,8 @@
 import ServicesGridServer from '@/components/ServicesGridServer';
 
+// Force dynamic rendering since we use cache: 'no-store' in ServicesGridServer
+export const dynamic = 'force-dynamic';
+
 export default function ServicesPage() {
   return (
     <div className="min-h-screen bg-white">
