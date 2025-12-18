@@ -1,8 +1,84 @@
 import Link from "next/link";
+import { Suspense } from "react";
+import ProjectsGridClient from "@/components/ProjectsGridClient";
+import { getBaseUrl } from "@/lib/get-base-url";
 
 export const metadata = {
   title: "Projects • CodeAxis",
 };
+
+// Force dynamic rendering since we use cache: 'no-store' in fetchProjects
+export const dynamic = 'force-dynamic';
+
+interface Project {
+  id: string;
+  title: string;
+  category: string | null;
+  description: string | null;
+  imageUrl: string | null;
+  linkUrl: string | null;
+  metadata?: Record<string, unknown> | null;
+}
+
+async function fetchProjects(): Promise<Project[]> {
+  try {
+    const baseUrl = getBaseUrl();
+    const url = baseUrl ? `${baseUrl}/api/projects` : '/api/projects';
+    const res = await fetch(url, {
+      cache: 'no-store', // Force fresh data on each request (SSR)
+    });
+    
+    if (!res.ok) {
+      console.error(`Failed to fetch projects: ${res.status} ${res.statusText}`);
+      return [];
+    }
+    
+    const data = await res.json();
+    if (data.projects && Array.isArray(data.projects)) {
+      // Map to Project interface format
+      return (data.projects as Array<{
+        id: string;
+        title: string;
+        category: string | null;
+        description: string | null;
+        imageUrl: string | null;
+        linkUrl: string | null;
+        modalImageUrl?: string | null;
+        detailDescription?: string | null;
+        technologies?: string[] | null;
+        client?: string | null;
+        date?: string | null;
+        duration?: string | null;
+        features?: string[] | null;
+      }>).map((project) => ({
+        id: project.id,
+        title: project.title,
+        category: project.category,
+        description: project.description,
+        imageUrl: project.imageUrl,
+        linkUrl: project.linkUrl,
+        metadata: {
+          modalImageUrl: project.modalImageUrl,
+          detailDescription: project.detailDescription,
+          technologies: project.technologies,
+          client: project.client,
+          date: project.date,
+          duration: project.duration,
+          features: project.features,
+        },
+      }));
+    }
+    return [];
+  } catch (error) {
+    console.error('Error fetching projects:', error);
+    return [];
+  }
+}
+
+async function ProjectsGrid() {
+  const projects = await fetchProjects();
+  return <ProjectsGridClient projects={projects} />;
+}
 
 export default function ProjectsPage() {
   return (
@@ -48,26 +124,26 @@ export default function ProjectsPage() {
         {/* Title + breadcrumb */}
         <div className="relative z-10 text-center px-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
-            Project
+            Projects
           </h1>
           <nav className="text-sm md:text-base font-medium flex items-center justify-center gap-2">
             <Link href="/" className="opacity-80 hover:underline">
               Home
             </Link>
             <span className="opacity-70">/</span>
-            <span className="opacity-100">Project</span>
+            <span className="opacity-100">Projects</span>
           </nav>
         </div>
       </section>
 
       {/* Projects Grid */}
-      <section className="py-16 md:py-20 bg-[#f3f7fb]">
+      <section className="py-16 md:py-20 bg-white">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-10 text-center max-w-2xl mx-auto">
             <p className="text-sm font-semibold tracking-widest text-[#016B61] uppercase">
               Our Work
             </p>
-            <h2 className="mt-3 text-3xl md:text-4xl font-extrabold text-[#016B61]">
+            <h2 className="mt-3 text-3xl md:text-4xl font-extrabold text-slate-900">
               Recent Projects & Case Studies
             </h2>
             <p className="mt-4 text-slate-600">
@@ -77,49 +153,21 @@ export default function ProjectsPage() {
             </p>
           </div>
 
-          <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-            {[1, 2, 3, 4, 5, 6].map((id) => (
-              <article
-                key={id}
-                className="flex flex-col bg-white rounded-2xl shadow-sm hover:shadow-md transition-shadow overflow-hidden"
-              >
-                <div className="h-48 bg-slate-900/80 relative overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-tr from-[#016B61] via-[#70B2B2] to-[#9ECFD4] opacity-70" />
-                  <div className="relative z-10 h-full flex items-end p-5">
-                    <div className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/10 border border-white/30 mr-3">
-                      <span className="text-xl">💡</span>
-                    </div>
-                    <h3 className="text-xl font-bold text-white">
-                      Digital Transformation #{id}
-                    </h3>
-                  </div>
+          <Suspense fallback={
+            <div className="grid gap-6 sm:gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+              {[1, 2, 3].map((id) => (
+                <div key={id} className="bg-white rounded-none border border-gray-200 p-6 animate-pulse">
+                  <div className="h-72 bg-slate-200 mb-4"></div>
+                  <div className="h-4 bg-slate-200 w-1/4 mb-2"></div>
+                  <div className="h-6 bg-slate-200 w-3/4 mb-3"></div>
+                  <div className="h-4 bg-slate-200 w-full mb-2"></div>
+                  <div className="h-4 bg-slate-200 w-5/6"></div>
                 </div>
-
-                <div className="flex-1 flex flex-col p-6 gap-4">
-                  <p className="text-slate-600 text-sm leading-relaxed">
-                    A tailored software solution designed to streamline operations, improve
-                    visibility, and enhance user experience for our client.
-                  </p>
-
-                  <div className="flex flex-wrap gap-2 text-xs font-medium text-slate-700">
-                    <span className="px-3 py-1 rounded-full bg-slate-100">Web App</span>
-                    <span className="px-3 py-1 rounded-full bg-slate-100">Cloud</span>
-                    <span className="px-3 py-1 rounded-full bg-slate-100">Integration</span>
-                  </div>
-
-                  <div className="mt-2 flex items-center justify-between text-sm">
-                    <span className="text-slate-500">FinTech • 2024</span>
-                    <Link
-                      href={`/projects/${id}`}
-                      className="text-[#016B61] font-semibold hover:underline"
-                    >
-                      View Details →
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            ))}
-          </div>
+              ))}
+            </div>
+          }>
+            <ProjectsGrid />
+          </Suspense>
         </div>
       </section>
     </div>
