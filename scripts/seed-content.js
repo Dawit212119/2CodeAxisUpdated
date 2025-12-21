@@ -13,7 +13,7 @@ const services = [
   {
     type: 'service',
     title: 'Managed Services',
-    description: 'At CodeAxis Technologies, our Managed Services are designed to ensure your business operates smoothly and efficiently.',
+    description: 'At Habesha Software Solutions, our Managed Services are designed to ensure your business operates smoothly and efficiently.',
     iconName: 'Settings',
     linkUrl: '/service-details?title=managed-services',
     category: 'Software Solutions',
@@ -22,7 +22,7 @@ const services = [
   {
     type: 'service',
     title: 'Cybersecurity Services',
-    description: 'At CodeAxis Technologies, our Cybersecurity Services are designed to provide robust protection against...',
+    description: 'At Habesha Software Solutions, our Cybersecurity Services are designed to provide robust protection against...',
     iconName: 'Shield',
     linkUrl: '/service-details?title=cybersecurity-services',
     category: 'Software Solutions',
@@ -31,7 +31,7 @@ const services = [
   {
     type: 'service',
     title: 'Software Development',
-    description: 'At CodeAxis Technologies, we offer a comprehensive range of software development solutions tailored to...',
+    description: 'At Habesha Software Solutions, we offer a comprehensive range of software development solutions tailored to...',
     iconName: 'Code',
     linkUrl: '/service-details?title=software-development',
     category: 'Software Solutions',
@@ -40,7 +40,7 @@ const services = [
   {
     type: 'service',
     title: 'Training And Development',
-    description: 'At CodeAxis Technologies, our Training and Development Services are designed to empower your team with...',
+    description: 'At Habesha Software Solutions, our Training and Development Services are designed to empower your team with...',
     iconName: 'Users',
     linkUrl: '/service-details?title=training-development',
     category: 'Software Solutions',
@@ -49,7 +49,7 @@ const services = [
   {
     type: 'service',
     title: 'Infrastructure Services',
-    description: 'At CodeAxis Technologies, our Infrastructure Services are designed to provide a robust and scalable...',
+    description: 'At Habesha Software Solutions, our Infrastructure Services are designed to provide a robust and scalable...',
     iconName: 'Network',
     linkUrl: '/service-details?title=infrastructure-services',
     category: 'Software Solutions',
@@ -58,7 +58,7 @@ const services = [
   {
     type: 'service',
     title: 'System Integration',
-    description: 'At CodeAxis Technologies, our System Integration services are designed to seamlessly connect your...',
+    description: 'At Habesha Software Solutions, our System Integration services are designed to seamlessly connect your...',
     iconName: 'Lock',
     linkUrl: '/service-details?title=system-integration',
     category: 'Software Solutions',

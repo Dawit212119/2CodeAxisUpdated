@@ -40,7 +40,7 @@ export default function Home() {
 
             {/* Description */}
             <p className="text-slate-600 text-base sm:text-lg leading-relaxed mb-6 sm:mb-8">
-              Code Axis delivers enterprise-grade software development, IT
+              Habesha Software Solutions delivers enterprise-grade software development, IT
               outsourcing, and tech consultation. We help companies scale faster
               with dedicated engineering teams and innovative solutions.
             </p>
@@ -61,7 +61,7 @@ export default function Home() {
             <div className="relative w-full h-full flex items-center justify-center">
               <Image
                 src="/images/hero/cybernetic-hero.png"
-                alt="CodeAxis Hero - Cybernetic Developer"
+                alt="Habesha Software Solutions Hero - Cybernetic Developer"
                 width={800}
                 height={600}
                 className="w-full h-full object-contain"

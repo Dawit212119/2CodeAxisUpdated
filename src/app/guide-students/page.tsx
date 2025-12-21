@@ -2,7 +2,7 @@ import Link from "next/link";
 import { GraduationCap, Code, Users, Lightbulb, ArrowRight, CheckCircle } from "lucide-react";
 
 export const metadata = {
-  title: "Guide University Students • CodeAxis",
+  title: "Guide University Students • Habesha Software Solutions",
 };
 
 export default function GuideStudentsPage() {
@@ -68,7 +68,7 @@ export default function GuideStudentsPage() {
               We Help You Build Projects That Matter
             </h2>
             <p className="max-w-3xl mx-auto text-slate-600 text-lg">
-              At CodeAxis, we understand that university projects are more than just assignments—they&apos;re opportunities to build something meaningful. 
+              At Habesha Software Solutions, we understand that university projects are more than just assignments—they&apos;re opportunities to build something meaningful. 
               Our team of experienced developers and mentors is here to guide you through every step of your project journey, from concept to completion.
             </p>
           </div>
@@ -198,6 +198,8 @@ export default function GuideStudentsPage() {
     </div>
   );
 }
+
+
 
 
 

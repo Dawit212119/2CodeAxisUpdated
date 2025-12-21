@@ -22,10 +22,10 @@ export default function Footer() {
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-[#9ECFD4]" />
                 <a
-                  href="mailto:dawitworkye794@gmail.com"
+                  href="mailto:info@habeshaocode.com"
                   className="hover:text-[#9ECFD4] transition-colors"
                 >
-                  dawitworkye794@gmail.com
+                  info@habeshaocode.com
                 </a>
               </div>
               <div className="flex items-center gap-3">
@@ -131,7 +131,7 @@ export default function Footer() {
         {/* Divider */}
         <div className="border-t border-slate-700 pt-8">
           <p className="text-center text-slate-400 text-sm">
-            &copy; {currentYear} Code Axis — Transforming Ideas Into Scalable Digital Solutions.
+            &copy; {currentYear} Habesha Software Solutions — Transforming Ideas Into Scalable Digital Solutions.
           </p>
         </div>
       </div>

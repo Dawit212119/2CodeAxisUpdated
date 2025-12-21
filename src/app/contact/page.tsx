@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 export const metadata = {
-  title: "Contact Us • CodeAxis",
+  title: "Contact Us • Habesha Software Solutions",
 };
 
 export default function ContactPage() {
@@ -163,7 +163,7 @@ export default function ContactPage() {
               </p>
               <ul className="space-y-3 text-sm">
                 <li>
-                  <span className="font-semibold">Email:</span> dawitworkye794@gmail.com
+                  <span className="font-semibold">Email:</span> info@habeshaocode.com
                 </li>
                 <li>
                   <span className="font-semibold">Phone:</span> +251 920 245 372

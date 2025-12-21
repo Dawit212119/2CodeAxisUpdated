@@ -104,14 +104,14 @@ export default function AboutSection() {
             {/* Header */}
             <div>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                About Code Axis
+                About Habesha Software Solutions
               </h2>
             </div>
 
             {/* Description */}
             <div className="space-y-4">
               <p className="text-slate-600 text-lg leading-relaxed">
-                Code Axis is a modern IT solutions and software outsourcing
+                Habesha Software Solutions is a modern IT solutions and software outsourcing
                 company specializing in custom development, cloud architecture,
                 and dedicated engineering teams. We partner with businesses to
                 build scalable products, optimize operations, and accelerate

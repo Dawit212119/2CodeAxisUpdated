@@ -16,8 +16,8 @@ const servicesData: Record<string, ServiceData> = {
   'managed-services': {
     title: 'Managed Services',
     icon: Settings,
-    description: 'At CodeAxis Technologies, our Managed Services are designed to ensure your business operates smoothly and efficiently.',
-    fullDescription: `CodeAxis Technologies offers comprehensive Managed Services that take the burden of IT management off your shoulders. Our expert team proactively monitors, maintains, and optimizes your IT infrastructure 24/7, ensuring maximum uptime and performance. We handle everything from network management and security monitoring to system updates and disaster recovery planning.
+    description: 'At Habesha Software Solutions, our Managed Services are designed to ensure your business operates smoothly and efficiently.',
+    fullDescription: `Habesha Software Solutions offers comprehensive Managed Services that take the burden of IT management off your shoulders. Our expert team proactively monitors, maintains, and optimizes your IT infrastructure 24/7, ensuring maximum uptime and performance. We handle everything from network management and security monitoring to system updates and disaster recovery planning.
 
 Our Managed Services include:
 - Proactive system monitoring and maintenance
@@ -53,8 +53,8 @@ By partnering with us, you can focus on your core business while we ensure your 
   'cybersecurity-services': {
     title: 'Cybersecurity Services',
     icon: Shield,
-    description: 'At CodeAxis Technologies, our Cybersecurity Services are designed to provide robust protection against cyber threats.',
-    fullDescription: `In today's digital landscape, cybersecurity is paramount. CodeAxis Technologies provides comprehensive cybersecurity solutions to protect your organization from evolving threats. Our team of certified security experts implements multi-layered defense strategies to safeguard your data, systems, and reputation.
+    description: 'At Habesha Software Solutions, our Cybersecurity Services are designed to provide robust protection against cyber threats.',
+    fullDescription: `In today's digital landscape, cybersecurity is paramount. Habesha Software Solutions provides comprehensive cybersecurity solutions to protect your organization from evolving threats. Our team of certified security experts implements multi-layered defense strategies to safeguard your data, systems, and reputation.
 
 Our Cybersecurity Services include:
 - Vulnerability assessments and penetration testing
@@ -90,8 +90,8 @@ We stay ahead of emerging threats to ensure your organization remains secure.`,
   'software-development': {
     title: 'Software Development',
     icon: Code,
-    description: 'At CodeAxis Technologies, we offer a comprehensive range of software development solutions tailored to your needs.',
-    fullDescription: `CodeAxis Technologies specializes in custom software development that transforms your business ideas into powerful, scalable applications. Our experienced development team uses the latest technologies and best practices to deliver high-quality solutions that drive business growth.
+    description: 'At Habesha Software Solutions, we offer a comprehensive range of software development solutions tailored to your needs.',
+    fullDescription: `Habesha Software Solutions specializes in custom software development that transforms your business ideas into powerful, scalable applications. Our experienced development team uses the latest technologies and best practices to deliver high-quality solutions that drive business growth.
 
 Our Software Development Services include:
 - Custom application development
@@ -127,8 +127,8 @@ From concept to deployment, we partner with you to create software that exceeds 
   'training-development': {
     title: 'Training And Development',
     icon: Users,
-    description: 'At CodeAxis Technologies, our Training and Development Services are designed to empower your team.',
-    fullDescription: `Investing in your team's skills is investing in your business future. CodeAxis Technologies offers comprehensive training and development programs designed to enhance your workforce's technical capabilities and professional growth.
+    description: 'At Habesha Software Solutions, our Training and Development Services are designed to empower your team.',
+    fullDescription: `Investing in your team's skills is investing in your business future. Habesha Software Solutions offers comprehensive training and development programs designed to enhance your workforce's technical capabilities and professional growth.
 
 Our Training and Development Services include:
 - Technical skills training
@@ -164,8 +164,8 @@ Our expert trainers deliver engaging, practical training that translates directl
   'infrastructure-services': {
     title: 'Infrastructure Services',
     icon: Network,
-    description: 'At CodeAxis Technologies, our Infrastructure Services provide a robust and scalable foundation.',
-    fullDescription: `A solid IT infrastructure is the backbone of any successful organization. CodeAxis Technologies designs, implements, and manages enterprise-grade infrastructure solutions that support your business growth and ensure optimal performance.
+    description: 'At Habesha Software Solutions, our Infrastructure Services provide a robust and scalable foundation.',
+    fullDescription: `A solid IT infrastructure is the backbone of any successful organization. Habesha Software Solutions designs, implements, and manages enterprise-grade infrastructure solutions that support your business growth and ensure optimal performance.
 
 Our Infrastructure Services include:
 - Data center design and management
@@ -201,8 +201,8 @@ We build infrastructure that scales with your business needs.`,
   'system-integration': {
     title: 'System Integration',
     icon: Lock,
-    description: 'At CodeAxis Technologies, our System Integration services seamlessly connect your systems.',
-    fullDescription: `In a complex IT environment, seamless system integration is crucial. CodeAxis Technologies specializes in integrating disparate systems, applications, and platforms to create a unified, efficient IT ecosystem that enhances productivity and data flow.
+    description: 'At Habesha Software Solutions, our System Integration services seamlessly connect your systems.',
+    fullDescription: `In a complex IT environment, seamless system integration is crucial. Habesha Software Solutions specializes in integrating disparate systems, applications, and platforms to create a unified, efficient IT ecosystem that enhances productivity and data flow.
 
 Our System Integration Services include:
 - Enterprise application integration

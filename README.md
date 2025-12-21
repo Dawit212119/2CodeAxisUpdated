@@ -24,6 +24,12 @@ CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
 ```
 
+**For Neon Database (recommended for production):**
+- Use the **pooled connection string** (ends with `-pooler`) for better performance
+- Ensure SSL is enabled: add `?sslmode=require` to your connection string if not already included
+- Example: `postgresql://user:password@ep-xxx-pooler.us-east-1.aws.neon.tech:5432/dbname?sslmode=require`
+- **Important:** Neon databases auto-pause after inactivity. Wake up your database in the Neon dashboard if you see connection errors.
+
 3. **Run database migrations:**
 ```bash
 npx prisma migrate dev

@@ -98,7 +98,7 @@ export default function BlogsPage() {
           {/* Static header */}
           <div className="max-w-3xl">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#016B61] mb-4">
-              Insights from the CodeAxis Team
+              Insights from the Habesha Software Solutions Team
             </h2>
             <p className="text-slate-600 text-base md:text-lg">
               Stay up to date with practical guides, case studies, and perspectives on software development,

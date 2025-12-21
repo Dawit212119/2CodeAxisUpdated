@@ -2,7 +2,7 @@ import FaqSection from "@/components/FaqSection";
 import Link from "next/link";
 
 export const metadata = {
-  title: "FAQ's • CodeAxis",
+  title: "FAQ's • Habesha Software Solutions",
 };
 
 export default function FaqsPage() {

@@ -1099,7 +1099,7 @@ function UnifiedCourseManagement({ schedules, onUpdate }: { schedules: CourseSch
                   name="features"
                   defaultValue={editingCourse?.features ? (Array.isArray(editingCourse.features) ? editingCourse.features.join('\n') : '') : ''}
                   rows={4}
-                  placeholder="Weekly live sessions with CodeAxis engineers&#10;Capstone project you can add to your portfolio&#10;Certificate of completion and career guidance"
+                  placeholder="Weekly live sessions with Habesha Software Solutions engineers&#10;Capstone project you can add to your portfolio&#10;Certificate of completion and career guidance"
                   className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
                 />
               </div>
@@ -3091,7 +3091,7 @@ function ContentManagement({ type, title, onUpdate }: { type: 'courses' | 'cards
                     name="features"
                     defaultValue={editingItem?.features ? (Array.isArray(editingItem.features) ? editingItem.features.join('\n') : '') : ''}
                     rows={4}
-                    placeholder="Weekly live sessions with CodeAxis engineers&#10;Capstone project you can add to your portfolio&#10;Certificate of completion and career guidance"
+                    placeholder="Weekly live sessions with Habesha Software Solutions engineers&#10;Capstone project you can add to your portfolio&#10;Certificate of completion and career guidance"
                     className="w-full border border-slate-300 rounded px-3 py-2 text-sm text-black"
                   />
                 </div>

@@ -4,7 +4,7 @@ import ProjectsGridClient from "@/components/ProjectsGridClient";
 import { getBaseUrl } from "@/lib/get-base-url";
 
 export const metadata = {
-  title: "Projects • CodeAxis",
+  title: "Projects • Habesha Software Solutions",
 };
 
 // Force dynamic rendering since we use cache: 'no-store' in fetchProjects

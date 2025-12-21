@@ -7,7 +7,7 @@ import { getBaseUrl } from '@/lib/get-base-url';
 export const dynamic = 'force-dynamic';
 
 export const metadata = {
-  title: "Learn with CodeAxis",
+  title: "Learn with Habesha Software Solutions",
 };
 
 interface LearnPageProps {
@@ -122,7 +122,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
 
         <div className="relative z-10 text-center px-4">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-4">
-            Learn with Code Axis
+            Learn with Habesha Software Solutions
           </h1>
           <p className="max-w-2xl mx-auto text-sm md:text-base text-slate-100 mb-4">
             Hands-on training programs in software development, cloud computing, and cybersecurity. Build real-world skills with expert instructors.
@@ -148,7 +148,7 @@ export default async function LearnPage({ searchParams }: LearnPageProps) {
             </h2>
             <p className="text-slate-600 text-base md:text-lg">
               All programs combine instructor-led sessions, hands-on projects, and mentoring from
-              engineers working on real-world products at CodeAxis.
+              engineers working on real-world products at Habesha Software Solutions.
             </p>
           </div>
 

@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 export const metadata = {
-  title: "About • CodeAxis",
+  title: "About • Habesha Software Solutions",
 };
 
 export default function AboutPage() {
@@ -76,7 +76,7 @@ export default function AboutPage() {
           {/* Right content */}
           <div>
             <span className="inline-block text-[#016B61] font-bold uppercase tracking-wider mb-3">
-              About CodeAxis
+              About Habesha Software Solutions
             </span>
             <h2 className="text-3xl md:text-5xl font-extrabold text-slate-900 leading-tight">
               We Empower Clients With
@@ -88,7 +88,7 @@ export default function AboutPage() {
               Challenges.
             </h2>
             <p className="mt-6 text-slate-700 leading-relaxed">
-              CodeAxis Technologies is a leading IT company dedicated to
+              Habesha Software Solutions is a leading IT company dedicated to
               providing innovative software solutions and services to clients
               around the world. Since our inception, we have been committed to
               delivering high-quality, customized systems that meet the unique
@@ -325,7 +325,7 @@ export default function AboutPage() {
                 Who We Are
               </h2>
               <p className="text-slate-700 leading-relaxed">
-                CodeAxis Technologies is a U.S.-based IT company headquartered
+                Habesha Software Solutions is a U.S.-based IT company headquartered
                 in Seattle, Washington, with a growing branch in Addis Ababa,
                 Ethiopia. As a product- and service-based company, we specialize
                 in driving digital transformation for both public and private

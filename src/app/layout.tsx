@@ -4,8 +4,8 @@ import Footer from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CodeAxis",
-  description: "Transform your experience with CodeAxis",
+  title: "Habesha Software Solutions",
+  description: "Transform your experience with Habesha Software Solutions",
 };
 
 export default function RootLayout({

@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     // TODO: Replace with actual email service
     // Example with a service like Resend:
     // await resend.emails.send({
-    //   from: 'noreply@codeaxis.com',
+    //   from: 'noreply@habeshasoftwaresolutions.com',
     //   to: adminEmail,
     //   subject: 'New Course Registration - Payment Verification Required',
     //   html: `...`

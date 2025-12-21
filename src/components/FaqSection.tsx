@@ -9,8 +9,8 @@ type FAQ = { q: string; a: string };
 
 const faqs: FAQ[] = [
   {
-    q: "What services does Code Axis offer?",
-    a: "Code Axis provides custom software development, IT outsourcing, cloud solutions, system integration, cybersecurity consulting, and tech training programs. We build scalable solutions tailored to your business needs.",
+    q: "What services does Habesha Software Solutions offer?",
+    a: "Habesha Software Solutions provides custom software development, IT outsourcing, cloud solutions, system integration, cybersecurity consulting, and tech training programs. We build scalable solutions tailored to your business needs.",
   },
   {
     q: "Do you provide dedicated development teams?",

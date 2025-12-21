@@ -151,7 +151,7 @@ export default function CourseSchedulePage() {
           <ul className="text-sm text-[#016B61] space-y-1 list-disc list-inside">
             <li>This schedule is subject to change. You will be notified of any updates.</li>
             <li>All sessions will be conducted according to the timeline above.</li>
-            <li>If you have any questions, please contact us at dawitworkye794@gmail.com</li>
+            <li>If you have any questions, please contact us at info@habeshaocode.com</li>
           </ul>
         </div>
       </div>

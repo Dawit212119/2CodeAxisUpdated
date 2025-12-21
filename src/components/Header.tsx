@@ -135,10 +135,10 @@ export default function Header() {
             <div className="flex items-center gap-2">
               <Mail className="w-4 h-4 text-[#9ECFD4]" />
               <a
-                href="mailto:dawitworkye794@gmail.com"
+                href="mailto:info@habeshaocode.com"
                 className="hover:text-[#9ECFD4] transition-colors"
               >
-                dawitworkye794@gmail.com
+                info@habeshaocode.com
               </a>
             </div>
             <div className="flex items-center gap-2">

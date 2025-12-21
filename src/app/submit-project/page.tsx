@@ -6,7 +6,7 @@ import { getBetterAuthSession } from "@/lib/better-auth-server";
 export const dynamic = "force-dynamic";
 
 export const metadata = {
-  title: "Submit Project • CodeAxis",
+  title: "Submit Project • Habesha Software Solutions",
 };
 
 export default async function SubmitProjectPage() {
@@ -84,7 +84,7 @@ export default async function SubmitProjectPage() {
             </ul>
             <p className="text-slate-600 text-sm">
               Prefer email? Reach us at
-              <span className="font-semibold"> dawitworkye794@gmail.com</span>.
+              <span className="font-semibold"> info@habeshaocode.com</span>.
             </p>
           </div>
 

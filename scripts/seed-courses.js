@@ -18,7 +18,7 @@ const courses = [
     mode: 'Hybrid (Addis Ababa + Online)',
     level: 'Beginner – Intermediate',
     features: JSON.stringify([
-      'Weekly live sessions with CodeAxis engineers',
+      'Weekly live sessions with Habesha Software Solutions engineers',
       'Capstone project you can add to your portfolio',
       'Certificate of completion and career guidance',
     ]),
@@ -33,7 +33,7 @@ const courses = [
     mode: 'Hybrid (Addis Ababa + Online)',
     level: 'Beginner – Intermediate',
     features: JSON.stringify([
-      'Weekly live sessions with CodeAxis engineers',
+      'Weekly live sessions with Habesha Software Solutions engineers',
       'Capstone project you can add to your portfolio',
       'Certificate of completion and career guidance',
     ]),
@@ -48,7 +48,7 @@ const courses = [
     mode: 'Hybrid (Addis Ababa + Online)',
     level: 'Beginner – Intermediate',
     features: JSON.stringify([
-      'Weekly live sessions with CodeAxis engineers',
+      'Weekly live sessions with Habesha Software Solutions engineers',
       'Capstone project you can add to your portfolio',
       'Certificate of completion and career guidance',
     ]),
@@ -63,7 +63,7 @@ const courses = [
     mode: 'Hybrid (Addis Ababa + Online)',
     level: 'Beginner – Intermediate',
     features: JSON.stringify([
-      'Weekly live sessions with CodeAxis engineers',
+      'Weekly live sessions with Habesha Software Solutions engineers',
       'Capstone project you can add to your portfolio',
       'Certificate of completion and career guidance',
     ]),
@@ -78,7 +78,7 @@ const courses = [
     mode: 'Hybrid (Addis Ababa + Online)',
     level: 'Beginner – Intermediate',
     features: JSON.stringify([
-      'Weekly live sessions with CodeAxis engineers',
+      'Weekly live sessions with Habesha Software Solutions engineers',
       'Capstone project you can add to your portfolio',
       'Certificate of completion and career guidance',
     ]),
@@ -93,7 +93,7 @@ const courses = [
     mode: 'Hybrid (Addis Ababa + Online)',
     level: 'Beginner – Intermediate',
     features: JSON.stringify([
-      'Weekly live sessions with CodeAxis engineers',
+      'Weekly live sessions with Habesha Software Solutions engineers',
       'Capstone project you can add to your portfolio',
       'Certificate of completion and career guidance',
     ]),
@@ -108,7 +108,7 @@ const courses = [
     mode: 'Hybrid (Addis Ababa + Online)',
     level: 'Beginner – Intermediate',
     features: JSON.stringify([
-      'Weekly live sessions with CodeAxis engineers',
+      'Weekly live sessions with Habesha Software Solutions engineers',
       'Capstone project you can add to your portfolio',
       'Certificate of completion and career guidance',
     ]),
@@ -123,7 +123,7 @@ const courses = [
     mode: 'Hybrid (Addis Ababa + Online)',
     level: 'Beginner – Intermediate',
     features: JSON.stringify([
-      'Weekly live sessions with CodeAxis engineers',
+      'Weekly live sessions with Habesha Software Solutions engineers',
       'Capstone project you can add to your portfolio',
       'Certificate of completion and career guidance',
     ]),
@@ -138,7 +138,7 @@ const courses = [
     mode: 'Hybrid (Addis Ababa + Online)',
     level: 'Beginner – Intermediate',
     features: JSON.stringify([
-      'Weekly live sessions with CodeAxis engineers',
+      'Weekly live sessions with Habesha Software Solutions engineers',
       'Capstone project you can add to your portfolio',
       'Certificate of completion and career guidance',
     ]),

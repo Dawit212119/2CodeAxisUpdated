@@ -13,7 +13,7 @@ export default function ProjectCtaSection() {
             Ready to Get Started?
           </h2>
           <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-            Partner with Code Axis for custom software development or upskill your team with our expert-led training programs.
+            Partner with Habesha Software Solutions for custom software development or upskill your team with our expert-led training programs.
           </p>
         </div>
 

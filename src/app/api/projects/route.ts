@@ -27,8 +27,20 @@ export async function GET() {
   } catch (error: unknown) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     console.error("Error fetching projects:", error);
+    
+    // Check if it's a database connection error
+    const isConnectionError = errorMessage.includes("Can't reach database server") || 
+                              errorMessage.includes("P1001") ||
+                              !process.env.DATABASE_URL;
+    
     return NextResponse.json(
-      { error: "Failed to fetch projects", details: errorMessage },
+      { 
+        error: "Failed to fetch projects", 
+        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined,
+        ...(isConnectionError && process.env.NODE_ENV === 'development' ? {
+          hint: "Database connection failed. Please check your DATABASE_URL environment variable and ensure the database server is running."
+        } : {})
+      },
       { status: 500 }
     );
   }

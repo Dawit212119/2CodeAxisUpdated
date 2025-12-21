@@ -63,7 +63,7 @@ export default function CoursesListClient({ courses }: { courses: CourseData[] }
                 </ul>
               ) : (
                 <ul className="text-sm text-slate-600 space-y-1 mb-4 list-disc list-inside">
-                  <li>Weekly live sessions with CodeAxis engineers</li>
+                  <li>Weekly live sessions with Habesha Software Solutions engineers</li>
                   <li>Capstone project you can add to your portfolio</li>
                   <li>Certificate of completion and career guidance</li>
                 </ul>
